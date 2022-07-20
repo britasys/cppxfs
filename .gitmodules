@@ -1,0 +1,3 @@
+[submodule "modules/cppmsgwnd"]
+	path = modules/cppmsgwnd
+	url = https://github.com/BridgerDataSystems/cppmsgwnd.git
