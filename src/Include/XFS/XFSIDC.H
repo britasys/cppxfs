@@ -384,88 +384,88 @@ WFSIDCEJECTCARD.wEjectPosition */
 /*=================================================================*/
 typedef struct _wfs_idc_status
 {
-    WORD                        fwDevice;
-    WORD                        fwMedia;
-    WORD                        fwRetainBin;
-    WORD                        fwSecurity;
-    USHORT                      usCards;
-    WORD                        fwChipPower;
-    LPSTR                       lpszExtra;
-    DWORD                       dwGuidLights[WFS_IDC_GUIDLIGHTS_SIZE];
-    WORD                        fwChipModule;
-    WORD                        fwMagReadModule;
-    WORD                        fwMagWriteModule;
-    WORD                        fwFrontImageModule;
-    WORD                        fwBackImageModule;
-    WORD                        wDevicePosition;
-    USHORT                      usPowerSaveRecoveryTime;
-    LPWORD                      lpwParkingStationMedia;
-    WORD                        wAntiFraudModule;
+    WORD fwDevice;
+    WORD fwMedia;
+    WORD fwRetainBin;
+    WORD fwSecurity;
+    USHORT usCards;
+    WORD fwChipPower;
+    LPSTR lpszExtra;
+    DWORD dwGuidLights[WFS_IDC_GUIDLIGHTS_SIZE];
+    WORD fwChipModule;
+    WORD fwMagReadModule;
+    WORD fwMagWriteModule;
+    WORD fwFrontImageModule;
+    WORD fwBackImageModule;
+    WORD wDevicePosition;
+    USHORT usPowerSaveRecoveryTime;
+    LPWORD lpwParkingStationMedia;
+    WORD wAntiFraudModule;
 } WFSIDCSTATUS, *LPWFSIDCSTATUS;
 
 typedef struct _wfs_idc_caps
 {
-    WORD                        wClass;
-    WORD                        fwType;
-    BOOL                        bCompound;
-    WORD                        fwReadTracks;
-    WORD                        fwWriteTracks;
-    WORD                        fwChipProtocols;
-    USHORT                      usCards;
-    WORD                        fwSecType;
-    WORD                        fwPowerOnOption;
-    WORD                        fwPowerOffOption;
-    BOOL                        bFluxSensorProgrammable;
-    BOOL                        bReadWriteAccessFollowingEject;
-    WORD                        fwWriteMode;
-    WORD                        fwChipPower;
-    LPSTR                       lpszExtra;
-    WORD                        fwDIPMode;
-    LPWORD                      lpwMemoryChipProtocols;
-    DWORD                       dwGuidLights[WFS_IDC_GUIDLIGHTS_SIZE];
-    WORD                        fwEjectPosition;
-    BOOL                        bPowerSaveControl;
-    USHORT                      usParkingStations;
-    BOOL                        bAntiFraudModule;
-    LPDWORD                     lpdwSynchronizableCommands;
+    WORD wClass;
+    WORD fwType;
+    BOOL bCompound;
+    WORD fwReadTracks;
+    WORD fwWriteTracks;
+    WORD fwChipProtocols;
+    USHORT usCards;
+    WORD fwSecType;
+    WORD fwPowerOnOption;
+    WORD fwPowerOffOption;
+    BOOL bFluxSensorProgrammable;
+    BOOL bReadWriteAccessFollowingEject;
+    WORD fwWriteMode;
+    WORD fwChipPower;
+    LPSTR lpszExtra;
+    WORD fwDIPMode;
+    LPWORD lpwMemoryChipProtocols;
+    DWORD dwGuidLights[WFS_IDC_GUIDLIGHTS_SIZE];
+    WORD fwEjectPosition;
+    BOOL bPowerSaveControl;
+    USHORT usParkingStations;
+    BOOL bAntiFraudModule;
+    LPDWORD lpdwSynchronizableCommands;
 } WFSIDCCAPS, *LPWFSIDCCAPS;
 
 typedef struct _wfs_idc_form
 {
-    LPSTR                       lpszFormName;
-    CHAR                        cFieldSeparatorTrack1;
-    CHAR                        cFieldSeparatorTrack2;
-    CHAR                        cFieldSeparatorTrack3;
-    WORD                        fwAction;
-    LPSTR                       lpszTracks;
-    BOOL                        bSecure;
-    LPSTR                       lpszTrack1Fields;
-    LPSTR                       lpszTrack2Fields;
-    LPSTR                       lpszTrack3Fields;
-    LPSTR                       lpszFrontTrack1Fields;
-    CHAR                        cFieldSeparatorFrontTrack1;
-    LPSTR                       lpszJIS1Track1Fields;
-    LPSTR                       lpszJIS1Track3Fields;
-    CHAR                        cFieldSeparatorJIS1Track1;
-    CHAR                        cFieldSeparatorJIS1Track3;
+    LPSTR lpszFormName;
+    CHAR cFieldSeparatorTrack1;
+    CHAR cFieldSeparatorTrack2;
+    CHAR cFieldSeparatorTrack3;
+    WORD fwAction;
+    LPSTR lpszTracks;
+    BOOL bSecure;
+    LPSTR lpszTrack1Fields;
+    LPSTR lpszTrack2Fields;
+    LPSTR lpszTrack3Fields;
+    LPSTR lpszFrontTrack1Fields;
+    CHAR cFieldSeparatorFrontTrack1;
+    LPSTR lpszJIS1Track1Fields;
+    LPSTR lpszJIS1Track3Fields;
+    CHAR cFieldSeparatorJIS1Track1;
+    CHAR cFieldSeparatorJIS1Track3;
 } WFSIDCFORM, *LPWFSIDCFORM;
 
 typedef struct _wfs_idc_ifm_identifier
 {
-    WORD                        wIFMAuthority;
-    LPSTR                       lpszIFMIdentifier;
+    WORD wIFMAuthority;
+    LPSTR lpszIFMIdentifier;
 } WFSIDCIFMIDENTIFIER, *LPWFSIDCIFMIDENTIFIER;
 
 typedef struct _wfs_idc_hex_data
 {
-    ULONG                       ulLength;
-    LPBYTE                      lpbData;
+    ULONG ulLength;
+    LPBYTE lpbData;
 } WFSIDCHEXDATA, *LPWFSIDCHEXDATA;
 
 typedef struct wfs_idc_app_data
 {
-    LPWFSIDCHEXDATA             lpAID;
-    LPWFSIDCHEXDATA             lpKernelIdentifier;
+    LPWFSIDCHEXDATA lpAID;
+    LPWFSIDCHEXDATA lpKernelIdentifier;
 } WFSIDCAPPDATA, *LPWFSIDCAPPDATA;
 
 /*=================================================================*/
@@ -473,138 +473,138 @@ typedef struct wfs_idc_app_data
 /*=================================================================*/
 typedef struct _wfs_idc_write_track
 {
-    LPSTR                       lpstrFormName;
-    LPSTR                       lpstrTrackData;
-    WORD                        fwWriteMethod;
+    LPSTR lpstrFormName;
+    LPSTR lpstrTrackData;
+    WORD fwWriteMethod;
 } WFSIDCWRITETRACK, *LPWFSIDCWRITETRACK;
 
 typedef struct _wfs_idc_retain_card
 {
-    USHORT                      usCount;
-    WORD                        fwPosition;
+    USHORT usCount;
+    WORD fwPosition;
 } WFSIDCRETAINCARD, *LPWFSIDCRETAINCARD;
 
 typedef struct _wfs_idc_setkey
 {
-    USHORT                      usKeyLen;
-    LPBYTE                      lpbKeyValue;
+    USHORT usKeyLen;
+    LPBYTE lpbKeyValue;
 } WFSIDCSETKEY, *LPWFSIDCSETKEY;
 
 typedef struct _wfs_idc_card_data
 {
-    WORD                        wDataSource;
-    WORD                        wStatus;
-    ULONG                       ulDataLength;
-    LPBYTE                      lpbData;
-    WORD                        fwWriteMethod;
+    WORD wDataSource;
+    WORD wStatus;
+    ULONG ulDataLength;
+    LPBYTE lpbData;
+    WORD fwWriteMethod;
 } WFSIDCCARDDATA, *LPWFSIDCCARDDATA;
 
 typedef struct _wfs_idc_chip_io
 {
-    WORD                        wChipProtocol;
-    ULONG                       ulChipDataLength;
-    LPBYTE                      lpbChipData;
+    WORD wChipProtocol;
+    ULONG ulChipDataLength;
+    LPBYTE lpbChipData;
 } WFSIDCCHIPIO, *LPWFSIDCCHIPIO;
 
 typedef struct _wfs_idc_chip_power_out
 {
-    ULONG                       ulChipDataLength;
-    LPBYTE                      lpbChipData;
+    ULONG ulChipDataLength;
+    LPBYTE lpbChipData;
 } WFSIDCCHIPPOWEROUT, *LPWFSIDCCHIPPOWEROUT;
 
 typedef struct _wfs_idc_parse_data
-{       
-    LPSTR                       lpstrFormName;
-    LPWFSIDCCARDDATA*           lppCardData;
+{
+    LPSTR lpstrFormName;
+    LPWFSIDCCARDDATA *lppCardData;
 } WFSIDCPARSEDATA, *LPWFSIDCPARSEDATA;
 
 typedef struct _wfs_idc_set_guidlight
 {
-    WORD                        wGuidLight;
-    DWORD                       dwCommand;
+    WORD wGuidLight;
+    DWORD dwCommand;
 } WFSIDCSETGUIDLIGHT, *LPWFSIDCSETGUIDLIGHT;
 
 typedef struct _wfs_idc_eject_card
 {
-    WORD                        wEjectPosition;
+    WORD wEjectPosition;
 } WFSIDCEJECTCARD, *LPWFSIDCEJECTCARD;
 
 typedef struct _wfs_idc_power_save_control
 {
-    USHORT                      usMaxPowerSaveRecoveryTime;
+    USHORT usMaxPowerSaveRecoveryTime;
 } WFSIDCPOWERSAVECONTROL, *LPWFSIDCPOWERSAVECONTROL;
 
 typedef struct _wfs_idc_park_card
 {
-    WORD                        wDirection;
-    USHORT                      usParkingStation;
+    WORD wDirection;
+    USHORT usParkingStation;
 } WFSIDCPARKCARD, *LPWFSIDCPARKCARD;
 
-typedef struct _wfs_idc_aid_data 
-{ 
-    LPWFSIDCHEXDATA             lpAID;
-    BOOL                        bPartialSelection;
-    ULONG                       ulTransactionType;
-    LPWFSIDCHEXDATA             lpKernelIdentifier;
-    LPWFSIDCHEXDATA             lpConfigData; 
+typedef struct _wfs_idc_aid_data
+{
+    LPWFSIDCHEXDATA lpAID;
+    BOOL bPartialSelection;
+    ULONG ulTransactionType;
+    LPWFSIDCHEXDATA lpKernelIdentifier;
+    LPWFSIDCHEXDATA lpConfigData;
 } WFSIDCAIDDATA, *LPWFSIDCAIDDATA;
 
-typedef struct _wfs_idc_key_data 
+typedef struct _wfs_idc_key_data
 {
-    LPWFSIDCHEXDATA             lpRID;
-    WORD                        wCAPublicKeyIndex;
-    WORD                        wAPublicKeyAlgorithmIndicator;
-    LPWFSIDCHEXDATA             lpCAPublicKeyExponent;
-    LPWFSIDCHEXDATA             lpCAPublicKeyModulus;
-    LPBYTE                      lpbCAPublicKeyCheckSum;
+    LPWFSIDCHEXDATA lpRID;
+    WORD wCAPublicKeyIndex;
+    WORD wAPublicKeyAlgorithmIndicator;
+    LPWFSIDCHEXDATA lpCAPublicKeyExponent;
+    LPWFSIDCHEXDATA lpCAPublicKeyModulus;
+    LPBYTE lpbCAPublicKeyCheckSum;
 } WFSIDCKEYDATA, *LPWFSIDCKEYDATA;
 
 typedef struct _wfs_idc_emvcless_config_data
 {
-    LPWFSIDCHEXDATA             lpTerminalData;
-    LPWFSIDCAIDDATA*            lppAIDData;
-    LPWFSIDCKEYDATA*            lppKeyData;
+    LPWFSIDCHEXDATA lpTerminalData;
+    LPWFSIDCAIDDATA *lppAIDData;
+    LPWFSIDCKEYDATA *lppKeyData;
 } WFSIDCEMVCLESSCONFIGDATA, *LPWFSIDCEMVCLESSCONFIGDATA;
 typedef struct _wfs_idc_emvcless_tx_data
-{ 
-    LPWFSIDCHEXDATA             lpData;
+{
+    LPWFSIDCHEXDATA lpData;
 } WFSIDCEMVCLESSTXDATA, *LPWFSIDCEMVCLESSTXDATA;
 
 typedef struct _wfs_idc_emvcless_ui
 {
-    WORD                        wMessageId;
-    WORD                        wStatus;
-    ULONG                       ulHoldTime;
-    WORD                        wValueQualifier;
-    LPSTR                       lpszValue;
-    LPSTR                       lpszCurrencyCode;
-    LPSTR                       lpszLanguagePreferenceData;
+    WORD wMessageId;
+    WORD wStatus;
+    ULONG ulHoldTime;
+    WORD wValueQualifier;
+    LPSTR lpszValue;
+    LPSTR lpszCurrencyCode;
+    LPSTR lpszLanguagePreferenceData;
 } WFSIDCEMVCLESSUI, *LPWFSIDCEMVCLESSUI;
 
 typedef struct _wfs_idc_emvcless_outcome
 {
-    WORD                        wCVM;
-    WORD                        wAlternateInterface;
-    BOOL                        bReceipt;
-    LPWFSIDCEMVCLESSUI          lpClessUIOutcome;
-    LPWFSIDCEMVCLESSUI          lpClessUIRestart;
-    ULONG                       ulClessFieldOffHoldTime;
-    ULONG                       ulCardRemovalTimeoutValue;
-    LPWFSIDCHEXDATA             lpDiscretionaryData; 
+    WORD wCVM;
+    WORD wAlternateInterface;
+    BOOL bReceipt;
+    LPWFSIDCEMVCLESSUI lpClessUIOutcome;
+    LPWFSIDCEMVCLESSUI lpClessUIRestart;
+    ULONG ulClessFieldOffHoldTime;
+    ULONG ulCardRemovalTimeoutValue;
+    LPWFSIDCHEXDATA lpDiscretionaryData;
 } WFSIDCEMVCLESSOUTCOME, *LPWFSIDCEMVCLESSOUTCOME;
 
 typedef struct _wfs_idc_emvcless_tx_data_output
 {
-    WORD                        wDataSource;
-    WORD                        wTxOutcome;
-    WORD                        wCardholderAction;
-    LPWFSIDCHEXDATA             lpDataRead;
-    LPWFSIDCEMVCLESSOUTCOME     lpClessOutcome;
+    WORD wDataSource;
+    WORD wTxOutcome;
+    WORD wCardholderAction;
+    LPWFSIDCHEXDATA lpDataRead;
+    LPWFSIDCEMVCLESSOUTCOME lpClessOutcome;
 } WFSIDCEMVCLESSTXDATAOUTPUT, *LPWFSIDCEMVCLESSTXDATAOUTPUT;
 typedef struct _wfs_idc_synchronize_command
 {
-    DWORD                       dwCommand;
-    LPVOID                      lpCmdData;
+    DWORD dwCommand;
+    LPVOID lpCmdData;
 } WFSIDCSYNCHRONIZECOMMAND, *LPWFSIDCSYNCHRONIZECOMMAND;
 
 /*=================================================================*/
@@ -612,35 +612,35 @@ typedef struct _wfs_idc_synchronize_command
 /*=================================================================*/
 typedef struct _wfs_idc_track_event
 {
-    WORD                        fwStatus;
-    LPSTR                       lpstrTrack;
-    LPSTR                       lpstrData;
+    WORD fwStatus;
+    LPSTR lpstrTrack;
+    LPSTR lpstrData;
 } WFSIDCTRACKEVENT, *LPWFSIDCTRACKEVENT;
 
 typedef struct _wfs_idc_card_act
 {
-    WORD                        wAction;
-    WORD                        wPosition;
+    WORD wAction;
+    WORD wPosition;
 } WFSIDCCARDACT, *LPWFSIDCCARDACT;
 
 typedef struct _wfs_idc_device_position
 {
-    WORD                        wPosition;
+    WORD wPosition;
 } WFSIDCDEVICEPOSITION, *LPWFSIDCDEVICEPOSITION;
 
 typedef struct _wfs_idc_power_save_change
 {
-    USHORT                      usPowerSaveRecoveryTime;
+    USHORT usPowerSaveRecoveryTime;
 } WFSIDCPOWERSAVECHANGE, *LPWFSIDCPOWERSAVECHANGE;
 
 typedef struct _wfs_idc_track_detected
 {
-    WORD                        fwTracks;
+    WORD fwTracks;
 } WFSIDCTRACKDETECTED, *LPWFSIDCTRACKDETECTED;
 
 typedef struct _wfs_idc_emv_cless_read_status
 {
-    LPWFSIDCEMVCLESSUI          lpClessUI;
+    LPWFSIDCEMVCLESSUI lpClessUI;
 } WFSIDCMVCLESSREADSTATUS, *LPWFSIDCMVCLESSREADSTATUS;
 
 /* restore alignment */

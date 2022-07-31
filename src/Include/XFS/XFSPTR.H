@@ -503,149 +503,149 @@ WFSPTRSETBLACKMARKMODE.wBlackMarkMode */
 /*=================================================================*/
 typedef struct _wfs_ptr_retract_bins
 {
-    WORD                    wRetractBin;
-    USHORT                  usRetractCount;
+    WORD wRetractBin;
+    USHORT usRetractCount;
 } WFSPTRRETRACTBINS, *LPWFSPTRRETRACTBINS;
 typedef struct _wfs_ptr_status
 {
-    WORD                    fwDevice;
-    WORD                    fwMedia;
-    WORD                    fwPaper[WFS_PTR_SUPPLYSIZE];
-    WORD                    fwToner;
-    WORD                    fwInk;
-    WORD                    fwLamp;
-    LPWFSPTRRETRACTBINS*    lppRetractBins;
-    USHORT                  usMediaOnStacker;
-    LPSTR                   lpszExtra;
-    DWORD                   dwGuidLights[WFS_PTR_GUIDLIGHTS_SIZE];
-    WORD                    wDevicePosition;
-    USHORT                  usPowerSaveRecoveryTime;
-    WORD                    wPaperType[WFS_PTR_SUPPLYSIZE];
-    WORD                    wAntiFraudModule;
-    WORD                    wBlackMarkMode;
+    WORD fwDevice;
+    WORD fwMedia;
+    WORD fwPaper[WFS_PTR_SUPPLYSIZE];
+    WORD fwToner;
+    WORD fwInk;
+    WORD fwLamp;
+    LPWFSPTRRETRACTBINS *lppRetractBins;
+    USHORT usMediaOnStacker;
+    LPSTR lpszExtra;
+    DWORD dwGuidLights[WFS_PTR_GUIDLIGHTS_SIZE];
+    WORD wDevicePosition;
+    USHORT usPowerSaveRecoveryTime;
+    WORD wPaperType[WFS_PTR_SUPPLYSIZE];
+    WORD wAntiFraudModule;
+    WORD wBlackMarkMode;
 } WFSPTRSTATUS, *LPWFSPTRSTATUS;
 
 typedef struct _wfs_ptr_caps
 {
-    WORD                    wClass;
-    WORD                    fwType;
-    BOOL                    bCompound;
-    WORD                    wResolution;
-    WORD                    fwReadForm;
-    WORD                    fwWriteForm;
-    WORD                    fwExtents;
-    WORD                    fwControl;
-    USHORT                  usMaxMediaOnStacker;
-    BOOL                    bAcceptMedia;
-    BOOL                    bMultiPage;
-    WORD                    fwPaperSources;
-    BOOL                    bMediaTaken;
-    USHORT                  usRetractBins;
-    LPUSHORT                lpusMaxRetract;
-    WORD                    fwImageType;
-    WORD                    fwFrontImageColorFormat;
-    WORD                    fwBackImageColorFormat;
-    WORD                    fwCodelineFormat;
-    WORD                    fwImageSource;
-    WORD                    fwCharSupport;
-    BOOL                    bDispensePaper;
-    LPSTR                   lpszExtra;
-    DWORD                   dwGuidLights[WFS_PTR_GUIDLIGHTS_SIZE];
-    LPSTR                   lpszWindowsPrinter;
-    BOOL                    bMediaPresented;
-    USHORT                  usAutoRetractPeriod;
-    BOOL                    bRetractToTransport;
-    BOOL                    bPowerSaveControl;
-    WORD                    fwCoercivityType;
-    WORD                    fwControlPassbook;
-    WORD                    wPrintSides;
-    BOOL                    bAntiFraudModule;
-    DWORD                   dwControlEx;
-    BOOL                    bBlackMarkModeSupported;
-    LPDWORD                 lpdwSynchronizableCommands;
+    WORD wClass;
+    WORD fwType;
+    BOOL bCompound;
+    WORD wResolution;
+    WORD fwReadForm;
+    WORD fwWriteForm;
+    WORD fwExtents;
+    WORD fwControl;
+    USHORT usMaxMediaOnStacker;
+    BOOL bAcceptMedia;
+    BOOL bMultiPage;
+    WORD fwPaperSources;
+    BOOL bMediaTaken;
+    USHORT usRetractBins;
+    LPUSHORT lpusMaxRetract;
+    WORD fwImageType;
+    WORD fwFrontImageColorFormat;
+    WORD fwBackImageColorFormat;
+    WORD fwCodelineFormat;
+    WORD fwImageSource;
+    WORD fwCharSupport;
+    BOOL bDispensePaper;
+    LPSTR lpszExtra;
+    DWORD dwGuidLights[WFS_PTR_GUIDLIGHTS_SIZE];
+    LPSTR lpszWindowsPrinter;
+    BOOL bMediaPresented;
+    USHORT usAutoRetractPeriod;
+    BOOL bRetractToTransport;
+    BOOL bPowerSaveControl;
+    WORD fwCoercivityType;
+    WORD fwControlPassbook;
+    WORD wPrintSides;
+    BOOL bAntiFraudModule;
+    DWORD dwControlEx;
+    BOOL bBlackMarkModeSupported;
+    LPDWORD lpdwSynchronizableCommands;
 } WFSPTRCAPS, *LPWFSPTRCAPS;
 
 typedef struct _wfs_frm_header
 {
-LPSTR                   lpszFormName;
-    WORD                    wBase;
-    WORD                    wUnitX;
-    WORD                    wUnitY;
-    WORD                    wWidth;
-    WORD                    wHeight;
-    WORD                    wAlignment;
-    WORD                    wOrientation;
-    WORD                    wOffsetX;
-    WORD                    wOffsetY;
-    WORD                    wVersionMajor;
-    WORD                    wVersionMinor;
-    LPSTR                   lpszUserPrompt;
-    WORD                    fwCharSupport;
-    LPSTR                   lpszFields;
-    WORD                    wLanguageID;
+    LPSTR lpszFormName;
+    WORD wBase;
+    WORD wUnitX;
+    WORD wUnitY;
+    WORD wWidth;
+    WORD wHeight;
+    WORD wAlignment;
+    WORD wOrientation;
+    WORD wOffsetX;
+    WORD wOffsetY;
+    WORD wVersionMajor;
+    WORD wVersionMinor;
+    LPSTR lpszUserPrompt;
+    WORD fwCharSupport;
+    LPSTR lpszFields;
+    WORD wLanguageID;
 } WFSFRMHEADER, *LPWFSFRMHEADER;
 
 typedef struct _wfs_frm_media
 {
-    WORD                    fwMediaType;
-    WORD                    wBase;
-    WORD                    wUnitX;
-    WORD                    wUnitY;
-    WORD                    wSizeWidth;
-    WORD                    wSizeHeight;
-    WORD                    wPageCount;
-    WORD                    wLineCount;
-    WORD                    wPrintAreaX;
-    WORD                    wPrintAreaY;
-    WORD                    wPrintAreaWidth;
-    WORD                    wPrintAreaHeight;
-    WORD                    wRestrictedAreaX;
-    WORD                    wRestrictedAreaY;
-    WORD                    wRestrictedAreaWidth;
-    WORD                    wRestrictedAreaHeight;
-    WORD                    wStagger;
-    WORD                    wFoldType;
-    WORD                    wPaperSources;
+    WORD fwMediaType;
+    WORD wBase;
+    WORD wUnitX;
+    WORD wUnitY;
+    WORD wSizeWidth;
+    WORD wSizeHeight;
+    WORD wPageCount;
+    WORD wLineCount;
+    WORD wPrintAreaX;
+    WORD wPrintAreaY;
+    WORD wPrintAreaWidth;
+    WORD wPrintAreaHeight;
+    WORD wRestrictedAreaX;
+    WORD wRestrictedAreaY;
+    WORD wRestrictedAreaWidth;
+    WORD wRestrictedAreaHeight;
+    WORD wStagger;
+    WORD wFoldType;
+    WORD wPaperSources;
 } WFSFRMMEDIA, *LPWFSFRMMEDIA;
 
 typedef struct _wfs_ptr_query_field
 {
-    LPSTR                   lpszFormName;
-    LPSTR                   lpszFieldName;
+    LPSTR lpszFormName;
+    LPSTR lpszFieldName;
 } WFSPTRQUERYFIELD, *LPWFSPTRQUERYFIELD;
 
 typedef struct _wfs_frm_field
 {
-    LPSTR                   lpszFieldName;
-    WORD                    wIndexCount;
-    WORD                    fwType;
-    WORD                    fwClass;
-    WORD                    fwAccess;
-    WORD                    fwOverflow;
-    LPSTR                   lpszInitialValue;
-    LPWSTR                  lpszUNICODEInitialValue;
-    LPSTR                   lpszFormat;
-    LPWSTR                  lpszUNICODEFormat;
-    WORD                    wLanguageID;
-    WORD                    wCoercivity;
+    LPSTR lpszFieldName;
+    WORD wIndexCount;
+    WORD fwType;
+    WORD fwClass;
+    WORD fwAccess;
+    WORD fwOverflow;
+    LPSTR lpszInitialValue;
+    LPWSTR lpszUNICODEInitialValue;
+    LPSTR lpszFormat;
+    LPWSTR lpszUNICODEFormat;
+    WORD wLanguageID;
+    WORD wCoercivity;
 } WFSFRMFIELD, *LPWFSFRMFIELD;
 
 typedef struct _wfs_ptr_hex_data
 {
-    USHORT                  usLength;
-    LPBYTE                  lpbData;
+    USHORT usLength;
+    LPBYTE lpbData;
 } WFSPTRXDATA, *LPWFSPTRXDATA;
 
 /* WFS_INF_PTR_CODELINE_MAPPING input and output structures */
 typedef struct _wfs_ptr_codeline_mapping
 {
-    WORD                    wCodelineFormat;
-}WFSPTRCODELINEMAPPING, *LPWFSPTRCODELINEMAPPING;
+    WORD wCodelineFormat;
+} WFSPTRCODELINEMAPPING, *LPWFSPTRCODELINEMAPPING;
 
 typedef struct _wfs_ptr_codeline_mapping_out
 {
-    WORD                    wCodelineFormat;
-    LPWFSPTRXDATA           lpxCharMapping;
+    WORD wCodelineFormat;
+    LPWFSPTRXDATA lpxCharMapping;
 } WFSPTRCODELINEMAPPINGOUT, *LPWFSPTRCODELINEMAPPINGOUT;
 
 /*=================================================================*/
@@ -653,128 +653,128 @@ typedef struct _wfs_ptr_codeline_mapping_out
 /*=================================================================*/
 typedef struct _wfs_ptr_print_form
 {
-    LPSTR                   lpszFormName;
-    LPSTR                   lpszMediaName;
-    WORD                    wAlignment;
-    WORD                    wOffsetX;
-    WORD                    wOffsetY;
-    WORD                    wResolution;
-    DWORD                   dwMediaControl;
-    LPSTR                   lpszFields;
-    LPWSTR                  lpszUNICODEFields;
-    WORD                    wPaperSource;
+    LPSTR lpszFormName;
+    LPSTR lpszMediaName;
+    WORD wAlignment;
+    WORD wOffsetX;
+    WORD wOffsetY;
+    WORD wResolution;
+    DWORD dwMediaControl;
+    LPSTR lpszFields;
+    LPWSTR lpszUNICODEFields;
+    WORD wPaperSource;
 } WFSPTRPRINTFORM, *LPWFSPTRPRINTFORM;
 
 typedef struct _wfs_ptr_read_form
 {
-    LPSTR                   lpszFormName;
-    LPSTR                   lpszFieldNames;
-    LPSTR                   lpszMediaName;
-    DWORD                   dwMediaControl;
+    LPSTR lpszFormName;
+    LPSTR lpszFieldNames;
+    LPSTR lpszMediaName;
+    DWORD dwMediaControl;
 } WFSPTRREADFORM, *LPWFSPTRREADFORM;
 
 typedef struct _wfs_ptr_read_form_out
 {
-    LPSTR                   lpszFields;
-    LPWSTR                  lpszUNICODEFields;
+    LPSTR lpszFields;
+    LPWSTR lpszUNICODEFields;
 } WFSPTRREADFORMOUT, *LPWFSPTRREADFORMOUT;
 
 typedef struct _wfs_ptr_raw_data
 {
-    WORD                    wInputData;
-    ULONG                   ulSize;
-    LPBYTE                  lpbData;
+    WORD wInputData;
+    ULONG ulSize;
+    LPBYTE lpbData;
 } WFSPTRRAWDATA, *LPWFSPTRRAWDATA;
 
 typedef struct _wfs_ptr_raw_data_in
 {
-    ULONG                   ulSize;
-    LPBYTE                  lpbData;
+    ULONG ulSize;
+    LPBYTE lpbData;
 } WFSPTRRAWDATAIN, *LPWFSPTRRAWDATAIN;
 
 typedef struct _wfs_ptr_media_unit
 {
-    WORD                    wBase;
-    WORD                    wUnitX;
-    WORD                    wUnitY;
+    WORD wBase;
+    WORD wUnitX;
+    WORD wUnitY;
 } WFSPTRMEDIAUNIT, *LPWFSPTRMEDIAUNIT;
 
 typedef struct _wfs_ptr_media_ext
 {
-    ULONG                   ulSizeX;
-    ULONG                   ulSizeY;
+    ULONG ulSizeX;
+    ULONG ulSizeY;
 } WFSPTRMEDIAEXT, *LPWFSPTRMEDIAEXT;
 
 typedef struct _wfs_ptr_image_request
 {
-    WORD                    wFrontImageType;
-    WORD                    wBackImageType;
-    WORD                    wFrontImageColorFormat;
-    WORD                    wBackImageColorFormat;
-    WORD                    wCodelineFormat;
-    WORD                    fwImageSource;
-    LPSTR                   lpszFrontImageFile;
-    LPSTR                   lpszBackImageFile;
+    WORD wFrontImageType;
+    WORD wBackImageType;
+    WORD wFrontImageColorFormat;
+    WORD wBackImageColorFormat;
+    WORD wCodelineFormat;
+    WORD fwImageSource;
+    LPSTR lpszFrontImageFile;
+    LPSTR lpszBackImageFile;
 } WFSPTRIMAGEREQUEST, *LPWFSPTRIMAGEREQUEST;
 
 typedef struct _wfs_ptr_image
 {
-    WORD                    wImageSource;
-    WORD                    wStatus;
-    ULONG                   ulDataLength;
-    LPBYTE                  lpbData;
+    WORD wImageSource;
+    WORD wStatus;
+    ULONG ulDataLength;
+    LPBYTE lpbData;
 } WFSPTRIMAGE, *LPWFSPTRIMAGE;
 
 typedef struct _wfs_ptr_reset
 {
-    DWORD                   dwMediaControl;
-    USHORT                  usRetractBinNumber;
+    DWORD dwMediaControl;
+    USHORT usRetractBinNumber;
 } WFSPTRRESET, *LPWFSPTRRESET;
 
 typedef struct _wfs_ptr_set_guidlight
 {
-    WORD                    wGuidLight;
-    DWORD                   dwCommand;
+    WORD wGuidLight;
+    DWORD dwCommand;
 } WFSPTRSETGUIDLIGHT, *LPWFSPTRSETGUIDLIGHT;
 
 typedef struct _wfs_ptr_print_raw_file
 {
-    LPSTR                   lpszFileName;
-    DWORD                   dwMediaControl;
-    DWORD                   dwPaperSource;
+    LPSTR lpszFileName;
+    DWORD dwMediaControl;
+    DWORD dwPaperSource;
 } WFSPTRPRINTRAWFILE, *LPWFSPTRPRINTRAWFILE;
 
 typedef struct _wfs_ptr_load_definition
 {
-    LPSTR                   lpszFileName;
-    BOOL                    bOverwrite;
+    LPSTR lpszFileName;
+    BOOL bOverwrite;
 } WFSPTRLOADDEFINITION, *LPWFSPTRLOADDEFINITION;
 
 typedef struct _wfs_ptr_supply_replen
 {
-    WORD                    fwSupplyReplen;
+    WORD fwSupplyReplen;
 } WFSPTRSUPPLYREPLEN, *LPWFSPTRSUPPLYREPLEN;
 
 typedef struct _wfs_ptr_power_save_control
 {
-    USHORT                  usMaxPowerSaveRecoveryTime;
+    USHORT usMaxPowerSaveRecoveryTime;
 } WFSPTRPOWERSAVECONTROL, *LPWFSPTRPOWERSAVECONTROL;
 
 typedef struct _wfs_ptr_control_passbook
 {
-    WORD                    wAction;
-    USHORT                  usCount;
+    WORD wAction;
+    USHORT usCount;
 } WFSPTRCONTROLPASSBOOK, *LPWFSPTRCONTROLPASSBOOK;
 
 typedef struct _wfs_ptr_set_black_mark_mode
 {
-    WORD                    wBlackMarkMode;
+    WORD wBlackMarkMode;
 } WFSPTRSETBLACKMARKMODE, *LPWFSPTRSETBLACKMARKMODE;
 
 typedef struct _wfs_ptr_synchronize_command
 {
-    DWORD                   dwCommand;
-    LPVOID                  lpCmdData;
+    DWORD dwCommand;
+    LPVOID lpCmdData;
 } WFSPTRSYNCHRONIZECOMMAND, *LPWFSPTRSYNCHRONIZECOMMAND;
 
 /*=================================================================*/
@@ -782,66 +782,66 @@ typedef struct _wfs_ptr_synchronize_command
 /*=================================================================*/
 typedef struct _wfs_ptr_field_failure
 {
-    LPSTR                   lpszFormName;
-    LPSTR                   lpszFieldName;
-    WORD                    wFailure;
+    LPSTR lpszFormName;
+    LPSTR lpszFieldName;
+    WORD wFailure;
 } WFSPTRFIELDFAIL, *LPWFSPTRFIELDFAIL;
 
 typedef struct _wfs_ptr_bin_threshold
 {
-    USHORT                  usBinNumber;
-    WORD                    wRetractBin;
+    USHORT usBinNumber;
+    WORD wRetractBin;
 } WFSPTRBINTHRESHOLD, *LPWFSPTRBINTHRESHOLD;
 
 typedef struct _wfs_ptr_paper_threshold
 {
-    WORD                    wPaperSource;
-    WORD                    wPaperThreshold;
+    WORD wPaperSource;
+    WORD wPaperThreshold;
 } WFSPTRPAPERTHRESHOLD, *LPWFSPTRPAPERTHRESHOLD;
 
 typedef struct _wfs_ptr_media_detected
 {
-    WORD                    wPosition;
-    USHORT                  usRetractBinNumber;
+    WORD wPosition;
+    USHORT usRetractBinNumber;
 } WFSPTRMEDIADETECTED, *LPWFSPTRMEDIADETECTED;
 
 typedef struct _wfs_ptr_bin_status
 {
-    USHORT                  usBinNumber;
-    WORD                    wRetractBin;
+    USHORT usBinNumber;
+    WORD wRetractBin;
 } WFSPTRBINSTATUS, *LPWFSPTRBINSTATUS;
 
 typedef struct _wfs_ptr_media_presented
 {
-    USHORT                  usWadIndex;
-    USHORT                  usTotalWads;
+    USHORT usWadIndex;
+    USHORT usTotalWads;
 } WFSPTRMEDIAPRESENTED, *LPWFSPTRMEDIAPRESENTED;
 
 typedef struct _wfs_ptr_definition_loaded
 {
-    LPSTR                   lpszDefinitionName;
-    DWORD                   dwDefinitionType;
+    LPSTR lpszDefinitionName;
+    DWORD dwDefinitionType;
 } WFSPTRDEFINITIONLOADED, *LPWFSPTRDEFINITIONLOADED;
 
 typedef struct _wfs_ptr_media_rejected
 {
-    WORD                    wMediaRejected;
+    WORD wMediaRejected;
 } WFSPTRMEDIAREJECTED, *LPWFSPTRMEDIAREJECTED;
 
 typedef struct _wfs_ptr_media_retracted
 {
-    WORD                    wRetractResult;
-    USHORT                  usBinNumber;
+    WORD wRetractResult;
+    USHORT usBinNumber;
 } WFSPTRMEDIARETRACTED, *LPWFSPTRMEDIARETRACTED;
 
 typedef struct _wfs_ptr_device_position
 {
-    WORD                    wPosition;
+    WORD wPosition;
 } WFSPTRDEVICEPOSITION, *LPWFSPTRDEVICEPOSITION;
 
 typedef struct _wfs_ptr_power_save_change
 {
-    USHORT                  usPowerSaveRecoveryTime;
+    USHORT usPowerSaveRecoveryTime;
 } WFSPTRPOWERSAVECHANGE, *LPWFSPTRPOWERSAVECHANGE;
 
 /* restore alignment */
