@@ -1,7 +1,7 @@
 
-#include "CXFSWrapper.h"
+#include "CXFSWrapper.hpp"
 
-namespace XFSWrapper
+namespace __N_XFSWRAPPER__
 {
     #define ASSERTINITIALIZE if (!this->m_bInitialized) return WFS_ERR_NOT_STARTED;
 	#define ASSERTOPEN if (!hs) return WFS_ERR_CONNECTION_LOST;
@@ -9,7 +9,7 @@ namespace XFSWrapper
 	#define ASSERTNOBLOCKING while (WFSIsBlocking()) ::Sleep(20);
 
 	//Open
-	HRESULT CXFSWrapper::XFSOpenAsync(HSERVICE& hs, const std::string& LogicName, REQUESTID& ReqID) const noexcept
+	HRESULT CXFSWrapper::XFSOpenAsync(HSERVICE& hs, const XFSHWND hwnd, const std::string& LogicName, REQUESTID& ReqID) const noexcept
 	{
         ASSERTINITIALIZE
 
@@ -32,7 +32,7 @@ namespace XFSWrapper
 			0,
 			300000,
 			&hs,
-			this->m_pMSGWND->GetHandle(),
+			(HWND)hwnd,
 			0x01019903,
 			&f_srv_ver,
 			&f_spi_ver,
@@ -46,7 +46,7 @@ namespace XFSWrapper
 	}
 
 	//Close
-	HRESULT CXFSWrapper::XFSCloseAsync(const HSERVICE hs, REQUESTID& ReqID) const noexcept
+	HRESULT CXFSWrapper::XFSCloseAsync(const HSERVICE hs, const XFSHWND hwnd, REQUESTID& ReqID) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
@@ -61,14 +61,14 @@ namespace XFSWrapper
 
 		ASSERTNOBLOCKING
 
-		iret = WFSAsyncUnlock(hs, this->m_pMSGWND->GetHandle(), &ReqID);
+		iret = WFSAsyncUnlock(hs, (HWND)hwnd, &ReqID);
 
-		iret = WFSAsyncClose(hs, this->m_pMSGWND->GetHandle(), &ReqID);
+		iret = WFSAsyncClose(hs, (HWND)hwnd, &ReqID);
 
 		return iret;
 	}
 
-	HRESULT CXFSWrapper::XFSOpenSync(HSERVICE& hs, const char* LogicName) const noexcept
+	HRESULT CXFSWrapper::XFSOpenSync(HSERVICE& hs, const std::string& LogicName) const noexcept
 	{
         ASSERTINITIALIZE
 
@@ -82,7 +82,7 @@ namespace XFSWrapper
 		const char* _lpstrAppName = "NOVA.exe";
 		iret = WFSOpen
 		(
-			(LPSTR)LogicName,
+			(LPSTR)LogicName.c_str(),
 			WFS_DEFAULT_HAPP,
 			(LPSTR)_lpstrAppName,
 			NULL,
@@ -99,7 +99,7 @@ namespace XFSWrapper
 		return iret;
 	}
 
-	HRESULT CXFSWrapper::XFSCloseSync(HSERVICE& hs) const noexcept
+	HRESULT CXFSWrapper::XFSCloseSync(const HSERVICE hs) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
@@ -118,8 +118,8 @@ namespace XFSWrapper
 
 		/*iret = WFSAsyncDeregister(hs,
 								  15,
-								  this->m_pMSGWND->GetHandle(),
-								  this->m_pMSGWND->GetHandle(),
+								  hwnd,
+								  hwnd,
 								  &ReqID);*/
 
 		iret = WFSClose(hs);
@@ -128,41 +128,40 @@ namespace XFSWrapper
 	}
 
 	//Lock
-	HRESULT CXFSWrapper::XFSLock(HSERVICE hs, long Timeout, REQUESTID & ReqID) const noexcept
+	HRESULT CXFSWrapper::XFSLock(const HSERVICE hs, const XFSHWND hwnd, const TIMEOUT Timeout, REQUESTID & ReqID) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
 		ASSERTNOBLOCKING
 
-		return WFSAsyncLock(hs, Timeout, this->m_pMSGWND->GetHandle(), &ReqID);
+		return WFSAsyncLock(hs, Timeout, (HWND)hwnd, &ReqID);
 	}
 
 	//UnLock
-	HRESULT CXFSWrapper::XFSUnLock(HSERVICE hs, REQUESTID & ReqID) const noexcept
+	HRESULT CXFSWrapper::XFSUnLock(const HSERVICE hs, const XFSHWND hwnd, REQUESTID & ReqID) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
 		ASSERTNOBLOCKING
 
-		return WFSAsyncUnlock(hs, this->m_pMSGWND->GetHandle(), &ReqID);
+		return WFSAsyncUnlock(hs, (HWND)hwnd, &ReqID);
 	}
 
-	HRESULT CXFSWrapper::XFSRegisterAsync(HSERVICE hs, REQUESTID & ReqID) const noexcept
+	HRESULT CXFSWrapper::XFSRegisterAsync(const HSERVICE hs, const XFSHWND hwnd, REQUESTID & ReqID) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
 		ASSERTNOBLOCKING
 
-		return WFSAsyncRegister
-		(
+		return WFSAsyncRegister(
 			hs,
 			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			this->m_pMSGWND->GetHandle(),
-			this->m_pMSGWND->GetHandle(),
+			(HWND)hwnd,
+			(HWND)hwnd,
 			&ReqID);
 	}
 
-	HRESULT CXFSWrapper::XFSDeregisterAsync(HSERVICE hs, REQUESTID & ReqID) const noexcept
+	HRESULT CXFSWrapper::XFSDeregisterAsync(const HSERVICE hs, const XFSHWND hwnd, REQUESTID & ReqID) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
@@ -171,12 +170,12 @@ namespace XFSWrapper
 		return WFSAsyncDeregister(
 			hs,
 			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			this->m_pMSGWND->GetHandle(),
-			this->m_pMSGWND->GetHandle(),
+			(HWND)hwnd,
+			(HWND)hwnd,
 			&ReqID);
 	}
 
-	HRESULT CXFSWrapper::XFSRegisterSync(HSERVICE hs) const noexcept
+	HRESULT CXFSWrapper::XFSRegisterSync(const HSERVICE hs, const XFSHWND hwnd) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
@@ -186,11 +185,11 @@ namespace XFSWrapper
 		(
 			hs,
 			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			this->m_pMSGWND->GetHandle()
+			(HWND)hwnd
 		);
 	}
 
-	HRESULT CXFSWrapper::XFSDeregisterSync(HSERVICE hs) const noexcept
+	HRESULT CXFSWrapper::XFSDeregisterSync(const HSERVICE hs, const XFSHWND hwnd) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
@@ -200,12 +199,12 @@ namespace XFSWrapper
 		(
 			hs,
 			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			this->m_pMSGWND->GetHandle()
+			(HWND)hwnd
 		);
 	}
 
 	//Cancel
-	HRESULT CXFSWrapper::XFSCancel(HSERVICE hs, REQUESTID ReqID) const noexcept
+	HRESULT CXFSWrapper::XFSCancel(const HSERVICE hs, REQUESTID ReqID) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
@@ -213,9 +212,9 @@ namespace XFSWrapper
 	}
 
 	//Free
-	HRESULT CXFSWrapper::XFSFree(LPWFSRESULT * ppResult) const noexcept
+	HRESULT CXFSWrapper::XFSFree(LPWFSRESULT* ppResult) const noexcept
 	{
-        ASSERTINITIALIZE ASSERTOPEN
+        ASSERTINITIALIZE
 
 		HRESULT hrRet = WFS_SUCCESS;
 
@@ -228,37 +227,31 @@ namespace XFSWrapper
 		return hrRet;
 	}
 
-	HRESULT CXFSWrapper::XFSGetInfoAsync(HSERVICE hs, DWORD dwCategory, LPVOID pIn, REQUESTID& ReqID, unsigned long Timeout) const noexcept
+	HRESULT CXFSWrapper::XFSGetInfoAsync(const HSERVICE hs, const XFSHWND hwnd, DWORD dwCategory, LPVOID pIn, REQUESTID& ReqID, unsigned long Timeout) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
-		return WFSAsyncGetInfo(hs, dwCategory, pIn, Timeout, this->m_pMSGWND->GetHandle(), &ReqID);
+		return WFSAsyncGetInfo(hs, dwCategory, pIn, Timeout, (HWND)hwnd, &ReqID);
 	}
 
 	//Execute
-	HRESULT CXFSWrapper::XFSExecuteAsync(HSERVICE hs, DWORD dwCommand, void* pIn, REQUESTID& ReqID, unsigned long Timeout) const noexcept
+	HRESULT CXFSWrapper::XFSExecuteAsync(const HSERVICE hs, const XFSHWND hwnd, DWORD dwCommand, void* pIn, REQUESTID& ReqID, unsigned long Timeout) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
 		ASSERTNOBLOCKING
 
-		return WFSAsyncExecute(
-            hs,
-			dwCommand,
-			pIn,
-			Timeout,
-			this->m_pMSGWND->GetHandle(),
-			&ReqID);
+		return WFSAsyncExecute(hs, dwCommand, pIn, Timeout, (HWND)hwnd, &ReqID);
 	}
 
-	HRESULT CXFSWrapper::XFSGetInfoSync(HSERVICE hs, DWORD dwCategory, LPVOID lpQueryDetails, LPWFSRESULT* lppResult, DWORD dwTimeOut) const noexcept
+	HRESULT CXFSWrapper::XFSGetInfoSync(const HSERVICE hs, DWORD dwCategory, LPVOID lpQueryDetails, LPWFSRESULT* lppResult, DWORD dwTimeOut) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
-		return = WFSGetInfo(hs, dwCategory, lpQueryDetails, dwTimeOut, lppResult);
+		return WFSGetInfo(hs, dwCategory, lpQueryDetails, dwTimeOut, lppResult);
 	}
 
-	HRESULT CXFSWrapper::XFSExecuteSync(HSERVICE hs, DWORD dwCommand, LPVOID lpCmdData, LPWFSRESULT* lppResult, DWORD dwTimeOut) const noexcept
+	HRESULT CXFSWrapper::XFSExecuteSync(const HSERVICE hs, DWORD dwCommand, LPVOID lpCmdData, LPWFSRESULT* lppResult, DWORD dwTimeOut) const noexcept
 	{
         ASSERTINITIALIZE ASSERTOPEN
 
@@ -267,6 +260,6 @@ namespace XFSWrapper
 
 	std::shared_ptr<IXFSWrapper>CreateXFSWrapper() noexcept
 	{
-		return std::make_shared<XFSWrapper::CXFSWrapper>();
+		return std::make_shared<CXFSWrapper>();
 	}
-}
+} // !__N_XFSWRAPPER__

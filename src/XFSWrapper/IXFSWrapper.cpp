@@ -1,8 +1,9 @@
 
-#include <mutex>
+#include "IXFSWrapper.hpp"
 
-#include "IXFSWrapper.h"
-#include "../XFSWindow/IXFSWindow.h"
+#include <descriptors.hpp>
+
+#include <mutex>
 
 namespace __N_XFSWRAPPER__
 {
@@ -26,7 +27,7 @@ namespace __N_XFSWRAPPER__
 		{
 			std::thread _thread([_pWFSVersion, &_cv, &_ret]()
 			{
-				_ret = WFSStartUp(XFS_REQUIRED_VERSION, _pWFSVersion);
+				_ret = WFSStartUp(XFS_SUPPORTED_VERSION, _pWFSVersion);
 				_cv.notify_one();
 			});
 
@@ -47,7 +48,7 @@ namespace __N_XFSWRAPPER__
 			::free(_pWFSVersion);
 			if (WFS_SUCCESS != _ret)
 			{
-				this->m_strLastError.assign("FAILD with error code: %d", NOVADESCRIBE_XFS_ERROR(_ret));
+				this->m_strLastError.assign("FAILD with error code: %d", DESCRIBE_XFS_ERROR(_ret));
 				return false;
 			}
 			else
@@ -99,5 +100,10 @@ namespace __N_XFSWRAPPER__
     bool IXFSWrapper::IsInitialized() const noexcept
     {
         return this->m_bInitialized;
+    }
+
+    std::string IXFSWrapper::GetLastError() const noexcept
+    {
+        return this->m_strLastError;
     }
 } // !__N_XFSWRAPPER__

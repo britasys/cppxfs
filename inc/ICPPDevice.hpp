@@ -27,8 +27,8 @@ namespace __N_CPPDEVICE__
 		void*		        buf{ nullptr };                 // pointer to buffer
 	} DEVEVENTDATA;
 
-	using DEVEVENTLAMBDA							= std::function<void(DEVEVENTDATA&)>;
-	using DEVLAMBDADEQUE							= std::deque<DEVEVENTLAMBDA>;
+	using DEVEVENTLAMBDA = std::function<void(DEVEVENTDATA&)>;
+	using DEVLAMBDADEQUE = std::deque<DEVEVENTLAMBDA>;
 
     typedef struct _cppdevice_init
     {

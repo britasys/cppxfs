@@ -7,23 +7,19 @@
 
 #include <string>
 
-#include "../XFSWindow/IXFSWindow.hpp"
-
 namespace __N_XFSWRAPPER__
 {
     using TIMEOUT = unsigned long;
+    using XFSHWND = int;
 
-    typedef struct _xfserapper_init
-    {
-
-    } XFSWRAPPER_INIT, * LP_XFSWRAPPER_INIT;
+    constexpr unsigned int XFS_SUPPORTED_VERSION = 0x00031403;
 
 	class IXFSWrapper
 	{
 	private:
 	protected:
         bool m_bInitialized{ false };
-        std::shared_ptr<__N_XFSWINDOW__::IXFSWindow> m_pXFSWindow{ __N_XFSWINDOW__::CreateXFSWindow() };
+        std::string m_strLastError{};
 
 	public:
 		IXFSWrapper() = default;
@@ -37,24 +33,26 @@ namespace __N_XFSWRAPPER__
 		bool UnInitialize() noexcept;
         bool IsInitialized() const noexcept;
 
-		virtual HRESULT XFSOpenAsync		(HSERVICE&, const std::string&, REQUESTID&) const noexcept = 0;
-		virtual HRESULT XFSCloseAsync		(const HSERVICE, REQUESTID&) const noexcept = 0;
+        std::string GetLastError() const noexcept;
+
+		virtual HRESULT XFSOpenAsync		(HSERVICE&, const XFSHWND, const std::string&, REQUESTID&) const noexcept = 0;
+		virtual HRESULT XFSCloseAsync		(const HSERVICE, const XFSHWND, REQUESTID&) const noexcept = 0;
 		virtual HRESULT XFSOpenSync			(HSERVICE&, const std::string&) const noexcept = 0;
 		virtual HRESULT XFSCloseSync		(const HSERVICE) const noexcept = 0;
 
 		virtual HRESULT XFSLock				(const HSERVICE, const TIMEOUT, REQUESTID&) const noexcept = 0;
 		virtual HRESULT XFSUnLock			(const HSERVICE, REQUESTID&) const noexcept = 0;
 
-		virtual HRESULT XFSRegisterAsync	(const HSERVICE, REQUESTID&) const noexcept = 0;
-		virtual	HRESULT XFSDeregisterAsync	(const HSERVICE, REQUESTID&) const noexcept = 0;
-		virtual HRESULT XFSRegisterSync		(const HSERVICE) const noexcept = 0;
-		virtual	HRESULT XFSDeregisterSync	(const HSERVICE) const noexcept = 0;
+		virtual HRESULT XFSRegisterAsync	(const HSERVICE, const XFSHWND, REQUESTID&) const noexcept = 0;
+		virtual	HRESULT XFSDeregisterAsync	(const HSERVICE, const XFSHWND, REQUESTID&) const noexcept = 0;
+		virtual HRESULT XFSRegisterSync		(const HSERVICE, const XFSHWND) const noexcept = 0;
+		virtual	HRESULT XFSDeregisterSync	(const HSERVICE, const XFSHWND) const noexcept = 0;
 
 		virtual HRESULT XFSCancel			(const HSERVICE, const REQUESTID) const noexcept = 0;
 		virtual HRESULT XFSFree				(LPWFSRESULT*) const noexcept = 0;
 
-		virtual HRESULT XFSGetInfoAsync		(const HSERVICE, const DWORD, const LPVOID, REQUESTID&, const TIMEOUT) const noexcept = 0;
-		virtual HRESULT XFSExecuteAsync		(const HSERVICE, const DWORD, const LPVOID, REQUESTID&, const TIMEOUT) const noexcept = 0;
+		virtual HRESULT XFSGetInfoAsync		(const HSERVICE, const XFSHWND, const DWORD, const LPVOID, REQUESTID&, const TIMEOUT) const noexcept = 0;
+		virtual HRESULT XFSExecuteAsync		(const HSERVICE, const XFSHWND, const DWORD, const LPVOID, REQUESTID&, const TIMEOUT) const noexcept = 0;
 
 		virtual HRESULT XFSGetInfoSync		(const HSERVICE, DWORD, LPVOID, LPWFSRESULT*, const TIMEOUT) const noexcept = 0;
 		virtual HRESULT XFSExecuteSync		(const HSERVICE, DWORD, LPVOID, LPWFSRESULT*, const TIMEOUT) const noexcept = 0;

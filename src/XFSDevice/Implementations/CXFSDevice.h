@@ -5,11 +5,10 @@
 
 #include <XFSAPI.H>
 
-#include <TTFRM_Include/TTFrameworkUtility.h>
-#include <TTFRM_Include/ITTComponent.h>
-#include <NOVAGLOBALS.h>
-#include <XFSWrapper/IXFSWrapper.h>
-#include <XFSWindow/IXFSWindow.h>
+#include <XFSWrapper/IXFSWrapper.hpp>
+#include <XFSWindow/IXFSWindow.hpp>
+
+#include <mutex>
 
 #define TT_DEV_ASSERTSAFEPTR_HRESULT(str, ptr)	UNSAFEPTR(ptr)			{ this->SetDeviceLastError(WFS_ERR_INVALID_POINTER, NOVADESCRIBE_XFS_ERROR(WFS_ERR_INVALID_POINTER)); ERRORLOG("%s", str); return WFS_ERR_INTERNAL_ERROR; }
 #define TT_DEV_ASSERTSAFEPTR_BOOL(str, ptr)		UNSAFEPTR(ptr)			{ this->SetDeviceLastError(WFS_ERR_INVALID_POINTER, NOVADESCRIBE_XFS_ERROR(WFS_ERR_INVALID_POINTER)); ERRORLOG("%s", str); return false; }
@@ -25,10 +24,12 @@
 namespace TTDevice
 {
 	using REQVECT = std::vector<REQUESTID>;
+    using LPXFSWRAPPER = std::shared_ptr<__N_XFSWRAPPER__::IXFSWrapper>;
+    using LPXFSWINDOW = std::shared_ptr<__N_XFSWINDOW__::IXFSWindow>;
 
 	constexpr auto DEFAULT_TIMEOUT = 30000;
 
-	class ITTDevice : public TTFRM::ITTComponent
+	class ITTDevice
 	{
 		friend class CXFSWindow;
 
@@ -36,10 +37,9 @@ namespace TTDevice
 		int							m_iIndex{ 0 };
 		std::mutex					m_PushMutex{};
 
-		std::shared_ptr<XFSWrapper::IXFSWrapper>
-									m_pXFS{ nullptr };
-		std::shared_ptr<XFSWindow::IXFSWindow>
-									m_pXFSWIND{ nullptr };
+		LPXFSWRAPPER                m_pXFS{ __N_XFSWRAPPER__::CreateXFSWrapper() };
+		LPXFSWINDOW                 m_pXFSWIND{ __N_XFSWINDOW__::CreateXFSWindow() };
+        
 		int							m_iXFSWindowRegisteredFunctionIndex{ 0 };
 
 		std::pair<unsigned int, std::string>
@@ -52,9 +52,6 @@ namespace TTDevice
 		HSERVICE					m_hs{ NULL };
 
 		std::string					m_szLogicName{};
-		NDEVICEUID					m_DeviceUID{ 0 };
-
-		NOVAGLOBALS::TTXFSVER		m_eXFSVersion{ NOVAGLOBALS::TTXFSVER::NXFS };
 
 		void						SetDeviceLastError(HRESULT hr, std::string str) noexcept { this->m_pairLastError = std::make_pair(hr, str); }
 

@@ -1,5 +1,5 @@
 
-#include "./CXFSWindow.h"
+#include "CXFSWindow.hpp"
 
 #include <memory>
 
@@ -11,8 +11,8 @@ namespace __N_XFSWINDOW__
 			return false;
 
         __N_CPPMSGWND__::CPPMSGWND_INIT l_init{};
-		l_init.window_class.assign("NOVA_XFS_WINDOW_CLASS");
-		l_init.window_name.assign("NOVA_XFS_WINDOW_NAME");
+		l_init.window_class.assign("CPPDEVICE_WINDOW_CLASS");
+		l_init.window_name.assign("CPPDEVICE_WINDOW_NAME");
 
 		if (!this->m_pMSGWND->Initialize(l_init))
 			return false;

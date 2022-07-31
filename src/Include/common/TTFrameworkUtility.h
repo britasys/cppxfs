@@ -19,8 +19,6 @@
 
 #include "TTFRM_macro.h"
 
-#include "../TTLogger/CODE/ITTLogger.h"
-
 #undef max
 
 #define SAFERELEASE(lpp)							TTFRMU::SafeRelease(lpp);
