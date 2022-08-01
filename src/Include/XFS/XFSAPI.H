@@ -67,72 +67,73 @@ typedef XFSBLOCKINGHOOK *           LPXFSBLOCKINGHOOK;
 /****** Data Structures *************************************************/
 typedef struct _wfs_result
 {
-REQUESTID   RequestID;
-HSERVICE    hService;
-SYSTEMTIME  tsTimestamp;
-HRESULT     hResult;
-union {
-    DWORD   dwCommandCode;
-    DWORD   dwEventID;
-} u;
-LPVOID      lpBuffer;
+    REQUESTID       RequestID;
+    HSERVICE        hService;
+    SYSTEMTIME      tsTimestamp;
+    HRESULT         hResult;
+    union {
+        DWORD       dwCommandCode;
+        DWORD       dwEventID;
+    } u;
+    LPVOID          lpBuffer;
 } WFSRESULT, * LPWFSRESULT;
 
 typedef struct _wfsversion
 {
-WORD        wVersion;
-WORD        wLowVersion;
-WORD        wHighVersion;
-CHAR        szDescription[WFSDDESCRIPTION_LEN + 1];
-CHAR        szSystemStatus[WFSDSYSSTATUS_LEN + 1];
+    WORD            wVersion;
+    WORD            wLowVersion;
+    WORD            wHighVersion;
+    CHAR            szDescription[WFSDDESCRIPTION_LEN + 1];
+    CHAR            szSystemStatus[WFSDSYSSTATUS_LEN + 1];
 } WFSVERSION, * LPWFSVERSION;
 
 /****** Message Structures **********************************************/
 typedef struct _wfs_devstatus
 {
-LPSTR       lpszPhysicalName;
-LPSTR       lpszWorkstationName;
-DWORD       dwState;
+    LPSTR           lpszPhysicalName;
+    LPSTR           lpszWorkstationName;
+    DWORD           dwState;
 } WFSDEVSTATUS, * LPWFSDEVSTATUS;
 
 typedef struct _wfs_undevmsg
 {
-LPSTR       lpszLogicalName;
-LPSTR       lpszWorkstationName;
-LPSTR       lpszAppID;
-DWORD       dwSize;
-LPBYTE      lpbDescription;
-DWORD       dwMsg;
-LPWFSRESULT lpWFSResult;
+    LPSTR           lpszLogicalName;
+    LPSTR           lpszWorkstationName;
+    LPSTR           lpszAppID;
+    DWORD           dwSize;
+    LPBYTE          lpbDescription;
+    DWORD           dwMsg;
+    LPWFSRESULT     lpWFSResult;
 } WFSUNDEVMSG, * LPWFSUNDEVMSG;
 
 typedef struct _wfs_appdisc
 {
-LPSTR           lpszLogicalName;
-LPSTR           lpszWorkstationName;
-LPSTR           lpszAppID;
+    LPSTR           lpszLogicalName;
+    LPSTR           lpszWorkstationName;
+    LPSTR           lpszAppID;
 } WFSAPPDISC, * LPWFSAPPDISC;
 
 typedef struct _wfs_hwerror
 {
-LPSTR           lpszLogicalName;
-LPSTR           lpszPhysicalName;
-LPSTR           lpszWorkstationName;
-LPSTR           lpszAppID;
-DWORD           dwAction;
-DWORD           dwSize;
-LPBYTE lpbDescription;
+    LPSTR           lpszLogicalName;
+    LPSTR           lpszPhysicalName;
+    LPSTR           lpszWorkstationName;
+    LPSTR           lpszAppID;
+    DWORD           dwAction;
+    DWORD           dwSize;
+    LPBYTE lpbDescription;
 } WFSHWERROR, * LPWFSHWERROR;
 
 typedef struct _wfs_vrsnerror
 {
-LPSTR           lpszLogicalName;
-LPSTR           lpszWorkstationName;
-LPSTR           lpszAppID;
-DWORD           dwSize;
-LPBYTE          lpbDescription;
-LPWFSVERSION    lpWFSVersion;
+    LPSTR           lpszLogicalName;
+    LPSTR           lpszWorkstationName;
+    LPSTR           lpszAppID;
+    DWORD           dwSize;
+    LPBYTE          lpbDescription;
+    LPWFSVERSION    lpWFSVersion;
 } WFSVRSNERROR, * LPWFSVRSNERROR;
+
 /****** Error codes ******************************************************/
 #define WFS_SUCCESS                     (0)
 #define WFS_ERR_ALREADY_STARTED         (-1)

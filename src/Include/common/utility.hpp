@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef TTFRAMEWORKUTILITY_H
-#define TTFRAMEWORKUTILITY_H
+#ifndef __H_UTILITY__
+#define __H_UTILITY__
 
 #include <memory>
 #include <Windows.h>
@@ -17,31 +17,29 @@
 #include <sstream>
 #include <limits>
 
-#include "TTFRM_macro.h"
-
 #undef max
 
-#define SAFERELEASE(lpp)							TTFRMU::SafeRelease(lpp);
-#define SAFEFREEMEMORY(lpp)							TTFRMU::SafeFreeMemory(lpp);
+#define SAFERELEASE(lpp)							__N_UTILITY__::SafeRelease(lpp);
+#define SAFEFREEMEMORY(lpp)							__N_UTILITY__::SafeFreeMemory(lpp);
 
-#define SAFEALLOCCOPYMEMORY(lppDest, lpSrc, Size)	TTFRMU::SafeAllocCopyMemory(lppDest, lpSrc, Size);
-#define SAFEALLOCCOPYMEMORY_N(lppDest, lpSrc, Size)	TTFRMU::SafeAllocCopyMemory_N(lppDest, lpSrc, Size);
-#define SAFEALLOCCOPYSTRING(lppDest, lpSrc)			TTFRMU::SafeAllocCopyString(lppDest, lpSrc);
-#define SAFECOPYMEMORY(lpDest, lpSrc, Size)			TTFRMU::SafeCopyMemory(lpDest, lpSrc, Size);
-#define SAFECOPYMEMORY_N(lpDest, lpSrc, Size)		TTFRMU::SafeCopyMemory_N(lpDest, lpSrc, Size);
-#define SAFECOPYSTRING(lpDest, lpSrc)				TTFRMU::SafeCopyString(lpDest, lpSrc);
-#define SAFEPTR(lp)									if (TTFRMU::CheckPointer(lp))
-#define UNSAFEPTR(lp)								if (!TTFRMU::CheckPointer(lp))
+#define SAFEALLOCCOPYMEMORY(lppDest, lpSrc, Size)	__N_UTILITY__::SafeAllocCopyMemory(lppDest, lpSrc, Size);
+#define SAFEALLOCCOPYMEMORY_N(lppDest, lpSrc, Size)	__N_UTILITY__::SafeAllocCopyMemory_N(lppDest, lpSrc, Size);
+#define SAFEALLOCCOPYSTRING(lppDest, lpSrc)			__N_UTILITY__::SafeAllocCopyString(lppDest, lpSrc);
+#define SAFECOPYMEMORY(lpDest, lpSrc, Size)			__N_UTILITY__::SafeCopyMemory(lpDest, lpSrc, Size);
+#define SAFECOPYMEMORY_N(lpDest, lpSrc, Size)		__N_UTILITY__::SafeCopyMemory_N(lpDest, lpSrc, Size);
+#define SAFECOPYSTRING(lpDest, lpSrc)				__N_UTILITY__::SafeCopyString(lpDest, lpSrc);
+#define SAFEPTR(lp)									if (__N_UTILITY__::CheckPointer(lp))
+#define UNSAFEPTR(lp)								if (!__N_UTILITY__::CheckPointer(lp))
 
 #define ELSE										else
 
-#define ASSERTSAFEPTR(str, ptr)						UNSAFEPTR(ptr) { ERRORLOG("%s", str); return false; }
-#define ASSERTSAFEPTR_VOID(str, ptr)				UNSAFEPTR(ptr) { ERRORLOG("%s", str); return; }
+#define ASSERTSAFEPTR(str, ptr)						UNSAFEPTR(ptr) { return false; }
+#define ASSERTSAFEPTR_VOID(str, ptr)				UNSAFEPTR(ptr) { return; }
 
-#define MAKESTRING(lpstr, len)						TTFRMU::MakeString(lpstr, len)
-#define MAKESTRING(wstr)							TTFRMU::MakeString(wstr)
+#define MAKESTRING(lpstr, len)						__N_UTILITY__::MakeString(lpstr, len)
+#define MAKESTRING(wstr)							__N_UTILITY__::MakeString(wstr)
 
-namespace TTFRMU
+namespace __N_UTILITY__
 {
 	/************************************************************************/
 	/**********************ExceptionFilter Functions*************************/
@@ -50,15 +48,9 @@ namespace TTFRMU
 	static int ExceptionFilter(unsigned int code, struct _EXCEPTION_POINTERS* ep)
 	{
 		if (code == EXCEPTION_ACCESS_VIOLATION)
-		{
-			ERRORLOG("caught AV as expected.");
 			return EXCEPTION_EXECUTE_HANDLER;
-		}
 		else
-		{
-			ERRORLOG("didn't catch AV, unexpected.");
 			return EXCEPTION_CONTINUE_SEARCH;
-		}
 	}
 
 	/************************************************************************/
@@ -143,6 +135,7 @@ namespace TTFRMU
 	{
 		UNSAFEPTR(lpp)
 			return;
+            
 		UNSAFEPTR(*lpp)
 			return;
 
@@ -152,7 +145,7 @@ namespace TTFRMU
 		}
 		__except (ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 		{
-			ERRORLOG("SafeRelease - Exception deleting _obj");
+            return;
 		}
 
 		*lpp = NULL;
@@ -183,7 +176,7 @@ namespace TTFRMU
 			}
 			__except (ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 			{
-				ERRORLOG("SafeCopyMemory - EXCEPTION occurred while trying to Copy Memory");
+                return;
 			}
 		}
 	}
@@ -218,7 +211,7 @@ namespace TTFRMU
 		}
 		__except (ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 		{
-			ERRORLOG("SafeAllocCopyMemory - EXCEPTION occurred while trying to push_back");
+            return;
 		}
 	}
 
@@ -246,7 +239,7 @@ namespace TTFRMU
 		}
 		__except (ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 		{
-			ERRORLOG("SafeCopyString - EXCEPTION occurred while trying to copy string");
+            return;
 		}
 	}
 
@@ -269,7 +262,6 @@ namespace TTFRMU
 		}
 		__except (ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 		{
-			ERRORLOG("SafeAllocCopyMemory - EXCEPTION occurred while trying to calloc");
 			return;
 		}
 
@@ -297,7 +289,6 @@ namespace TTFRMU
 		}
 		__except (ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 		{
-			ERRORLOG("SafeAllocCopyMemory_N - EXCEPTION occurred while trying to calloc");
 			return;
 		}
 
@@ -316,7 +307,7 @@ namespace TTFRMU
 		::CopyMemory(*lppszDestination, strSource.c_str(), strSource.length());
 	}
 
-	inline void SafeAllocCopyString(BYTE** lppDestination, const std::string& strSource)
+	inline void SafeAllocCopyString(LPBYTE* lppDestination, const std::string& strSource)
 	{
 		SafeAllocCopyString((char**)lppDestination, strSource);
 	}
@@ -333,7 +324,7 @@ namespace TTFRMU
 		::CopyMemory(*lppwszDestination, wstrSource.c_str(), (wstrSource.length() + 1) * sizeof(wchar_t));
 	}
 
-	inline void SafeAllocCopyString(BYTE** lppszDestination, const std::wstring& wstrSource)
+	inline void SafeAllocCopyString(LPBYTE* lppszDestination, const std::wstring& wstrSource)
 	{
 		SafeAllocCopyString((wchar_t**)lppszDestination, wstrSource);
 	}
@@ -343,6 +334,7 @@ namespace TTFRMU
 	{
 		UNSAFEPTR(lppDestination)
 			return;
+            
 		UNSAFEPTR(*lppDestination)
 			return;
 
@@ -352,7 +344,7 @@ namespace TTFRMU
 		}
 		__except (ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 		{
-			ERRORLOG("SafeFreeMemory - EXCEPTION occurred while trying to free Memory");
+            return;
 		}
 		*lppDestination = NULL;
 	}
@@ -401,7 +393,7 @@ namespace TTFRMU
 		}
 		__except(ExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
 		{
-			ERRORLOG("CopyArray2vector - EXCEPTION occurred while trying to copy");
+            return;
 		}
 	}
 
@@ -622,6 +614,6 @@ namespace TTFRMU
 
 		return T_RandomNumber;
 	}
-}
+} // !__N_UTILITY__
 
-#endif // !TTFRAMEWORKUTILITY_H
+#endif // !__H_UTILITY__

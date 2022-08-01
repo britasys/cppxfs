@@ -31,6 +31,10 @@ add_library(${PROJECT_NAME} SHARED APP_SOURCE_FILES)
 target_compile_definitions(${PROJECT_NAME} PRIVATE CPPCONNECT_EXPORTS)
 target_include_directories(${PROJECT_NAME} PRIVATE ${APP_INCLUDE_DIR}
                                            PRIVATE ${APP_SOURCE_DIR}
+                                           PRIVATE ${APP_SOURCE_DIR}/Include/common/
+                                           PRIVATE ${APP_SOURCE_DIR}/Include/XFS/
+                                           PRIVATE ${APP_SOURCE_DIR}/Include/XFS_W/
+                                           PRIVATE ${APP_SOURCE_DIR}/Include/NXFS/
                                            PRIVATE ${APP_MODULES_DIR}/cppmsgwnd/inc/)
 
 # samples
