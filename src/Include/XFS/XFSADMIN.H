@@ -1,10 +1,10 @@
 /******************************************************************************
-* *
-* xfsadmin.h XFS-Administration and Support functions *
-* *
-* Version 3.30 (March 19 2015) *
-* *
-******************************************************************************/
+*                                                                             *
+* xfsadmin.h XFS-Administration and Support functions                         *
+*                                                                             *
+* Version 3.30 (March 19 2015)                                                *
+*                                                                             *
+*******************************************************************************/
 
 #ifndef __INC_XFSADMIN__H
 #define __INC_XFSADMIN__H
