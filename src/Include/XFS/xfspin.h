@@ -1254,11 +1254,11 @@ typedef struct _wfs_pin_synchronize_command
 /*=================================================================*/
 /* PIN Message Structures */
 /*=================================================================*/
+typedef struct _wfs_pin_access
 {
     LPSTR lpsKeyName;
     LONG lErrorCode;
-}
-WFSPINACCESS, *LPWFSPINACCESS;
+} WFSPINACCESS, *LPWFSPINACCESS;
 
 typedef struct _wfs_pin_device_position
 {
