@@ -19,152 +19,152 @@ extern "C" {
 #pragma pack(push,1)
 
 /* Value of WFSIPMCAPS.wClass */
-#define WFS_SERVICE_CLASS_IPM (16)
-#define WFS_SERVICE_CLASS_VERSION_IPM (0x1E03) /* Version 3.30 */
-#define WFS_SERVICE_CLASS_NAME_IPM "IPM"
-#define IPM_SERVICE_OFFSET (WFS_SERVICE_CLASS_IPM * 100)
+#define WFS_SERVICE_CLASS_IPM                               (16)
+#define WFS_SERVICE_CLASS_VERSION_IPM                       (0x1E03) /* Version 3.30 */
+#define WFS_SERVICE_CLASS_NAME_IPM                          "IPM"
+#define IPM_SERVICE_OFFSET                                  (WFS_SERVICE_CLASS_IPM * 100)
 
 /* IPM Info Commands */
-#define WFS_INF_IPM_STATUS (IPM_SERVICE_OFFSET + 1)
-#define WFS_INF_IPM_CAPABILITIES (IPM_SERVICE_OFFSET + 2)
-#define WFS_INF_IPM_CODELINE_MAPPING (IPM_SERVICE_OFFSET + 3)
-#define WFS_INF_IPM_MEDIA_BIN_INFO (IPM_SERVICE_OFFSET + 4)
-#define WFS_INF_IPM_TRANSACTION_STATUS (IPM_SERVICE_OFFSET + 5)
-#define WFS_INF_IPM_MEDIA_BIN_CAPABILITIES (IPM_SERVICE_OFFSET + 6)
+#define WFS_INF_IPM_STATUS                                  (IPM_SERVICE_OFFSET + 1)
+#define WFS_INF_IPM_CAPABILITIES                            (IPM_SERVICE_OFFSET + 2)
+#define WFS_INF_IPM_CODELINE_MAPPING                        (IPM_SERVICE_OFFSET + 3)
+#define WFS_INF_IPM_MEDIA_BIN_INFO                          (IPM_SERVICE_OFFSET + 4)
+#define WFS_INF_IPM_TRANSACTION_STATUS                      (IPM_SERVICE_OFFSET + 5)
+#define WFS_INF_IPM_MEDIA_BIN_CAPABILITIES                  (IPM_SERVICE_OFFSET + 6)
 
 /* IPM Execute Commands */
-#define WFS_CMD_IPM_MEDIA_IN (IPM_SERVICE_OFFSET + 1)
-#define WFS_CMD_IPM_MEDIA_IN_END (IPM_SERVICE_OFFSET + 2)
-#define WFS_CMD_IPM_MEDIA_IN_ROLLBACK (IPM_SERVICE_OFFSET + 3)
-#define WFS_CMD_IPM_READ_IMAGE (IPM_SERVICE_OFFSET + 4)
-#define WFS_CMD_IPM_SET_DESTINATION (IPM_SERVICE_OFFSET + 5)
-#define WFS_CMD_IPM_PRESENT_MEDIA (IPM_SERVICE_OFFSET + 6)
-#define WFS_CMD_IPM_RETRACT_MEDIA (IPM_SERVICE_OFFSET + 7)
-#define WFS_CMD_IPM_PRINT_TEXT (IPM_SERVICE_OFFSET + 8)
-#define WFS_CMD_IPM_SET_MEDIA_BIN_INFO (IPM_SERVICE_OFFSET + 9)
-#define WFS_CMD_IPM_RESET (IPM_SERVICE_OFFSET + 10)
-#define WFS_CMD_IPM_SET_GUIDANCE_LIGHT (IPM_SERVICE_OFFSET + 11)
-#define WFS_CMD_IPM_GET_NEXT_ITEM (IPM_SERVICE_OFFSET + 12)
-#define WFS_CMD_IPM_ACTION_ITEM (IPM_SERVICE_OFFSET + 13)
-#define WFS_CMD_IPM_EXPEL_MEDIA (IPM_SERVICE_OFFSET + 14)
-#define WFS_CMD_IPM_GET_IMAGE_AFTER_PRINT (IPM_SERVICE_OFFSET + 15)
-#define WFS_CMD_IPM_ACCEPT_ITEM (IPM_SERVICE_OFFSET + 16)
-#define WFS_CMD_IPM_SUPPLY_REPLENISH (IPM_SERVICE_OFFSET + 17)
-#define WFS_CMD_IPM_POWER_SAVE_CONTROL (IPM_SERVICE_OFFSET + 18)
-#define WFS_CMD_IPM_SET_MODE (IPM_SERVICE_OFFSET + 19)
-#define WFS_CMD_IPM_SYNCHRONIZE_COMMAND (IPM_SERVICE_OFFSET + 20)
+#define WFS_CMD_IPM_MEDIA_IN                                (IPM_SERVICE_OFFSET + 1)
+#define WFS_CMD_IPM_MEDIA_IN_END                            (IPM_SERVICE_OFFSET + 2)
+#define WFS_CMD_IPM_MEDIA_IN_ROLLBACK                       (IPM_SERVICE_OFFSET + 3)
+#define WFS_CMD_IPM_READ_IMAGE                              (IPM_SERVICE_OFFSET + 4)
+#define WFS_CMD_IPM_SET_DESTINATION                         (IPM_SERVICE_OFFSET + 5)
+#define WFS_CMD_IPM_PRESENT_MEDIA                           (IPM_SERVICE_OFFSET + 6)
+#define WFS_CMD_IPM_RETRACT_MEDIA                           (IPM_SERVICE_OFFSET + 7)
+#define WFS_CMD_IPM_PRINT_TEXT                              (IPM_SERVICE_OFFSET + 8)
+#define WFS_CMD_IPM_SET_MEDIA_BIN_INFO                      (IPM_SERVICE_OFFSET + 9)
+#define WFS_CMD_IPM_RESET                                   (IPM_SERVICE_OFFSET + 10)
+#define WFS_CMD_IPM_SET_GUIDANCE_LIGHT                      (IPM_SERVICE_OFFSET + 11)
+#define WFS_CMD_IPM_GET_NEXT_ITEM                           (IPM_SERVICE_OFFSET + 12)
+#define WFS_CMD_IPM_ACTION_ITEM                             (IPM_SERVICE_OFFSET + 13)
+#define WFS_CMD_IPM_EXPEL_MEDIA                             (IPM_SERVICE_OFFSET + 14)
+#define WFS_CMD_IPM_GET_IMAGE_AFTER_PRINT                   (IPM_SERVICE_OFFSET + 15)
+#define WFS_CMD_IPM_ACCEPT_ITEM                             (IPM_SERVICE_OFFSET + 16)
+#define WFS_CMD_IPM_SUPPLY_REPLENISH                        (IPM_SERVICE_OFFSET + 17)
+#define WFS_CMD_IPM_POWER_SAVE_CONTROL                      (IPM_SERVICE_OFFSET + 18)
+#define WFS_CMD_IPM_SET_MODE                                (IPM_SERVICE_OFFSET + 19)
+#define WFS_CMD_IPM_SYNCHRONIZE_COMMAND                     (IPM_SERVICE_OFFSET + 20)
 
 /* IPM Messages */
-#define WFS_EXEE_IPM_NOMEDIA (IPM_SERVICE_OFFSET + 1)
-#define WFS_EXEE_IPM_MEDIAINSERTED (IPM_SERVICE_OFFSET + 2)
-#define WFS_USRE_IPM_MEDIABINTHRESHOLD (IPM_SERVICE_OFFSET + 3)
-#define WFS_SRVE_IPM_MEDIABININFOCHANGED (IPM_SERVICE_OFFSET + 4)
-#define WFS_EXEE_IPM_MEDIABINERROR (IPM_SERVICE_OFFSET + 5)
-#define WFS_SRVE_IPM_MEDIATAKEN (IPM_SERVICE_OFFSET + 6)
-#define WFS_USRE_IPM_TONERTHRESHOLD (IPM_SERVICE_OFFSET + 7)
-#define WFS_USRE_IPM_SCANNERTHRESHOLD (IPM_SERVICE_OFFSET + 8)
-#define WFS_USRE_IPM_INKTHRESHOLD (IPM_SERVICE_OFFSET + 9)
-#define WFS_SRVE_IPM_MEDIADETECTED (IPM_SERVICE_OFFSET + 10)
-#define WFS_EXEE_IPM_MEDIAPRESENTED (IPM_SERVICE_OFFSET + 11)
-#define WFS_EXEE_IPM_MEDIAREFUSED (IPM_SERVICE_OFFSET + 12)
-#define WFS_EXEE_IPM_MEDIADATA (IPM_SERVICE_OFFSET + 13)
-#define WFS_USRE_IPM_MICRTHRESHOLD (IPM_SERVICE_OFFSET + 14)
-#define WFS_EXEE_IPM_MEDIAREJECTED (IPM_SERVICE_OFFSET + 15)
-#define WFS_SRVE_IPM_DEVICEPOSITION (IPM_SERVICE_OFFSET + 16)
-#define WFS_SRVE_IPM_POWER_SAVE_CHANGE (IPM_SERVICE_OFFSET + 17)
-#define WFS_SRVE_IPM_SHUTTERSTATUSCHANGED (IPM_SERVICE_OFFSET + 18)
+#define WFS_EXEE_IPM_NOMEDIA                                (IPM_SERVICE_OFFSET + 1)
+#define WFS_EXEE_IPM_MEDIAINSERTED                          (IPM_SERVICE_OFFSET + 2)
+#define WFS_USRE_IPM_MEDIABINTHRESHOLD                      (IPM_SERVICE_OFFSET + 3)
+#define WFS_SRVE_IPM_MEDIABININFOCHANGED                    (IPM_SERVICE_OFFSET + 4)
+#define WFS_EXEE_IPM_MEDIABINERROR                          (IPM_SERVICE_OFFSET + 5)
+#define WFS_SRVE_IPM_MEDIATAKEN                             (IPM_SERVICE_OFFSET + 6)
+#define WFS_USRE_IPM_TONERTHRESHOLD                         (IPM_SERVICE_OFFSET + 7)
+#define WFS_USRE_IPM_SCANNERTHRESHOLD                       (IPM_SERVICE_OFFSET + 8)
+#define WFS_USRE_IPM_INKTHRESHOLD                           (IPM_SERVICE_OFFSET + 9)
+#define WFS_SRVE_IPM_MEDIADETECTED                          (IPM_SERVICE_OFFSET + 10)
+#define WFS_EXEE_IPM_MEDIAPRESENTED                         (IPM_SERVICE_OFFSET + 11)
+#define WFS_EXEE_IPM_MEDIAREFUSED                           (IPM_SERVICE_OFFSET + 12)
+#define WFS_EXEE_IPM_MEDIADATA                              (IPM_SERVICE_OFFSET + 13)
+#define WFS_USRE_IPM_MICRTHRESHOLD                          (IPM_SERVICE_OFFSET + 14)
+#define WFS_EXEE_IPM_MEDIAREJECTED                          (IPM_SERVICE_OFFSET + 15)
+#define WFS_SRVE_IPM_DEVICEPOSITION                         (IPM_SERVICE_OFFSET + 16)
+#define WFS_SRVE_IPM_POWER_SAVE_CHANGE                      (IPM_SERVICE_OFFSET + 17)
+#define WFS_SRVE_IPM_SHUTTERSTATUSCHANGED                   (IPM_SERVICE_OFFSET + 18)
 
 /* Values of WFSIPMSTATUS.fwDevice */
-#define WFS_IPM_DEVONLINE WFS_STAT_DEVONLINE
-#define WFS_IPM_DEVOFFLINE WFS_STAT_DEVOFFLINE
-#define WFS_IPM_DEVPOWEROFF WFS_STAT_DEVPOWEROFF
-#define WFS_IPM_DEVNODEVICE WFS_STAT_DEVNODEVICE
-#define WFS_IPM_DEVHWERROR WFS_STAT_DEVHWERROR
-#define WFS_IPM_DEVUSERERROR WFS_STAT_DEVUSERERROR
-#define WFS_IPM_DEVBUSY WFS_STAT_DEVBUSY
-#define WFS_IPM_DEVFRAUDATTEMPT WFS_STAT_DEVFRAUDATTEMPT
-#define WFS_IPM_DEVPOTENTIALFRAUD WFS_STAT_DEVPOTENTIALFRAUD
+#define WFS_IPM_DEVONLINE                                   WFS_STAT_DEVONLINE
+#define WFS_IPM_DEVOFFLINE                                  WFS_STAT_DEVOFFLINE
+#define WFS_IPM_DEVPOWEROFF                                 WFS_STAT_DEVPOWEROFF
+#define WFS_IPM_DEVNODEVICE                                 WFS_STAT_DEVNODEVICE
+#define WFS_IPM_DEVHWERROR                                  WFS_STAT_DEVHWERROR
+#define WFS_IPM_DEVUSERERROR                                WFS_STAT_DEVUSERERROR
+#define WFS_IPM_DEVBUSY                                     WFS_STAT_DEVBUSY
+#define WFS_IPM_DEVFRAUDATTEMPT                             WFS_STAT_DEVFRAUDATTEMPT
+#define WFS_IPM_DEVPOTENTIALFRAUD                           WFS_STAT_DEVPOTENTIALFRAUD
 
 /* Values of WFSIPMSTATUS.wAcceptor */
-#define WFS_IPM_ACCBINOK (0)
-#define WFS_IPM_ACCBINSTATE (1)
-#define WFS_IPM_ACCBINSTOP (2)
-#define WFS_IPM_ACCBINUNKNOWN (3)
+#define WFS_IPM_ACCBINOK                                    (0)
+#define WFS_IPM_ACCBINSTATE                                 (1)
+#define WFS_IPM_ACCBINSTOP                                  (2)
+#define WFS_IPM_ACCBINUNKNOWN                               (3)
 
 /* Values of WFSIPMSTATUS.wMedia and
 WFSIPMMEDIADETECTED.wPosition */
-#define WFS_IPM_MEDIAPRESENT (0)
-#define WFS_IPM_MEDIANOTPRESENT (1)
-#define WFS_IPM_MEDIAJAMMED (2)
-#define WFS_IPM_MEDIANOTSUPP (3)
-#define WFS_IPM_MEDIAUNKNOWN (4)
-#define WFS_IPM_MEDIAPOSITION (5)
-#define WFS_IPM_MEDIARETRACTED (6)
-#define WFS_IPM_MEDIARETURNED (7)
+#define WFS_IPM_MEDIAPRESENT                                (0)
+#define WFS_IPM_MEDIANOTPRESENT                             (1)
+#define WFS_IPM_MEDIAJAMMED                                 (2)
+#define WFS_IPM_MEDIANOTSUPP                                (3)
+#define WFS_IPM_MEDIAUNKNOWN                                (4)
+#define WFS_IPM_MEDIAPOSITION                               (5)
+#define WFS_IPM_MEDIARETRACTED                              (6)
+#define WFS_IPM_MEDIARETURNED                               (7)
 
 /* Values of WFSIPMSTATUS.wToner and
 WFSIPMTHRESHOLD.wThreshold */
-#define WFS_IPM_TONERFULL (0)
-#define WFS_IPM_TONERLOW (1)
-#define WFS_IPM_TONEROUT (2)
-#define WFS_IPM_TONERNOTSUPP (3)
-#define WFS_IPM_TONERUNKNOWN (4)
+#define WFS_IPM_TONERFULL                                   (0)
+#define WFS_IPM_TONERLOW                                    (1)
+#define WFS_IPM_TONEROUT                                    (2)
+#define WFS_IPM_TONERNOTSUPP                                (3)
+#define WFS_IPM_TONERUNKNOWN                                (4)
 
 /* Values of WFSIPMSTATUS.wInk and
 WFSIPMTHRESHOLD.wThreshold */
-#define WFS_IPM_INKFULL (0)
-#define WFS_IPM_INKLOW (1)
-#define WFS_IPM_INKOUT (2)
-#define WFS_IPM_INKNOTSUPP (3)
-#define WFS_IPM_INKUNKNOWN (4)
+#define WFS_IPM_INKFULL                                     (0)
+#define WFS_IPM_INKLOW                                      (1)
+#define WFS_IPM_INKOUT                                      (2)
+#define WFS_IPM_INKNOTSUPP                                  (3)
+#define WFS_IPM_INKUNKNOWN                                  (4)
 
 /* Values of WFSIPMSTATUS.wFrontImageScanner,
 WFSIPMSTATUS.wBackImageScanner and
 WFSIPMSCANNERTHRESHOLD.wThreshold */
-#define WFS_IPM_SCANNEROK (0)
-#define WFS_IPM_SCANNERFADING (1)
-#define WFS_IPM_SCANNERINOP (2)
-#define WFS_IPM_SCANNERNOTSUPP (3)
-#define WFS_IPM_SCANNERUNKNOWN (4)
+#define WFS_IPM_SCANNEROK                                   (0)
+#define WFS_IPM_SCANNERFADING                               (1)
+#define WFS_IPM_SCANNERINOP                                 (2)
+#define WFS_IPM_SCANNERNOTSUPP                              (3)
+#define WFS_IPM_SCANNERUNKNOWN                              (4)
 
 /* Values of WFSIPMSTATUS.wMICRReader and
 WFSIPMTHRESHOLD.wThreshold */
-#define WFS_IPM_MICROK (0)
-#define WFS_IPM_MICRFADING (1)
-#define WFS_IPM_MICRINOP (2)
-#define WFS_IPM_MICRNOTSUPP (3)
-#define WFS_IPM_MICRUNKNOWN (4)
+#define WFS_IPM_MICROK                                      (0)
+#define WFS_IPM_MICRFADING                                  (1)
+#define WFS_IPM_MICRINOP                                    (2)
+#define WFS_IPM_MICRNOTSUPP                                 (3)
+#define WFS_IPM_MICRUNKNOWN                                 (4)
 
 /* Values of WFSIPMSTATUS.wStacker */
-#define WFS_IPM_STACKEREMPTY (0)
-#define WFS_IPM_STACKERNOTEMPTY (1)
-#define WFS_IPM_STACKERFULL (2)
-#define WFS_IPM_STACKERINOP (3)
-#define WFS_IPM_STACKERUNKNOWN (4)
-#define WFS_IPM_STACKERNOTSUPP (5)
+#define WFS_IPM_STACKEREMPTY                                (0)
+#define WFS_IPM_STACKERNOTEMPTY                             (1)
+#define WFS_IPM_STACKERFULL                                 (2)
+#define WFS_IPM_STACKERINOP                                 (3)
+#define WFS_IPM_STACKERUNKNOWN                              (4)
+#define WFS_IPM_STACKERNOTSUPP                              (5)
 
 /* Values of WFSIPMSTATUS.wReBuncher */
-#define WFS_IPM_REBUNCHEREMPTY (0)
-#define WFS_IPM_REBUNCHERNOTEMPTY (1)
-#define WFS_IPM_REBUNCHERFULL (2)
-#define WFS_IPM_REBUNCHERINOP (3)
-#define WFS_IPM_REBUNCHERUNKNOWN (4)
-#define WFS_IPM_REBUNCHERNOTSUPP (5)
+#define WFS_IPM_REBUNCHEREMPTY                              (0)
+#define WFS_IPM_REBUNCHERNOTEMPTY                           (1)
+#define WFS_IPM_REBUNCHERFULL                               (2)
+#define WFS_IPM_REBUNCHERINOP                               (3)
+#define WFS_IPM_REBUNCHERUNKNOWN                            (4)
+#define WFS_IPM_REBUNCHERNOTSUPP                            (5)
 
 /* Values of WFSIPMSTATUS.wMediaFeeder and
 WFSIPMMEDIAIN.wMediaFeeder*/
-#define WFS_IPM_FEEDEREMPTY (0)
-#define WFS_IPM_FEEDERNOTEMPTY (1)
-#define WFS_IPM_FEEDERINOP (2)
-#define WFS_IPM_FEEDERUNKNOWN (3)
-#define WFS_IPM_FEEDERNOTSUPP (4)
+#define WFS_IPM_FEEDEREMPTY                                 (0)
+#define WFS_IPM_FEEDERNOTEMPTY                              (1)
+#define WFS_IPM_FEEDERINOP                                  (2)
+#define WFS_IPM_FEEDERUNKNOWN                               (3)
+#define WFS_IPM_FEEDERNOTSUPP                               (4)
 
 /* Values of WFSIPMSTATUS.wDevicePosition and
 WFSIPMDEVICEPOSITION.wPosition */
-#define WFS_IPM_DEVICEINPOSITION (0)
-#define WFS_IPM_DEVICENOTINPOSITION (1)
-#define WFS_IPM_DEVICEPOSUNKNOWN (2)
-#define WFS_IPM_DEVICEPOSNOTSUPP (3)
+#define WFS_IPM_DEVICEINPOSITION                            (0)
+#define WFS_IPM_DEVICENOTINPOSITION                         (1)
+#define WFS_IPM_DEVICEPOSUNKNOWN                            (2)
+#define WFS_IPM_DEVICEPOSNOTSUPP                            (3)
 
 /* Values of WFSIPMTRANSSTATUS.usMediaOnStacker,
 WFSIPMTRANSSTATUS.usLastMediaInTotal,
@@ -176,122 +176,122 @@ WFSIPMMEDIAIN.usMediaOnStacker,
 WFSIPMMEDIAIN.usLastMedia,
 WFSIPMMEDIAIN.usLastMediaOnStacker and
 WFSIPMRETRACTMEDIAOUT.usMedia */
-#define WFS_IPM_MEDIANUMBERUNKNOWN (0xFFFF)
+#define WFS_IPM_MEDIANUMBERUNKNOWN                          (0xFFFF)
 
 /* Indices for WFSIPMSTATUS.lppPositions and
 WFSIPMCAPS.lppPositions,
 Values of WFSIPMPOSITION.wPosition and
 WFSIPMMEDIAPRESENTED.wPosition */
-#define WFS_IPM_POSINPUT (0)
-#define WFS_IPM_POSOUTPUT (1)
-#define WFS_IPM_POSREFUSED (2)
+#define WFS_IPM_POSINPUT                                    (0)
+#define WFS_IPM_POSOUTPUT                                   (1)
+#define WFS_IPM_POSREFUSED                                  (2)
 
 /* Values of WFSIPMPOS.wShutter */
-#define WFS_IPM_SHTCLOSED (0)
-#define WFS_IPM_SHTOPEN (1)
-#define WFS_IPM_SHTJAMMED (2)
-#define WFS_IPM_SHTUNKNOWN (3)
-#define WFS_IPM_SHTNOTSUPPORTED (4)
+#define WFS_IPM_SHTCLOSED                                   (0)
+#define WFS_IPM_SHTOPEN                                     (1)
+#define WFS_IPM_SHTJAMMED                                   (2)
+#define WFS_IPM_SHTUNKNOWN                                  (3)
+#define WFS_IPM_SHTNOTSUPPORTED                             (4)
 
 /* Values of WFSIPMCAPS.wMixedMode */
-#define WFS_IPM_MIXEDMEDIANOTSUPP (0)
-#define WFS_IPM_CIMMIXEDMEDIA (1)
+#define WFS_IPM_MIXEDMEDIANOTSUPP                           (0)
+#define WFS_IPM_CIMMIXEDMEDIA                               (1)
 
 /* Values of WFSIPMSETMODE.wMixedMode and
 WFSIPMSTATUS.wMixedMode */
-#define WFS_IPM_MIXEDMEDIANOTACTIVE (0)
+#define WFS_IPM_MIXEDMEDIANOTACTIVE                         (0)
 
 /* Values of WFSIPMPOS.wPositionStatus */
-#define WFS_IPM_PSEMPTY (0)
-#define WFS_IPM_PSNOTEMPTY (1)
-#define WFS_IPM_PSUNKNOWN (2)
-#define WFS_IPM_PSNOTSUPPORTED (3)
+#define WFS_IPM_PSEMPTY                                     (0)
+#define WFS_IPM_PSNOTEMPTY                                  (1)
+#define WFS_IPM_PSUNKNOWN                                   (2)
+#define WFS_IPM_PSNOTSUPPORTED                              (3)
 
 /* Values of WFSIPMPOS.wTransport */
-#define WFS_IPM_TPOK (0)
-#define WFS_IPM_TPINOP (1)
-#define WFS_IPM_TPUNKNOWN (2)
-#define WFS_IPM_TPNOTSUPPORTED (3)
+#define WFS_IPM_TPOK                                        (0)
+#define WFS_IPM_TPINOP                                      (1)
+#define WFS_IPM_TPUNKNOWN                                   (2)
+#define WFS_IPM_TPNOTSUPPORTED                              (3)
 
 /* Values of WFSIPMPOS.wTransportMediaStatus */
-#define WFS_IPM_TPMEDIAEMPTY (0)
-#define WFS_IPM_TPMEDIANOTEMPTY (1)
-#define WFS_IPM_TPMEDIAUNKNOWN (2)
-#define WFS_IPM_TPMEDIANOTSUPPORTED (3)
+#define WFS_IPM_TPMEDIAEMPTY                                (0)
+#define WFS_IPM_TPMEDIANOTEMPTY                             (1)
+#define WFS_IPM_TPMEDIAUNKNOWN                              (2)
+#define WFS_IPM_TPMEDIANOTSUPPORTED                         (3)
 
 /* values of WFSIPMPOS.fwJammedShutterPosition */
-#define WFS_IPM_SHUTTERPOS_NOTSUPPORTED (0)
-#define WFS_IPM_SHUTTERPOS_NOTJAMMED (1)
-#define WFS_IPM_SHUTTERPOS_OPEN (2)
-#define WFS_IPM_SHUTTERPOS_PARTIALLY_OPEN (3)
-#define WFS_IPM_SHUTTERPOS_CLOSED (4)
-#define WFS_IPM_SHUTTERPOS_UNKNOWN (5)
+#define WFS_IPM_SHUTTERPOS_NOTSUPPORTED                     (0)
+#define WFS_IPM_SHUTTERPOS_NOTJAMMED                        (1)
+#define WFS_IPM_SHUTTERPOS_OPEN                             (2)
+#define WFS_IPM_SHUTTERPOS_PARTIALLY_OPEN                   (3)
+#define WFS_IPM_SHUTTERPOS_CLOSED                           (4)
+#define WFS_IPM_SHUTTERPOS_UNKNOWN                          (5)
 
 /* Size and max index of dwGuidLights array */
-#define WFS_IPM_GUIDLIGHTS_SIZE (32)
-#define WFS_IPM_GUIDLIGHTS_MAX (WFS_IPM_GUIDLIGHTS_SIZE - 1)
+#define WFS_IPM_GUIDLIGHTS_SIZE                             (32)
+#define WFS_IPM_GUIDLIGHTS_MAX                              (WFS_IPM_GUIDLIGHTS_SIZE - 1)
 
 /* Indices of WFSIPMSTATUS.dwGuidLights [...] and
 WFSIPMCAPS.dwGuidLights [...] and
 Values of WFSIPMSETGUIDLIGHT.wGuidLight */
-#define WFS_IPM_GUIDANCE_MEDIAIN (0)
-#define WFS_IPM_GUIDANCE_MEDIAOUT (1)
-#define WFS_IPM_GUIDANCE_MEDIAREFUSED (2)
+#define WFS_IPM_GUIDANCE_MEDIAIN                            (0)
+#define WFS_IPM_GUIDANCE_MEDIAOUT                           (1)
+#define WFS_IPM_GUIDANCE_MEDIAREFUSED                       (2)
 
 /* Values of WFSIPMSTATUS.dwGuidLights [...],
 WFSIPMCAPS.dwGuidLights [...] and
 WFSIPMSETGUIDLIGHT.dwCommand */
-#define WFS_IPM_GUIDANCE_NOT_AVAILABLE (0x00000000)
-#define WFS_IPM_GUIDANCE_OFF (0x00000001)
-#define WFS_IPM_GUIDANCE_SLOW_FLASH (0x00000004)
-#define WFS_IPM_GUIDANCE_MEDIUM_FLASH (0x00000008)
-#define WFS_IPM_GUIDANCE_QUICK_FLASH (0x00000010)
-#define WFS_IPM_GUIDANCE_CONTINUOUS (0x00000080)
-#define WFS_IPM_GUIDANCE_RED (0x00000100)
-#define WFS_IPM_GUIDANCE_GREEN (0x00000200)
-#define WFS_IPM_GUIDANCE_YELLOW (0x00000400)
-#define WFS_IPM_GUIDANCE_BLUE (0x00000800)
-#define WFS_IPM_GUIDANCE_CYAN (0x00001000)
-#define WFS_IPM_GUIDANCE_MAGENTA (0x00002000)
-#define WFS_IPM_GUIDANCE_WHITE (0x00004000)
-#define WFS_IPM_GUIDANCE_ENTRY (0x00100000)
-#define WFS_IPM_GUIDANCE_EXIT (0x00200000)
+#define WFS_IPM_GUIDANCE_NOT_AVAILABLE                      (0x00000000)
+#define WFS_IPM_GUIDANCE_OFF                                (0x00000001)
+#define WFS_IPM_GUIDANCE_SLOW_FLASH                         (0x00000004)
+#define WFS_IPM_GUIDANCE_MEDIUM_FLASH                       (0x00000008)
+#define WFS_IPM_GUIDANCE_QUICK_FLASH                        (0x00000010)
+#define WFS_IPM_GUIDANCE_CONTINUOUS                         (0x00000080)
+#define WFS_IPM_GUIDANCE_RED                                (0x00000100)
+#define WFS_IPM_GUIDANCE_GREEN                              (0x00000200)
+#define WFS_IPM_GUIDANCE_YELLOW                             (0x00000400)
+#define WFS_IPM_GUIDANCE_BLUE                               (0x00000800)
+#define WFS_IPM_GUIDANCE_CYAN                               (0x00001000)
+#define WFS_IPM_GUIDANCE_MAGENTA                            (0x00002000)
+#define WFS_IPM_GUIDANCE_WHITE                              (0x00004000)
+#define WFS_IPM_GUIDANCE_ENTRY                              (0x00100000)
+#define WFS_IPM_GUIDANCE_EXIT                               (0x00200000)
 
 /* Values of WFSIPMCAPS.fwType */
-#define WFS_IPM_TYPESINGLEMEDIAINPUT (0x0001)
-#define WFS_IPM_TYPEBUNCHMEDIAINPUT (0x0002)
+#define WFS_IPM_TYPESINGLEMEDIAINPUT                        (0x0001)
+#define WFS_IPM_TYPEBUNCHMEDIAINPUT                         (0x0002)
 
 /* Values of WFSIPMCAPS.fwRetractLocation,
 WFSIPMPOSCAPS.fwRetractAreas,
 WFSIPMRETRACTMEDIA.wRetractLocation and
 WFSIPMRETRACTMEDIAOUT.wRetractLocation */
-#define WFS_IPM_CTRLRETRACTTOBIN (0x0001)
-#define WFS_IPM_CTRLRETRACTTOTRANSPORT (0x0002)
-#define WFS_IPM_CTRLRETRACTTOSTACKER (0x0004)
-#define WFS_IPM_CTRLRETRACTTOREBUNCHER (0x0008)
+#define WFS_IPM_CTRLRETRACTTOBIN                            (0x0001)
+#define WFS_IPM_CTRLRETRACTTOTRANSPORT                      (0x0002)
+#define WFS_IPM_CTRLRETRACTTOSTACKER                        (0x0004)
+#define WFS_IPM_CTRLRETRACTTOREBUNCHER                      (0x0008)
 
 /* Values of WFSIPMCAPS.fwResetControl and
 WFSIPMRESET.wMediaControl */
-#define WFS_IPM_RESETEJECT (0x0001)
-#define WFS_IPM_RESETRETRACTTOBIN (0x0002)
-#define WFS_IPM_RESETRETRACTTOTRANSPORT (0x0004)
-#define WFS_IPM_RESETRETRACTTOREBUNCHER (0x0008)
+#define WFS_IPM_RESETEJECT                                  (0x0001)
+#define WFS_IPM_RESETRETRACTTOBIN                           (0x0002)
+#define WFS_IPM_RESETRETRACTTOTRANSPORT                     (0x0004)
+#define WFS_IPM_RESETRETRACTTOREBUNCHER                     (0x0008)
 
 /* Values of WFSIPMCAPS.fwImageType,
 WFSIPMIMAGEREQUEST.wImageType and
 WFSIPMIMAGEDATA.wImageType */
-#define WFS_IPM_IMAGETIF (0x0001)
-#define WFS_IPM_IMAGEWMF (0x0002)
-#define WFS_IPM_IMAGEBMP (0x0004)
-#define WFS_IPM_IMAGEJPG (0x0008)
+#define WFS_IPM_IMAGETIF                                    (0x0001)
+#define WFS_IPM_IMAGEWMF                                    (0x0002)
+#define WFS_IPM_IMAGEBMP                                    (0x0004)
+#define WFS_IPM_IMAGEJPG                                    (0x0008)
 
 /* Values of WFSIPMCAPS.fwFrontImageColorFormat,
 WFSIPMCAPS.fwBackImageColorFormat,
 WFSIPMIMAGEREQUEST.wImageColorFormat and
 WFSIPMIMAGEDATA.wImageColorFormat */
-#define WFS_IPM_IMAGECOLORBINARY (0x0001)
-#define WFS_IPM_IMAGECOLORGRAYSCALE (0x0002)
-#define WFS_IPM_IMAGECOLORFULL (0x0004)
+#define WFS_IPM_IMAGECOLORBINARY                            (0x0001)
+#define WFS_IPM_IMAGECOLORGRAYSCALE                         (0x0002)
+#define WFS_IPM_IMAGECOLORFULL                              (0x0004)
 
 /* Values of WFSIPMCAPS.fwFrontScanColor,
 WFSIPMCAPS.fwBackScanColor,
@@ -299,198 +299,198 @@ WFSIPMCAPS.wDefaultFrontScanColor,
 WFSIPMCAPS.wDefaultBackScanColor,
 WFSIPMIMAGEREQUEST.wImageScanColor and
 WFSIPMIMAGEDATA.wImageScanColor */
-#define WFS_IPM_SCANCOLORDEFAULT (0x0000)
-#define WFS_IPM_SCANCOLORRED (0x0001)
-#define WFS_IPM_SCANCOLORBLUE (0x0002)
-#define WFS_IPM_SCANCOLORGREEN (0x0004)
-#define WFS_IPM_SCANCOLORYELLOW (0x0008)
-#define WFS_IPM_SCANCOLORWHITE (0x0010)
+#define WFS_IPM_SCANCOLORDEFAULT                            (0x0000)
+#define WFS_IPM_SCANCOLORRED                                (0x0001)
+#define WFS_IPM_SCANCOLORBLUE                               (0x0002)
+#define WFS_IPM_SCANCOLORGREEN                              (0x0004)
+#define WFS_IPM_SCANCOLORYELLOW                             (0x0008)
+#define WFS_IPM_SCANCOLORWHITE                              (0x0010)
 
 /* Values of WFSIPMCAPS.fwCodelineFormat,
 WFSIPMCODELINEMAPPING.wCodelineFormat,
 WFSIPMCODELINEMAPPINGOUT.wCodelineFormat,
 WFSIPMMEDIAINREQUEST.wCodelineFormat and
 WFSIPMREADIMAGEIN.wCodelineFomat */
-#define WFS_IPM_CODELINECMC7 (0x0001)
-#define WFS_IPM_CODELINEE13B (0x0002)
-#define WFS_IPM_CODELINEOCR (0x0004)
-#define WFS_IPM_CODELINEOCRA (0x0008)
-#define WFS_IPM_CODELINEOCRB (0x0010)
+#define WFS_IPM_CODELINECMC7                                (0x0001)
+#define WFS_IPM_CODELINEE13B                                (0x0002)
+#define WFS_IPM_CODELINEOCR                                 (0x0004)
+#define WFS_IPM_CODELINEOCRA                                (0x0008)
+#define WFS_IPM_CODELINEOCRB                                (0x0010)
 
 /* Values of WFSIPMCAPS.fwDataSource,
 WFSIPMIMAGEREQUEST.wImageSource and
 WFSIPMIMAGEDATA.wImageSource */
-#define WFS_IPM_IMAGEFRONT (0x0001)
-#define WFS_IPM_IMAGEBACK (0x0002)
-#define WFS_IPM_CODELINE (0x0004)
+#define WFS_IPM_IMAGEFRONT                                  (0x0001)
+#define WFS_IPM_IMAGEBACK                                   (0x0002)
+#define WFS_IPM_CODELINE                                    (0x0004)
 
 /* Values of WFSIPMCAPS.fwReturnedItemsProcessing */
-#define WFS_IPM_RETITEMENDORSE (0x0001)
-#define WFS_IPM_RETITEMENDORSEIMAGE (0x0002)
+#define WFS_IPM_RETITEMENDORSE                              (0x0001)
+#define WFS_IPM_RETITEMENDORSEIMAGE                         (0x0002)
 
 /* Values of WFSIPMMEDIABIN.fwType */
-#define WFS_IPM_TYPEMEDIAIN (0x0001)
-#define WFS_IPM_TYPERETRACT (0x0002)
+#define WFS_IPM_TYPEMEDIAIN                                 (0x0001)
+#define WFS_IPM_TYPERETRACT                                 (0x0002)
 
 /* Values of WFSIPMMEDIABIN.wMediaType */
 #define WFS_IPM_MEDIATYPIPM (0x0001)
 #define WFS_IPM_MEDIATYPCOMPOUND (0x0002)
 
 /* Values of WFSIPMMEDIABIN.usStatus */
-#define WFS_IPM_STATMBOK (1)
-#define WFS_IPM_STATMBFULL (2)
-#define WFS_IPM_STATMBHIGH (3)
-#define WFS_IPM_STATMBINOP (4)
-#define WFS_IPM_STATMBMISSING (5)
-#define WFS_IPM_STATMBUNKNOWN (6)
-#define WFS_IPM_STATMBEMPTY (7)
+#define WFS_IPM_STATMBOK                                    (1)
+#define WFS_IPM_STATMBFULL                                  (2)
+#define WFS_IPM_STATMBHIGH                                  (3)
+#define WFS_IPM_STATMBINOP                                  (4)
+#define WFS_IPM_STATMBMISSING                               (5)
+#define WFS_IPM_STATMBUNKNOWN                               (6)
+#define WFS_IPM_STATMBEMPTY                                 (7)
 
 /* Values of WFSIPMTRANSSTATUS.wMediaInTransaction */
-#define WFS_IPM_MITOK (0)
-#define WFS_IPM_MITACTIVE (1)
-#define WFS_IPM_MITROLLBACK (2)
-#define WFS_IPM_MITROLLBACKAFTERDEPOSIT (3)
-#define WFS_IPM_MITRETRACT (4)
-#define WFS_IPM_MITFAILURE (5)
-#define WFS_IPM_MITUNKNOWN (6)
-#define WFS_IPM_MITRESET (7)
+#define WFS_IPM_MITOK                                       (0)
+#define WFS_IPM_MITACTIVE                                   (1)
+#define WFS_IPM_MITROLLBACK                                 (2)
+#define WFS_IPM_MITROLLBACKAFTERDEPOSIT                     (3)
+#define WFS_IPM_MITRETRACT                                  (4)
+#define WFS_IPM_MITFAILURE                                  (5)
+#define WFS_IPM_MITUNKNOWN                                  (6)
+#define WFS_IPM_MITRESET                                    (7)
 
 /* Values of WFSIPMMEDIASTATUS.wMediaLocation */
-#define WFS_IPM_LOCATION_DEVICE (0)
-#define WFS_IPM_LOCATION_BIN (1)
-#define WFS_IPM_LOCATION_CUSTOMER (2)
-#define WFS_IPM_LOCATION_UNKNOWN (3)
+#define WFS_IPM_LOCATION_DEVICE                             (0)
+#define WFS_IPM_LOCATION_BIN                                (1)
+#define WFS_IPM_LOCATION_CUSTOMER                           (2)
+#define WFS_IPM_LOCATION_UNKNOWN                            (3)
 
 /* Values of WFSIPMMEDIASTATUS.wCustomerAccess */
-#define WFS_IPM_ACCESSUNKNOWN (0)
-#define WFS_IPM_ACCESSCUSTOMER (1)
-#define WFS_IPM_ACCESSNONE (2)
+#define WFS_IPM_ACCESSUNKNOWN                               (0)
+#define WFS_IPM_ACCESSCUSTOMER                              (1)
+#define WFS_IPM_ACCESSNONE                                  (2)
 
 /* Values of WFSIPMIMAGEDATA.wImageStatus */
-#define WFS_IPM_DATAOK (0)
-#define WFS_IPM_DATASRCNOTSUPP (1)
-#define WFS_IPM_DATASRCMISSING (2)
+#define WFS_IPM_DATAOK                                      (0)
+#define WFS_IPM_DATASRCNOTSUPP                              (1)
+#define WFS_IPM_DATASRCMISSING                              (2)
 
 /* Values of WFSIPMMEDIASTATUS.wMagneticReadIndicator and
 WFSIPMMEDIADATA.wMagneticReadIndicator */
-#define WFS_IPM_MRI_MICR (0)
-#define WFS_IPM_MRI_NOT_MICR (1)
-#define WFS_IPM_MRI_NO_MICR (2)
-#define WFS_IPM_MRI_UNKNOWN (3)
-#define WFS_IPM_MRI_NOTMICRFORMAT (4)
-#define WFS_IPM_MRI_NOT_READ (5)
+#define WFS_IPM_MRI_MICR                                    (0)
+#define WFS_IPM_MRI_NOT_MICR                                (1)
+#define WFS_IPM_MRI_NO_MICR                                 (2)
+#define WFS_IPM_MRI_UNKNOWN                                 (3)
+#define WFS_IPM_MRI_NOTMICRFORMAT                           (4)
+#define WFS_IPM_MRI_NOT_READ                                (5)
 
 /* Values of WFSIPMCAPS.fwInsertOrientation,
 WFSIPMMEDIASTATUS.fwInsertOrientation and
 WFSIPMMEDIADATA.fwInsertOrientation */
-#define WFS_IPM_INSUNKNOWN (0x0000)
-#define WFS_IPM_INSCODELINERIGHT (0x0001)
-#define WFS_IPM_INSCODELINELEFT (0x0002)
-#define WFS_IPM_INSCODELINEBOTTOM (0x0004)
-#define WFS_IPM_INSCODELINETOP (0x0008)
-#define WFS_IPM_INSFACEUP (0x0010)
-#define WFS_IPM_INSFACEDOWN (0x0020)
+#define WFS_IPM_INSUNKNOWN                                  (0x0000)
+#define WFS_IPM_INSCODELINERIGHT                            (0x0001)
+#define WFS_IPM_INSCODELINELEFT                             (0x0002)
+#define WFS_IPM_INSCODELINEBOTTOM                           (0x0004)
+#define WFS_IPM_INSCODELINETOP                              (0x0008)
+#define WFS_IPM_INSFACEUP                                   (0x0010)
+#define WFS_IPM_INSFACEDOWN                                 (0x0020)
 
 /* Values of WFSIPMMEDIASTATUS.wMediaValidity and
 WFSIPMMEDIADATA.wMediaValidity */
-#define WFS_IPM_ITEMOK (0)
-#define WFS_IPM_ITEMSUSPECT (1)
-#define WFS_IPM_ITEMUNKNOWN (2)
-#define WFS_IPM_ITEMNOVALIDATION (3)
+#define WFS_IPM_ITEMOK                                      (0)
+#define WFS_IPM_ITEMSUSPECT                                 (1)
+#define WFS_IPM_ITEMUNKNOWN                                 (2)
+#define WFS_IPM_ITEMNOVALIDATION                            (3)
 
 /* Values of WFSIPMSUPPLYREPLEN.fwSupplyReplen */
-#define WFS_IPM_REPLEN_TONER (0x0001)
-#define WFS_IPM_REPLEN_INK (0x0002)
+#define WFS_IPM_REPLEN_TONER                                (0x0001)
+#define WFS_IPM_REPLEN_INK                                  (0x0002)
 
 /* Values of WFSIPMMEDIAREFUSED.wReason */
-#define WFS_IPM_REFUSED_FOREIGNITEMS (1)
-#define WFS_IPM_REFUSED_STACKERFULL (2)
-#define WFS_IPM_REFUSED_CODELINEINVALID (3)
-#define WFS_IPM_REFUSED_INVALIDMEDIA (4)
-#define WFS_IPM_REFUSED_TOOLONG (5)
-#define WFS_IPM_REFUSED_TOOSHORT (6)
-#define WFS_IPM_REFUSED_TOOWIDE (7)
-#define WFS_IPM_REFUSED_TOONARROW (8)
-#define WFS_IPM_REFUSED_TOOTHICK (9)
-#define WFS_IPM_REFUSED_INVALIDORIENTATION (10)
-#define WFS_IPM_REFUSED_DOUBLEDETECT (11)
-#define WFS_IPM_REFUSED_REFUSEPOSFULL (12)
-#define WFS_IPM_REFUSED_RETURNBLOCKED (13)
-#define WFS_IPM_REFUSED_INVALIDBUNCH (14)
-#define WFS_IPM_REFUSED_OTHERITEM (15)
-#define WFS_IPM_REFUSED_OTHERBUNCH (16)
-#define WFS_IPM_REFUSED_JAMMING (17)
-#define WFS_IPM_REFUSED_METAL (18)
+#define WFS_IPM_REFUSED_FOREIGNITEMS                        (1)
+#define WFS_IPM_REFUSED_STACKERFULL                         (2)
+#define WFS_IPM_REFUSED_CODELINEINVALID                     (3)
+#define WFS_IPM_REFUSED_INVALIDMEDIA                        (4)
+#define WFS_IPM_REFUSED_TOOLONG                             (5)
+#define WFS_IPM_REFUSED_TOOSHORT                            (6)
+#define WFS_IPM_REFUSED_TOOWIDE                             (7)
+#define WFS_IPM_REFUSED_TOONARROW                           (8)
+#define WFS_IPM_REFUSED_TOOTHICK                            (9)
+#define WFS_IPM_REFUSED_INVALIDORIENTATION                  (10)
+#define WFS_IPM_REFUSED_DOUBLEDETECT                        (11)
+#define WFS_IPM_REFUSED_REFUSEPOSFULL                       (12)
+#define WFS_IPM_REFUSED_RETURNBLOCKED                       (13)
+#define WFS_IPM_REFUSED_INVALIDBUNCH                        (14)
+#define WFS_IPM_REFUSED_OTHERITEM                           (15)
+#define WFS_IPM_REFUSED_OTHERBUNCH                          (16)
+#define WFS_IPM_REFUSED_JAMMING                             (17)
+#define WFS_IPM_REFUSED_METAL                               (18)
 
 /* Values of WFSIPMMEDIAREFUSED.wMediaLocation and
 WFSIPMPRESENTMEDIA.wPosition */
-#define WFS_IPM_REFUSE_INPUT (1)
-#define WFS_IPM_REFUSE_REFUSED (2)
-#define WFS_IPM_REFUSE_REBUNCHER (3)
-#define WFS_IPM_REFUSE_STACKER (4)
+#define WFS_IPM_REFUSE_INPUT                                (1)
+#define WFS_IPM_REFUSE_REFUSED                              (2)
+#define WFS_IPM_REFUSE_REBUNCHER                            (3)
+#define WFS_IPM_REFUSE_STACKER                              (4)
 
 /* Values of WFSIPMMBERROR.wFailure */
-#define WFS_IPM_MEDIABINJAMMED (1)
-#define WFS_IPM_MEDIABINERROR (2)
-#define WFS_IPM_MEDIABINFULL (3)
-#define WFS_IPM_MEDIABINNOTCONF (4)
-#define WFS_IPM_MEDIABININVALID (5)
-#define WFS_IPM_MEDIABINCONFIG (6)
-#define WFS_IPM_MEDIABINFEEDPROBLEM (7)
+#define WFS_IPM_MEDIABINJAMMED                              (1)
+#define WFS_IPM_MEDIABINERROR                               (2)
+#define WFS_IPM_MEDIABINFULL                                (3)
+#define WFS_IPM_MEDIABINNOTCONF                             (4)
+#define WFS_IPM_MEDIABININVALID                             (5)
+#define WFS_IPM_MEDIABINCONFIG                              (6)
+#define WFS_IPM_MEDIABINFEEDPROBLEM                         (7)
 
 /* Values of WFSIPMMEDIAREJECTED.wReason */
-#define WFS_IPM_REJECT_LONG (1)
-#define WFS_IPM_REJECT_THICK (2)
-#define WFS_IPM_REJECT_DOUBLE (3)
-#define WFS_IPM_REJECT_TRANSPORT (4)
-#define WFS_IPM_REJECT_SHUTTER (5)
-#define WFS_IPM_REJECT_REMOVED (6)
-#define WFS_IPM_REJECT_METAL (7)
-#define WFS_IPM_REJECT_FOREIGNITEMS (8)
-#define WFS_IPM_REJECT_OTHER (9)
+#define WFS_IPM_REJECT_LONG                                 (1)
+#define WFS_IPM_REJECT_THICK                                (2)
+#define WFS_IPM_REJECT_DOUBLE                               (3)
+#define WFS_IPM_REJECT_TRANSPORT                            (4)
+#define WFS_IPM_REJECT_SHUTTER                              (5)
+#define WFS_IPM_REJECT_REMOVED                              (6)
+#define WFS_IPM_REJECT_METAL                                (7)
+#define WFS_IPM_REJECT_FOREIGNITEMS                         (8)
+#define WFS_IPM_REJECT_OTHER                                (9)
 
 /* Values of WFSIPMSCANNERTHRESHOLD.wScanner */
-#define WFS_IPM_FRONTSCANNER (1)
-#define WFS_IPM_BACKSCANNER (2)
+#define WFS_IPM_FRONTSCANNER                                (1)
+#define WFS_IPM_BACKSCANNER                                 (2)
 
 /* Values of WFSIPMSTATUS.wAntiFraudModule */
-#define WFS_IPM_AFMNOTSUPP (0)
-#define WFS_IPM_AFMOK (1)
-#define WFS_IPM_AFMINOP (2)
-#define WFS_IPM_AFMDEVICEDETECTED (3)
-#define WFS_IPM_AFMUNKNOWN (4)
+#define WFS_IPM_AFMNOTSUPP                                  (0)
+#define WFS_IPM_AFMOK                                       (1)
+#define WFS_IPM_AFMINOP                                     (2)
+#define WFS_IPM_AFMDEVICEDETECTED                           (3)
+#define WFS_IPM_AFMUNKNOWN                                  (4)
 
 /* XFS IPM Errors */
-#define WFS_ERR_IPM_NOMEDIAPRESENT (-(IPM_SERVICE_OFFSET + 1))
-#define WFS_ERR_IPM_MEDIABINFULL (-(IPM_SERVICE_OFFSET + 2))
-#define WFS_ERR_IPM_STACKERFULL (-(IPM_SERVICE_OFFSET + 3))
-#define WFS_ERR_IPM_SHUTTERFAIL (-(IPM_SERVICE_OFFSET + 4))
-#define WFS_ERR_IPM_MEDIAJAMMED (-(IPM_SERVICE_OFFSET + 5))
-#define WFS_ERR_IPM_FILEIOERROR (-(IPM_SERVICE_OFFSET + 6))
-#define WFS_ERR_IPM_INKOUT (-(IPM_SERVICE_OFFSET + 7))
-#define WFS_ERR_IPM_TONEROUT (-(IPM_SERVICE_OFFSET + 8))
-#define WFS_ERR_IPM_SCANNERINOP (-(IPM_SERVICE_OFFSET + 9))
-#define WFS_ERR_IPM_MICRINOP (-(IPM_SERVICE_OFFSET + 10))
-#define WFS_ERR_IPM_SEQUENCEINVALID (-(IPM_SERVICE_OFFSET + 11))
-#define WFS_ERR_IPM_INVALID_PORT (-(IPM_SERVICE_OFFSET + 12))
-#define WFS_ERR_IPM_FOREIGNITEMSDETECTED (-(IPM_SERVICE_OFFSET + 13))
-#define WFS_ERR_IPM_INVALIDMEDIAID (-(IPM_SERVICE_OFFSET + 14))
-#define WFS_ERR_IPM_MEDIABINERROR (-(IPM_SERVICE_OFFSET + 15))
-#define WFS_ERR_IPM_POSITIONNOTEMPTY (-(IPM_SERVICE_OFFSET + 16))
-#define WFS_ERR_IPM_INVALIDBIN (-(IPM_SERVICE_OFFSET + 17))
-#define WFS_ERR_IPM_NOBIN (-(IPM_SERVICE_OFFSET + 18))
-#define WFS_ERR_IPM_REFUSEDITEMS (-(IPM_SERVICE_OFFSET + 19))
-#define WFS_ERR_IPM_ALLBINSFULL (-(IPM_SERVICE_OFFSET + 20))
-#define WFS_ERR_IPM_FEEDERNOTEMPTY (-(IPM_SERVICE_OFFSET + 21))
-#define WFS_ERR_IPM_MEDIAREJECTED (-(IPM_SERVICE_OFFSET + 22))
-#define WFS_ERR_IPM_FEEDERINOPERATIVE (-(IPM_SERVICE_OFFSET + 23))
-#define WFS_ERR_IPM_MEDIAPRESENT (-(IPM_SERVICE_OFFSET + 24))
-#define WFS_ERR_IPM_POWERSAVETOOSHORT (-(IPM_SERVICE_OFFSET + 25))
-#define WFS_ERR_IPM_POWERSAVEMEDIAPRESENT (-(IPM_SERVICE_OFFSET + 26))
-#define WFS_ERR_IPM_CASHINACTIVE (-(IPM_SERVICE_OFFSET + 27))
-#define WFS_ERR_IPM_MEDIAINACTIVE (-(IPM_SERVICE_OFFSET + 28))
-#define WFS_ERR_IPM_COMMANDUNSUPP (-(IPM_SERVICE_OFFSET + 29))
-#define WFS_ERR_IPM_SYNCHRONIZEUNSUPP (-(IPM_SERVICE_OFFSET + 30))
+#define WFS_ERR_IPM_NOMEDIAPRESENT                          (-(IPM_SERVICE_OFFSET + 1))
+#define WFS_ERR_IPM_MEDIABINFULL                            (-(IPM_SERVICE_OFFSET + 2))
+#define WFS_ERR_IPM_STACKERFULL                             (-(IPM_SERVICE_OFFSET + 3))
+#define WFS_ERR_IPM_SHUTTERFAIL                             (-(IPM_SERVICE_OFFSET + 4))
+#define WFS_ERR_IPM_MEDIAJAMMED                             (-(IPM_SERVICE_OFFSET + 5))
+#define WFS_ERR_IPM_FILEIOERROR                             (-(IPM_SERVICE_OFFSET + 6))
+#define WFS_ERR_IPM_INKOUT                                  (-(IPM_SERVICE_OFFSET + 7))
+#define WFS_ERR_IPM_TONEROUT                                (-(IPM_SERVICE_OFFSET + 8))
+#define WFS_ERR_IPM_SCANNERINOP                             (-(IPM_SERVICE_OFFSET + 9))
+#define WFS_ERR_IPM_MICRINOP                                (-(IPM_SERVICE_OFFSET + 10))
+#define WFS_ERR_IPM_SEQUENCEINVALID                         (-(IPM_SERVICE_OFFSET + 11))
+#define WFS_ERR_IPM_INVALID_PORT                            (-(IPM_SERVICE_OFFSET + 12))
+#define WFS_ERR_IPM_FOREIGNITEMSDETECTED                    (-(IPM_SERVICE_OFFSET + 13))
+#define WFS_ERR_IPM_INVALIDMEDIAID                          (-(IPM_SERVICE_OFFSET + 14))
+#define WFS_ERR_IPM_MEDIABINERROR                           (-(IPM_SERVICE_OFFSET + 15))
+#define WFS_ERR_IPM_POSITIONNOTEMPTY                        (-(IPM_SERVICE_OFFSET + 16))
+#define WFS_ERR_IPM_INVALIDBIN                              (-(IPM_SERVICE_OFFSET + 17))
+#define WFS_ERR_IPM_NOBIN                                   (-(IPM_SERVICE_OFFSET + 18))
+#define WFS_ERR_IPM_REFUSEDITEMS                            (-(IPM_SERVICE_OFFSET + 19))
+#define WFS_ERR_IPM_ALLBINSFULL                             (-(IPM_SERVICE_OFFSET + 20))
+#define WFS_ERR_IPM_FEEDERNOTEMPTY                          (-(IPM_SERVICE_OFFSET + 21))
+#define WFS_ERR_IPM_MEDIAREJECTED                           (-(IPM_SERVICE_OFFSET + 22))
+#define WFS_ERR_IPM_FEEDERINOPERATIVE                       (-(IPM_SERVICE_OFFSET + 23))
+#define WFS_ERR_IPM_MEDIAPRESENT                            (-(IPM_SERVICE_OFFSET + 24))
+#define WFS_ERR_IPM_POWERSAVETOOSHORT                       (-(IPM_SERVICE_OFFSET + 25))
+#define WFS_ERR_IPM_POWERSAVEMEDIAPRESENT                   (-(IPM_SERVICE_OFFSET + 26))
+#define WFS_ERR_IPM_CASHINACTIVE                            (-(IPM_SERVICE_OFFSET + 27))
+#define WFS_ERR_IPM_MEDIAINACTIVE                           (-(IPM_SERVICE_OFFSET + 28))
+#define WFS_ERR_IPM_COMMANDUNSUPP                           (-(IPM_SERVICE_OFFSET + 29))
+#define WFS_ERR_IPM_SYNCHRONIZEUNSUPP                       (-(IPM_SERVICE_OFFSET + 30))
 
 /*=================================================================*/
 /* IPM Info Command Structures */
