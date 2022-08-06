@@ -22,8 +22,8 @@ namespace __N_XFS_W__
         std::vector<std::string> extra{};
 
     public:
-        // clone
-        void clone(LPSTR lpszExtra) noexcept(false)
+        // init
+        void init(LPSTR lpszExtra) noexcept(false)
         {
             if (!lpszExtra) throw std::invalid_argument("lpszExtra is NULL");
 		    
@@ -62,7 +62,7 @@ namespace __N_XFS_W__
         _wfs_lpsz_extra_w(LPSTR lpstr) noexcept(false)
         {
             if (!lpstr) throw std::invalid_argument("lpstr is NULL");
-            this->clone(lpstr);
+            this->init(lpstr);
         }
 
         // destructor

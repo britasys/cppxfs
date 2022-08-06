@@ -14,7 +14,7 @@ TEST(_wfs_lpsz_extra_w, constructors)
 {
     char l_WFSLPSZExtra[] = { 'f', 'i', 'r', 's', 't', NULL, 's', 'e', 'c', 'o', 'n', 'd', NULL, NULL };
     __N_XFS_W__::WFSLPSZEXTRA_W l_WFSLPSZExtra_w{};
-    l_WFSLPSZExtra_w.clone(l_WFSLPSZExtra);
+    l_WFSLPSZExtra_w.init(l_WFSLPSZExtra);
     EXPECT_EQ(l_WFSLPSZExtra_w.size(), 2);
     EXPECT_EQ(l_WFSLPSZExtra_w[0], std::string{ "first" });
     EXPECT_EQ(l_WFSLPSZExtra_w[1], std::string{ "second" });

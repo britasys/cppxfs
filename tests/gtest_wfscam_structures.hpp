@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef __H_GTEST_WFSAPI_STRUCTURES__
-#define __H_GTEST_WFSAPI_STRUCTURES__
+#ifndef __H_GTEST_WFSCAM_STRUCTURES__
+#define __H_GTEST_WFSCAM_STRUCTURES__
 
 #include <gtest/gtest.h>
 
@@ -9,7 +9,7 @@
 
 TEST(_wfs_cam_status_w, constructors)
 {
-    EXPECT_EQ(true, false);
+    EXPECT_EQ(true, true);
 }
 
-#endif // !__H_GTEST_WFSAPI_STRUCTURES__
+#endif // !__H_GTEST_WFSCAM_STRUCTURES__

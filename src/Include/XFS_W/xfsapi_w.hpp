@@ -18,7 +18,7 @@ namespace __N_XFSAPI_W__
     /****** Data Structures *************************************************/
     typedef struct _wfs_result_w : public _wfs_result
     {
-        void clone(const _wfs_result& obj) noexcept
+        void init(const _wfs_result& obj) noexcept
         {
             this->RequestID             = obj.RequestID;
             this->hService              = obj.hService;
@@ -48,7 +48,7 @@ namespace __N_XFSAPI_W__
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSRESULT l_lpWFSResult   = static_cast<LPWFSRESULT>(lpBuffer);
-            this->clone(*l_lpWFSResult);
+            this->init(*l_lpWFSResult);
         }
 
         // destructor
@@ -69,8 +69,8 @@ namespace __N_XFSAPI_W__
 
     typedef struct _wfsversion_w : public _wfsversion
     {
-        // clone
-        void clone(const _wfsversion& obj) noexcept
+        // init
+        void init(const _wfsversion& obj) noexcept
         {
             this->wVersion              = obj.wVersion;
             this->wLowVersion           = obj.wLowVersion;
@@ -87,11 +87,11 @@ namespace __N_XFSAPI_W__
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSVERSION l_lpWFSVersion = static_cast<LPWFSVERSION>(lpBuffer);
-            _wfsversion_w::clone(*l_lpWFSVersion);
+            _wfsversion_w::init(*l_lpWFSVersion);
         }
 
         // copy constructor
-        _wfsversion_w(const _wfsversion_w& obj) { _wfsversion_w::clone(obj); }
+        _wfsversion_w(const _wfsversion_w& obj) { _wfsversion_w::init(obj); }
 
         // move constructor
         _wfsversion_w(_wfsversion_w&& obj)  : _wfsversion_w{ obj } {}
@@ -99,14 +99,14 @@ namespace __N_XFSAPI_W__
         // copy assignment
         _wfsversion_w& operator = (const _wfsversion_w& obj) 
         {
-            _wfsversion_w::clone(obj);
+            _wfsversion_w::init(obj);
             return *this;
         }
 
         // move assignment
         _wfsversion_w& operator = (_wfsversion_w&& obj) 
         {
-            _wfsversion_w::clone(obj);
+            _wfsversion_w::init(obj);
             return *this;
         }
 
@@ -128,8 +128,8 @@ namespace __N_XFSAPI_W__
     /****** Message Structures **********************************************/
     typedef struct _wfs_devstatus_w : public _wfs_devstatus
     {
-        // clone
-        void clone(const _wfs_devstatus& obj) noexcept
+        // init
+        void init(const _wfs_devstatus& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszPhysicalName, std::string{ obj.lpszPhysicalName });
             SAFEALLOCCOPYSTRING(&this->lpszWorkstationName, std::string{ obj.lpszWorkstationName });
@@ -144,11 +144,11 @@ namespace __N_XFSAPI_W__
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSDEVSTATUS l_lpWFSDevStatus = static_cast<LPWFSDEVSTATUS>(lpBuffer);
-            _wfs_devstatus_w::clone(*l_lpWFSDevStatus);
+            _wfs_devstatus_w::init(*l_lpWFSDevStatus);
         }
 
         // copy constructor
-        _wfs_devstatus_w(const _wfs_devstatus_w& obj) { _wfs_devstatus_w::clone(obj); }
+        _wfs_devstatus_w(const _wfs_devstatus_w& obj) { _wfs_devstatus_w::init(obj); }
 
         // move constructor
         _wfs_devstatus_w(_wfs_devstatus_w&& obj)  : _wfs_devstatus_w{ obj } {}
@@ -156,14 +156,14 @@ namespace __N_XFSAPI_W__
         // copy assignment
         _wfs_devstatus_w& operator = (const _wfs_devstatus_w& obj) 
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
         
         // move assignment
         _wfs_devstatus_w& operator = (_wfs_devstatus_w&& obj) 
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
@@ -186,8 +186,8 @@ namespace __N_XFSAPI_W__
 
     typedef struct _wfs_undevmsg_w : public _wfs_undevmsg
     {
-        // clone
-        void clone(const _wfs_undevmsg& obj) 
+        // init
+        void init(const _wfs_undevmsg& obj) 
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
             SAFEALLOCCOPYSTRING(&this->lpszWorkstationName, std::string{ obj.lpszWorkstationName });
@@ -206,11 +206,11 @@ namespace __N_XFSAPI_W__
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSUNDEVMSG l_lpWFSUNDEVMSG = static_cast<LPWFSUNDEVMSG>(lpBuffer);
-            _wfs_undevmsg_w::clone(*l_lpWFSUNDEVMSG);
+            _wfs_undevmsg_w::init(*l_lpWFSUNDEVMSG);
         }
 
         // copy constructor
-        _wfs_undevmsg_w(const _wfs_undevmsg_w& obj) { _wfs_undevmsg_w::clone(obj); }
+        _wfs_undevmsg_w(const _wfs_undevmsg_w& obj) { _wfs_undevmsg_w::init(obj); }
 
         // move constructor
         _wfs_undevmsg_w(_wfs_undevmsg_w&& obj)  : _wfs_undevmsg_w{ obj } {}
@@ -218,14 +218,14 @@ namespace __N_XFSAPI_W__
         // copy assignment
         _wfs_undevmsg_w& operator = (const _wfs_undevmsg_w& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
         // move assignment
         _wfs_undevmsg_w& operator = (_wfs_undevmsg_w&& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
@@ -255,8 +255,8 @@ namespace __N_XFSAPI_W__
 
     typedef struct _wfs_appdisc_w : public _wfs_appdisc
     {
-        // clone
-        void clone(const _wfs_appdisc& obj) noexcept
+        // init
+        void init(const _wfs_appdisc& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
             SAFEALLOCCOPYSTRING(&this->lpszWorkstationName, std::string{ obj.lpszWorkstationName });
@@ -271,11 +271,11 @@ namespace __N_XFSAPI_W__
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSAPPDISC l_lpWFSAPPDisc = static_cast<LPWFSAPPDISC>(lpBuffer);
-            this->clone(*l_lpWFSAPPDisc);
+            this->init(*l_lpWFSAPPDisc);
         }
 
         // copy constructor
-        _wfs_appdisc_w(const _wfs_appdisc_w& obj) { this->clone(obj); }
+        _wfs_appdisc_w(const _wfs_appdisc_w& obj) { this->init(obj); }
 
         // move constructor
         _wfs_appdisc_w(_wfs_appdisc_w&& obj)  : _wfs_appdisc_w{ obj } {}
@@ -283,14 +283,14 @@ namespace __N_XFSAPI_W__
         // copy assignment
         _wfs_appdisc_w& operator = (const _wfs_appdisc_w& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
         // move assignment
         _wfs_appdisc_w& operator = (_wfs_appdisc_w&& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
@@ -314,8 +314,8 @@ namespace __N_XFSAPI_W__
 
     typedef struct _wfs_hwerror_w : public _wfs_hwerror
     {
-        // clone
-        void clone(const _wfs_hwerror& obj) noexcept
+        // init
+        void init(const _wfs_hwerror& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
             SAFEALLOCCOPYSTRING(&this->lpszPhysicalName, std::string{ obj.lpszPhysicalName });
@@ -334,11 +334,11 @@ namespace __N_XFSAPI_W__
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSHWERROR l_lpWFSHWError = static_cast<LPWFSHWERROR>(lpBuffer);
-            this->clone(*l_lpWFSHWError);
+            this->init(*l_lpWFSHWError);
         }
 
         // copy constructor
-        _wfs_hwerror_w(const _wfs_hwerror_w& obj) { this->clone(obj); }
+        _wfs_hwerror_w(const _wfs_hwerror_w& obj) { this->init(obj); }
 
         // move constructor
         _wfs_hwerror_w(_wfs_hwerror_w&& obj)  : _wfs_hwerror_w{ obj } {}
@@ -346,14 +346,14 @@ namespace __N_XFSAPI_W__
         // copy assignment
         _wfs_hwerror_w& operator = (const _wfs_hwerror_w& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
         // move assignment
         _wfs_hwerror_w& operator = (_wfs_hwerror_w&& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
@@ -383,8 +383,8 @@ namespace __N_XFSAPI_W__
 
     typedef struct _wfs_vrsnerror_w : public _wfs_vrsnerror
     {
-        // clone
-        void clone(const _wfs_vrsnerror& obj) noexcept
+        // init
+        void init(const _wfs_vrsnerror& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
             SAFEALLOCCOPYSTRING(&this->lpszWorkstationName, std::string{ obj.lpszWorkstationName });
@@ -403,11 +403,11 @@ namespace __N_XFSAPI_W__
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSVRSNERROR l_lpWFSVRSNError = static_cast<LPWFSVRSNERROR>(lpBuffer);
-            this->clone(*l_lpWFSVRSNError);
+            this->init(*l_lpWFSVRSNError);
         }
 
         // copy constructor
-        _wfs_vrsnerror_w(const _wfs_vrsnerror_w& obj) { this->clone(obj); }
+        _wfs_vrsnerror_w(const _wfs_vrsnerror_w& obj) { this->init(obj); }
 
         // move constructor
         _wfs_vrsnerror_w(_wfs_vrsnerror_w&& obj) : _wfs_vrsnerror_w{ obj } {}
@@ -415,14 +415,14 @@ namespace __N_XFSAPI_W__
         // copy assignment
         _wfs_vrsnerror_w& operator = (const _wfs_vrsnerror_w& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
         // move assignment
         _wfs_vrsnerror_w& operator = (_wfs_vrsnerror_w&& obj)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
