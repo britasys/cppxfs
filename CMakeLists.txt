@@ -31,6 +31,13 @@ set(PROJECT_NAME cppdevice)
 
 file(GLOB_RECURSE APP_SOURCE_FILES ${APP_SOURCE_DIR}/*.cpp)
 
+set(APP_INCLUDE_DIRS ${APP_INCLUDE_DIR}
+                     ${APP_SOURCE_DIR}/common/
+                     ${APP_SOURCE_DIR}/xfs/
+                     ${APP_SOURCE_DIR}/xfs/common/xfs/
+                     ${APP_SOURCE_DIR}/xfs/common/xfs_w/
+                     ${APP_SOURCE_DIR}/xfs/xfsapi_w/)
+
 # project
 #project(${PROJECT_NAME} VERSION 1.0)
 #add_compile_options(
@@ -52,16 +59,16 @@ file(GLOB_RECURSE APP_SOURCE_FILES ${APP_SOURCE_DIR}/*.cpp)
 if(APP_BUILD_SAMPLES)
     set(SAMPLE_PROJECTS cppconnect_sample_1)
     foreach(SAMPLE_PROJECT ${SAMPLE_PROJECTS})
-            project(${SAMPLE_PROJECT} VERSION 1.0)
-            add_compile_options(
-                $<$<CONFIG:>:/MT>
-                $<$<CONFIG:Debug>:/MTd>
-                $<$<CONFIG:Release>:/MT>
-            )
-            add_executable(${SAMPLE_PROJECT} ${APP_SAMPLES_DIR}/${SAMPLE_PROJECT}.cpp)
-            target_include_directories(${SAMPLE_PROJECT} PRIVATE ${APP_INCLUDE_DIR})
-            target_link_directories(${SAMPLE_PROJECT} PRIVATE ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-            add_dependencies(${SAMPLE_PROJECT} ${PROJECT_NAME})
+        project(${SAMPLE_PROJECT} VERSION 1.0)
+        add_compile_options(
+            $<$<CONFIG:>:/MT>
+            $<$<CONFIG:Debug>:/MTd>
+            $<$<CONFIG:Release>:/MT>
+        )
+        add_executable(${SAMPLE_PROJECT} ${APP_SAMPLES_DIR}/${SAMPLE_PROJECT}.cpp)
+        target_include_directories(${SAMPLE_PROJECT} PRIVATE ${APP_INCLUDE_DIR})
+        target_link_directories(${SAMPLE_PROJECT} PRIVATE ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+        add_dependencies(${SAMPLE_PROJECT} ${PROJECT_NAME})
     endforeach()
 endif(APP_BUILD_SAMPLES)
 
@@ -69,20 +76,15 @@ endif(APP_BUILD_SAMPLES)
 if(APP_BUILD_TESTS)
     set(TEST_PROJECTS gtests)
     foreach(TEST_PROJECT ${TEST_PROJECTS})
-            project(${TEST_PROJECT} VERSION 1.0)
-            add_compile_options(
-                $<$<CONFIG:>:/MT>
-                $<$<CONFIG:Debug>:/MTd>
-                $<$<CONFIG:Release>:/MT>
-            )
-            add_executable(${TEST_PROJECT} ${APP_TESTS_DIR}/${TEST_PROJECT}.cpp)
-            target_link_directories(${TEST_PROJECT} PRIVATE ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-            target_include_directories(${PROJECT_NAME} PRIVATE ${APP_INCLUDE_DIR}
-                                                       PRIVATE ${APP_SOURCE_DIR}
-                                                       PRIVATE ${APP_SOURCE_DIR}/Include/common/
-                                                       PRIVATE ${APP_SOURCE_DIR}/Include/XFS/
-                                                       PRIVATE ${APP_SOURCE_DIR}/Include/XFS_W/
-                                                       PRIVATE ${APP_SOURCE_DIR}/Include/NXFS/
-                                                       PRIVATE ${APP_MODULES_DIR}/googletest/googletest/include/)
+        project(${TEST_PROJECT} VERSION 1.0)
+        add_compile_options(
+            $<$<CONFIG:>:/MT>
+            $<$<CONFIG:Debug>:/MTd>
+            $<$<CONFIG:Release>:/MT>
+        )
+        add_executable(${TEST_PROJECT} ${APP_TESTS_DIR}/${TEST_PROJECT}.cpp)
+        target_link_directories(${TEST_PROJECT} PRIVATE ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+        target_include_directories(${PROJECT_NAME} PRIVATE ${APP_INCLUDE_DIRS}
+                                                   PRIVATE ${APP_MODULES_DIR}/googletest/googletest/include/)
     endforeach()
 endif(APP_BUILD_TESTS)

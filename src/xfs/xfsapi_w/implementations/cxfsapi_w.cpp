@@ -1,12 +1,85 @@
 
-#include "CXFSWrapper.hpp"
+#include "cxfsapi_w.hpp"
 
-namespace __N_XFSWRAPPER__
+namespace __N_XFSAPI_W__
 {
-    #define ASSERTINITIALIZE if (!this->m_bInitialized) return WFS_ERR_NOT_STARTED;
-	#define ASSERTOPEN if (!hs) return WFS_ERR_CONNECTION_LOST;
+	#define ASSERTNOBLOCKING while (WFSIsBlocking()) ::Sleep(20);    
+        
+    HRESULT WFSStartUp(WFSSTARTUP_W&) const noexcept(false)
+    {
+		std::mutex				l_mutex;
+		std::condition_variable	l_cv;
+		HRESULT					l_ret{ WFS_ERR_INTERNAL_ERROR };
 
-	#define ASSERTNOBLOCKING while (WFSIsBlocking()) ::Sleep(20);
+		for (SIZE_T i = 0; i < XUP_LOOP; ++i)
+		{
+			std::thread _thread([init, &l_cv, &l_ret]()
+			{
+				l_ret = WFSStartUp(init.dwVersionRequired, init.lpWFSVersion);
+				l_cv.notify_one();
+			});
+
+			_thread.detach();
+
+			std::unique_lock<std::mutex> _unique_lock(l_mutex);
+			if (l_cv.wait_for(_unique_lock, std::chrono::seconds(3)) == std::cv_status::timeout)
+			{
+				if(XUP_LOOP != i)
+					continue;
+				else
+				{
+					this->m_strLastError.assign("FAILED to run WFSStartUp");
+					return false;
+				}
+			}
+
+			if (WFS_SUCCESS != l_ret)
+			{
+                std::stringstream l_stream{};
+                l_stream << "WFSStartUp FAILD with error code: " << DESCRIBE_XFS_ERROR(l_ret);
+				this->m_strLastError.assign(l_stream.str());
+				return false;
+			}
+			else
+				break;
+		}
+
+		return true;
+    }
+
+    HRESULT WFSCleanUp() const noexcept
+    {
+		std::mutex				l_mutex;
+		std::condition_variable	l_cv;
+		HRESULT					l_ret;
+
+		for (SIZE_T i = 0; i < XUP_LOOP; ++i)
+		{
+			std::thread _thread([&l_cv, &l_ret]()
+			{
+				l_ret = WFSCleanUp();
+				l_cv.notify_one();
+			});
+
+			_thread.detach();
+
+			std::unique_lock<std::mutex> _unique_lock(l_mutex);
+			if (l_cv.wait_for(_unique_lock, std::chrono::seconds(3)) == std::cv_status::timeout)
+				this->m_strLastError.assign("WFSCleanUp Timeout");
+
+			if (WFS_SUCCESS != l_ret)
+			{
+                std::stringstream l_stream{};
+                l_stream << "WFSCleanUp FAILD with error code: " << DESCRIBE_XFS_ERROR(l_ret);
+				this->m_strLastError.assign(l_stream.str());
+				return false;
+			}
+
+			return true;
+		}
+
+		return false;
+    }
 
 	//Open
 	HRESULT CXFSWrapper::XFSOpenAsync(HSERVICE& hs, const XFSHWND hwnd, const std::string& LogicName, REQUESTID& ReqID) const noexcept
@@ -262,4 +335,4 @@ namespace __N_XFSWRAPPER__
 	{
 		return std::make_shared<CXFSWrapper>();
 	}
-} // !__N_XFSWRAPPER__
+} // !__N_XFSAPI_W__
