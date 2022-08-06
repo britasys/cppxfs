@@ -23,8 +23,8 @@ namespace __N_XFSCAM_W__
 
 	typedef struct _wfs_cam_status_w : public _wfs_cam_status
 	{
-        // clone
-        void clone(const _wfs_cam_status& obj) noexcept(false)
+        // init
+        void init(const _wfs_cam_status& obj) noexcept
         {
 			this->fwDevice = obj.fwDevice;
 			SAFECOPYMEMORY(this->fwMedia, obj.fwMedia, WFS_CAM_CAMERAS_SIZE * sizeof(WORD));
@@ -38,14 +38,14 @@ namespace __N_XFSCAM_W__
         {            
             if (!lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             auto l_lpBuffer = static_cast<LPWFSCAMSTATUS>(lpBuffer);
-            this->clone(*l_lpBuffer);
+            this->init(*l_lpBuffer);
         }
 
         // default constructor
         _wfs_cam_status_w() = default;
 
         // copy constructor
-        _wfs_cam_status_w(const _wfs_cam_status_w& obj) noexcept(false) { this->clone(obj); }
+        _wfs_cam_status_w(const _wfs_cam_status_w& obj) noexcept(false) { this->init(obj); }
 
         // move constructor
         _wfs_cam_status_w(_wfs_cam_status_w&& obj) noexcept(false) : _wfs_cam_status_w{ obj } {}
@@ -53,15 +53,21 @@ namespace __N_XFSCAM_W__
         // copy assignment
         _wfs_cam_status_w& operator = (const _wfs_cam_status_w& obj) noexcept(false)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
         }
 
         // move assignment
         _wfs_cam_status_w& operator = (_wfs_cam_status_w&& obj) noexcept(false)
         {
-            this->clone(obj);
+            this->init(obj);
             return *this;
+        }
+
+        // destructor
+        virtual ~_wfs_cam_status_w()
+        {
+            SAFEFREEMEMORY(&this->lpszExtra);
         }
 
         // << operator
@@ -77,77 +83,115 @@ namespace __N_XFSCAM_W__
 		}
 	} WFSCAMSTATUS_W, * LPWFSCAMSTATUS_W;
 
-	typedef struct _tt_wfs_cam_caps : public _wfs_cam_caps
+	typedef struct _wfs_cam_caps_w : public _wfs_cam_caps
 	{
-		void WFS2TT(const XFS300::_wfs_cam_caps* obj)
-		{
-			this->wClass						= obj->wClass;
-			this->fwType						= obj->fwType;
-			SAFECOPYMEMORY(this->fwCameras, obj->fwCameras, WFS_CAM_CAMERAS_SIZE * sizeof(WORD));
-			this->usMaxPictures					= obj->usMaxPictures;
-			this->fwCamData						= obj->fwCamData;
-			this->usMaxDataLength				= obj->usMaxDataLength;
-			this->fwCharSupport					= obj->fwCharSupport;
-			DeviceUtility::LPSTRNN2Vector(this->lpszExtra, obj->lpszExtra);
-		}
-			friend std::ostream& operator<< (std::ostream& out, const _tt_wfs_cam_caps& obj)
+        // init
+        void init(const _wfs_cam_caps& obj) noexcept
+        {
+			this->wClass						= obj.wClass;
+			this->fwType						= obj.fwType;
+			SAFECOPYMEMORY(this->fwCameras, obj.fwCameras, WFS_CAM_CAMERAS_SIZE * sizeof(WORD));
+			this->usMaxPictures					= obj.usMaxPictures;
+			this->fwCamData						= obj.fwCamData;
+			this->usMaxDataLength				= obj.usMaxDataLength;
+			this->fwCharSupport					= obj.fwCharSupport;
+            SAFEALLOCCOPYSTRING(&this->lpszExtra, __N_XFS_W__::WFSLPSZEXTRA_W{ obj.lpszExtra }.to_string());
+        }
+
+        // default constructor
+        _wfs_cam_caps_w() = default;
+
+        // normal constructor
+        _wfs_cam_caps_w(LPVOID lpBuffer) noexcept(false)
+        {
+            if (!lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
+            auto l_lpBuffer = static_cast<LPWFSCAMCAPS>(lpBuffer);
+            this->init(*l_lpBuffer);
+        }
+
+        // copy constructor
+        _wfs_cam_caps_w(const _wfs_cam_caps_w& obj) noexcept { this->init(obj); }
+
+        // move constructor
+        _wfs_cam_caps_w(_wfs_cam_caps_w&& obj) noexcept : _wfs_cam_caps_w{ obj } {}
+
+        // copy assignment
+        _wfs_cam_caps_w& operator = (const _wfs_cam_caps_w& obj) noexcept
+        {
+            this->init(obj);
+            return *this;
+        }
+
+        // move assignment
+        _wfs_cam_caps_w& operator = (_wfs_cam_caps_w&& obj) noexcept
+        {
+            this->init(obj);
+            return *this;
+        }
+
+        // destructor
+        virtual ~_wfs_cam_caps_w()
+        {
+            SAFEFREEMEMORY(&this->lpszExtra);
+        }
+
+        // << operator
+		friend std::ostream& operator<< (std::ostream& out, const _wfs_cam_caps_w& obj)
 		{
 			out << " wClass: "					<< obj.wClass
 				<< " fwType: "					<< obj.fwType
-				<< " fwCameras: "				<< TTFRMU::Array2Str(obj.fwCameras, WFS_CAM_CAMERAS_SIZE)
+				<< " fwCameras: "				<< __N_UTILITY__::Array2Str(obj.fwCameras, WFS_CAM_CAMERAS_SIZE)
 				<< " usMaxPictures: "			<< obj.usMaxPictures
 				<< " fwCamData: "				<< obj.fwCamData
 				<< " usMaxDataLength: " 		<< obj.usMaxDataLength
 				<< " fwCharSupport: "			<< obj.fwCharSupport
-				<< " lpszExtra: "				<< DeviceUtility::STRVECT2Str(obj.lpszExtra).c_str();
-
+				<< " lpszExtra: "				<< __N_XFS_W__::WFSLPSZEXTRA_W{ obj.lpszExtra }.to_string();
 			return out;
 		}
-		DeviceUtility::STRVECT lpszExtra;
-	} TTWFSCAMCAPS, * LPTTWFSCAMCAPS;
+	} TTWFSCAMCAPS_W, * LPTTWFSCAMCAPS_W;
 
 	/*=================================================================*/
 	/* CAM Execute Command Structures */
 	/*=================================================================*/
 
-	typedef struct _tt_wfs_cam_take_picture : public XFS300::_wfs_cam_take_picture
+	typedef struct _wfs_cam_take_picture_w : public _wfs_cam_take_picture
 	{
-		DEFAULTCONSTRUCTOR(_tt_wfs_cam_take_picture)
-		~_tt_wfs_cam_take_picture() 
+        // init
+        void init(const _wfs_cam_take_picture& obj) noexcept
+        {
+			this->wCamera = obj.wCamera;
+			if (obj.lpszCamData)
+				SAFEALLOCCOPYSTRING(&this->lpszCamData, std::string{ obj.lpszCamData });
+			if (obj.lpszUNICODECamData)
+				SAFEALLOCCOPYSTRING(&this->lpszUNICODECamData, std::wstring{ obj.lpszUNICODECamData });
+        }
+
+        // default constructor
+        _wfs_cam_take_picture_w() = default;
+
+        // normal constructor
+        _wfs_cam_take_picture_w(LPVOID lpBuffer) noexcept(false)
+        {
+            if (!lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
+            auto l_lpBuffer = static_cast<LPWFSCAMTAKEPICT>(lpBuffer);
+            this->init(*l_lpBuffer);
+        }
+
+        // destructor
+		~_wfs_cam_take_picture_w() 
 		{
-			SAFEPTR(this->lpWFSCAMTAKEPICT)
-			{
-				SAFEFREEMEMORY(&this->lpWFSCAMTAKEPICT->lpszCamData)
-				SAFEFREEMEMORY(&this->lpWFSCAMTAKEPICT->lpszUNICODECamData)
-				SAFERELEASE(&this->lpWFSCAMTAKEPICT)
-			}
+			SAFEFREEMEMORY(&this->lpszCamData)
+			SAFEFREEMEMORY(&this->lpszUNICODECamData)
 		}
-		void WFS2TT(const XFS300::_wfs_cam_take_picture* obj)
-		{
-			this->wCamera = obj->wCamera;
-			SAFEPTR(obj->lpszCamData)
-				this->lpszCamData.assign(obj->lpszCamData);
-			SAFEPTR(obj->lpszUNICODECamData)
-				this->lpszUNICODECamData.assign(obj->lpszUNICODECamData);
-		}
-		void WFS(XFS300::LPWFSCAMTAKEPICT* lppWFSCAMTAKEPICT)
-		{
-			this->lpWFSCAMTAKEPICT = new XFS300::WFSCAMTAKEPICT;
-			this->lpWFSCAMTAKEPICT->wCamera		= this->wCamera;
-			SAFEALLOCCOPYSTRING(&this->lpWFSCAMTAKEPICT->lpszCamData, std::string{ this->lpszCamData });
-			SAFEALLOCCOPYSTRING(&this->lpWFSCAMTAKEPICT->lpszUNICODECamData, std::wstring{ this->lpszUNICODECamData });
-			*lppWFSCAMTAKEPICT = this->lpWFSCAMTAKEPICT;
-		}
-		friend std::ostream& operator<< (std::ostream& out, const _tt_wfs_cam_take_picture& obj)
+        
+        // << operator
+		friend std::ostream& operator<< (std::ostream& out, const _wfs_cam_take_picture_w& obj)
 		{
 			out << " wCamera: "					<< obj.wCamera
-				<< " lpszCamData: "				<< obj.lpszCamData.c_str()
-				<< " lpszUNICODECamData: "		<< obj.lpszUNICODECamData.c_str();
+				<< " lpszCamData: "				<< std::string{ obj.lpszCamData }
+				<< " lpszUNICODECamData: "		<< std::string{ std::wstring{ obj.lpszUNICODECamData }.begin(), std::wstring{ obj.lpszUNICODECamData }.end() };
 			return out;
 		}
-		std::string lpszCamData{};
-		std::wstring lpszUNICODECamData{};
-		XFS300::LPWFSCAMTAKEPICT lpWFSCAMTAKEPICT = nullptr;
 	} TTWFSCAMTAKEPICT, * LPTTWFSCAMTAKEPICT;
 
 #pragma pack(pop)
