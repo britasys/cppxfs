@@ -1,25 +1,33 @@
 
 #include "cxfsapi_w.hpp"
 
+#include <mutex>
+#include <thread>
+#include <condition_variable>
+
 namespace __N_XFSAPI_W__
 {
-	#define ASSERTNOBLOCKING while (WFSIsBlocking()) ::Sleep(20);    
+	#define ASSERTNOBLOCKING while (::WFSIsBlocking()) ::Sleep(20);
+
+    constexpr unsigned short int XUP_LOOP = 3;
         
-    HRESULT WFSStartUp(WFSSTARTUP_W&) const noexcept(false)
+    HRESULT CXFSAPI_W::WFSStartUp(WFSSTARTUP_P& wfsstartup_p) const noexcept(false)
     {
+        if (0x00000000 == wfsstartup_p.dwVersionRequired) throw std::invalid_argument("dwVersionRequired is ZERO");
+
 		std::mutex				l_mutex;
 		std::condition_variable	l_cv;
 		HRESULT					l_ret{ WFS_ERR_INTERNAL_ERROR };
 
-		for (SIZE_T i = 0; i < XUP_LOOP; ++i)
+		for (size_t i = 0; i < XUP_LOOP; ++i)
 		{
-			std::thread _thread([init, &l_cv, &l_ret]()
+			std::thread l_thread([&wfsstartup_p, &l_cv, &l_ret]()
 			{
-				l_ret = WFSStartUp(init.dwVersionRequired, init.lpWFSVersion);
+				l_ret = ::WFSStartUp(wfsstartup_p.dwVersionRequired, &wfsstartup_p.WFSVersion);
 				l_cv.notify_one();
 			});
 
-			_thread.detach();
+			l_thread.detach();
 
 			std::unique_lock<std::mutex> _unique_lock(l_mutex);
 			if (l_cv.wait_for(_unique_lock, std::chrono::seconds(3)) == std::cv_status::timeout)
@@ -27,312 +35,302 @@ namespace __N_XFSAPI_W__
 				if(XUP_LOOP != i)
 					continue;
 				else
-				{
-					this->m_strLastError.assign("FAILED to run WFSStartUp");
-					return false;
-				}
+					return WFS_ERR_INTERNAL_ERROR;
 			}
 
 			if (WFS_SUCCESS != l_ret)
-			{
-                std::stringstream l_stream{};
-                l_stream << "WFSStartUp FAILD with error code: " << DESCRIBE_XFS_ERROR(l_ret);
-				this->m_strLastError.assign(l_stream.str());
-				return false;
-			}
+				return l_ret;
 			else
 				break;
 		}
 
-		return true;
+		return l_ret;
     }
 
-    HRESULT WFSCleanUp() const noexcept
+    HRESULT CXFSAPI_W::WFSCleanUp() const noexcept
     {
 		std::mutex				l_mutex;
 		std::condition_variable	l_cv;
 		HRESULT					l_ret;
 
-		for (SIZE_T i = 0; i < XUP_LOOP; ++i)
+		for (size_t i = 0; i < XUP_LOOP; ++i)
 		{
-			std::thread _thread([&l_cv, &l_ret]()
+			std::thread l_thread([&l_cv, &l_ret]()
 			{
-				l_ret = WFSCleanUp();
+				l_ret = ::WFSCleanUp();
 				l_cv.notify_one();
 			});
 
-			_thread.detach();
+			l_thread.detach();
 
 			std::unique_lock<std::mutex> _unique_lock(l_mutex);
 			if (l_cv.wait_for(_unique_lock, std::chrono::seconds(3)) == std::cv_status::timeout)
-				this->m_strLastError.assign("WFSCleanUp Timeout");
-
-			if (WFS_SUCCESS != l_ret)
 			{
-                std::stringstream l_stream{};
-                l_stream << "WFSCleanUp FAILD with error code: " << DESCRIBE_XFS_ERROR(l_ret);
-				this->m_strLastError.assign(l_stream.str());
-				return false;
+				if(XUP_LOOP != i)
+					continue;
+				else
+					return WFS_ERR_INTERNAL_ERROR;
 			}
 
-			return true;
+			if (WFS_SUCCESS != l_ret)
+				return l_ret;
+			else
+				break;
 		}
 
-		return false;
+		return l_ret;
+    }
+    
+    HRESULT CXFSAPI_W::WFSOpen(WFSOPEN_P& wfsopen_p) const noexcept(false)
+    {
+        if (wfsopen_p.strLogicName.empty())                     throw std::invalid_argument("strLogicName is EMPTY");
+        if (NULL        == wfsopen_p.hApp)                      throw std::invalid_argument("hApp is NULL");
+        if (wfsopen_p.strAppID.empty())                         throw std::invalid_argument("strAppID is EMPTY");
+        if (0x00000000  == wfsopen_p.dwSrvcVersionsRequired)    throw std::invalid_argument("dwSrvcVersionsRequired is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSOpen
+		(
+			(LPSTR)wfsopen_p.strLogicName.c_str(),
+			wfsopen_p.hApp,
+			(LPSTR)wfsopen_p.strAppID.c_str(),
+			wfsopen_p.dwTraceLevel,
+			wfsopen_p.dwTimeOut,
+			wfsopen_p.dwSrvcVersionsRequired,
+			&wfsopen_p.SrvcVersion,
+			&wfsopen_p.SPIVersion,
+			&wfsopen_p.hService
+		);
     }
 
-	//Open
-	HRESULT CXFSWrapper::XFSOpenAsync(HSERVICE& hs, const XFSHWND hwnd, const std::string& LogicName, REQUESTID& ReqID) const noexcept
+    HRESULT CXFSAPI_W::WFSAsyncOpen(WFSOPEN_P& wfsopen_p, const HWND hwnd, REQUESTID& RequestID) const noexcept(false)
 	{
-        ASSERTINITIALIZE
-
-		int iret = WFS_SUCCESS;
-
-		WFSVERSION f_srv_ver;
-		WFSVERSION f_spi_ver;
-
-		if (hs)
-			return WFS_SUCCESS;
+        if (wfsopen_p.strLogicName.empty())                     throw std::invalid_argument("strLogicName is EMPTY");
+        if (NULL        == wfsopen_p.hApp)                      throw std::invalid_argument("hApp is NULL");
+        if (wfsopen_p.strAppID.empty())                         throw std::invalid_argument("strAppID is EMPTY");
+        if (0x00000000  == wfsopen_p.dwSrvcVersionsRequired)    throw std::invalid_argument("dwSrvcVersionsRequired is NULL");
 
 		ASSERTNOBLOCKING
-
-		const char* _lpstrAppName = "NOVA.exe";
-		iret = WFSAsyncOpen
-		(
-			(LPSTR)LogicName.c_str(),
-			WFS_DEFAULT_HAPP,
-			(LPSTR)_lpstrAppName,
-			0,
-			300000,
-			&hs,
-			(HWND)hwnd,
-			0x01019903,
-			&f_srv_ver,
-			&f_spi_ver,
-			&ReqID
-		);
-
-		if (iret != WFS_SUCCESS)
-			hs = 0;
-
-		return iret;
-	}
-
-	//Close
-	HRESULT CXFSWrapper::XFSCloseAsync(const HSERVICE hs, const XFSHWND hwnd, REQUESTID& ReqID) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		HRESULT iret = WFS_SUCCESS;
-
-		if (!hs)
-			return WFS_SUCCESS;
-
-		iret = WFSCancelBlockingCall(NULL);
-
-		iret = WFSCancelAsyncRequest(hs, 0);
-
-		ASSERTNOBLOCKING
-
-		iret = WFSAsyncUnlock(hs, (HWND)hwnd, &ReqID);
-
-		iret = WFSAsyncClose(hs, (HWND)hwnd, &ReqID);
-
-		return iret;
-	}
-
-	HRESULT CXFSWrapper::XFSOpenSync(HSERVICE& hs, const std::string& LogicName) const noexcept
-	{
-        ASSERTINITIALIZE
-
-		int iret = WFS_SUCCESS;
-
-		WFSVERSION f_srv_ver;
-		WFSVERSION f_spi_ver;
-
-		ASSERTNOBLOCKING
-
-		const char* _lpstrAppName = "NOVA.exe";
-		iret = WFSOpen
-		(
-			(LPSTR)LogicName.c_str(),
-			WFS_DEFAULT_HAPP,
-			(LPSTR)_lpstrAppName,
-			NULL,
-			300000,
-			0x01019903,
-			&f_srv_ver,
-			&f_spi_ver,
-			&hs
-		);
-
-		if (iret != WFS_SUCCESS)
-			hs = 0;
         
-		return iret;
-	}
-
-	HRESULT CXFSWrapper::XFSCloseSync(const HSERVICE hs) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		HRESULT iret = WFS_SUCCESS;
-
-		if (!hs)
-			return WFS_SUCCESS;
-
-		iret = WFSCancelBlockingCall(NULL);
-
-		iret = WFSCancelAsyncRequest(hs, 0);
-
-		ASSERTNOBLOCKING
-
-		iret = WFSUnlock(hs);
-
-		/*iret = WFSAsyncDeregister(hs,
-								  15,
-								  hwnd,
-								  hwnd,
-								  &ReqID);*/
-
-		iret = WFSClose(hs);
-
-		return iret;
-	}
-
-	//Lock
-	HRESULT CXFSWrapper::XFSLock(const HSERVICE hs, const XFSHWND hwnd, const TIMEOUT Timeout, REQUESTID & ReqID) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		ASSERTNOBLOCKING
-
-		return WFSAsyncLock(hs, Timeout, (HWND)hwnd, &ReqID);
-	}
-
-	//UnLock
-	HRESULT CXFSWrapper::XFSUnLock(const HSERVICE hs, const XFSHWND hwnd, REQUESTID & ReqID) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		ASSERTNOBLOCKING
-
-		return WFSAsyncUnlock(hs, (HWND)hwnd, &ReqID);
-	}
-
-	HRESULT CXFSWrapper::XFSRegisterAsync(const HSERVICE hs, const XFSHWND hwnd, REQUESTID & ReqID) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		ASSERTNOBLOCKING
-
-		return WFSAsyncRegister(
-			hs,
-			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			(HWND)hwnd,
-			(HWND)hwnd,
-			&ReqID);
-	}
-
-	HRESULT CXFSWrapper::XFSDeregisterAsync(const HSERVICE hs, const XFSHWND hwnd, REQUESTID & ReqID) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		ASSERTNOBLOCKING
-
-		return WFSAsyncDeregister(
-			hs,
-			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			(HWND)hwnd,
-			(HWND)hwnd,
-			&ReqID);
-	}
-
-	HRESULT CXFSWrapper::XFSRegisterSync(const HSERVICE hs, const XFSHWND hwnd) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		ASSERTNOBLOCKING
-
-		return WFSRegister
+		return ::WFSAsyncOpen
 		(
-			hs,
-			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			(HWND)hwnd
+			(LPSTR)wfsopen_p.strLogicName.c_str(),
+			wfsopen_p.hApp,
+			(LPSTR)wfsopen_p.strAppID.c_str(),
+			wfsopen_p.dwTraceLevel,
+			wfsopen_p.dwTimeOut,
+			&wfsopen_p.hService,
+			hwnd,
+			wfsopen_p.dwSrvcVersionsRequired,
+			&wfsopen_p.SrvcVersion,
+			&wfsopen_p.SPIVersion,
+			&RequestID
 		);
 	}
+    
+    HRESULT CXFSAPI_W::WFSClose(const WFSCLOSE_P& wfsclose_p) const noexcept
+    {
+		::WFSCancelBlockingCall(NULL);
 
-	HRESULT CXFSWrapper::XFSDeregisterSync(const HSERVICE hs, const XFSHWND hwnd) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
+		::WFSCancelAsyncRequest(wfsclose_p.hService, NULL);
 
 		ASSERTNOBLOCKING
 
-		return WFSDeregister
-		(
-			hs,
-			SERVICE_EVENTS | USER_EVENTS | SYSTEM_EVENTS | EXECUTE_EVENTS,
-			(HWND)hwnd
-		);
+		::WFSUnlock(wfsclose_p.hService);
+
+        REQUESTID l_requestID{ NULL };
+
+		return ::WFSClose(wfsclose_p.hService);
+    }
+
+    HRESULT CXFSAPI_W::WFSAsyncClose(const WFSCLOSE_P& wfsclose_p, const HWND hwnd, REQUESTID& RequestID) const noexcept
+	{
+		::WFSCancelBlockingCall(NULL);
+
+		::WFSCancelAsyncRequest(wfsclose_p.hService, NULL);
+
+		ASSERTNOBLOCKING
+
+		::WFSUnlock(wfsclose_p.hService);
+
+		return ::WFSAsyncClose(wfsclose_p.hService, hwnd, &RequestID);
+	}
+    
+    HRESULT CXFSAPI_W::WFSRegister(const WFSREGISTER_P& wfsregister_p) const noexcept(false)
+	{
+        if (NULL == wfsregister_p.hService)     throw std::invalid_argument("hService is NULL");
+        if (NULL == wfsregister_p.hWndReg)      throw std::invalid_argument("hWndReg is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSRegister(wfsregister_p.hService, wfsregister_p.dwEventClass, wfsregister_p.hWndReg);
 	}
 
-	//Cancel
-	HRESULT CXFSWrapper::XFSCancel(const HSERVICE hs, REQUESTID ReqID) const noexcept
+    HRESULT CXFSAPI_W::WFSAsyncRegister(const WFSREGISTER_P& wfsregister_p, const HWND hwnd, REQUESTID& RequestID) const noexcept(false)
 	{
-        ASSERTINITIALIZE ASSERTOPEN
+        if (NULL == wfsregister_p.hService)     throw std::invalid_argument("hService is NULL");
+        if (NULL == wfsregister_p.hWndReg)      throw std::invalid_argument("hWndReg is NULL");
 
-		return WFSCancelAsyncRequest(hs, ReqID);
+		ASSERTNOBLOCKING
+
+		return ::WFSAsyncRegister(wfsregister_p.hService, wfsregister_p.dwEventClass, wfsregister_p.hWndReg, hwnd, &RequestID);
+	}
+    
+    HRESULT CXFSAPI_W::WFSDeRegister(const WFSREGISTER_P& wfsregister_p) const noexcept(false)
+    {
+        if (NULL == wfsregister_p.hService) throw std::invalid_argument("hService is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSDeregister(wfsregister_p.hService, wfsregister_p.dwEventClass, wfsregister_p.hWndReg);
+    }
+
+    HRESULT CXFSAPI_W::WFSAsyncDeregister(const WFSREGISTER_P& wfsregister_p, const HWND hwnd, REQUESTID& RequestID) const noexcept(false)
+    {        
+        if (NULL == wfsregister_p.hService) throw std::invalid_argument("hService is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSAsyncDeregister(wfsregister_p.hService, wfsregister_p.dwEventClass, wfsregister_p.hWndReg, hwnd, &RequestID);
+    }
+    
+	HRESULT CXFSAPI_W::WFSLock(const WFSLOCK_P& wfslock_p, WFSRESULT_W& wfsresult_w) const noexcept(false)
+    {
+        if (NULL == wfslock_p.hService) throw std::invalid_argument("hService is NULL");
+
+		ASSERTNOBLOCKING
+
+        ::LPWFSRESULT l_lpwfsresult{ nullptr };
+		auto l_ret = ::WFSLock(wfslock_p.hService, wfslock_p.dwTimeOut, &l_lpwfsresult);
+        wfsresult_w = &l_lpwfsresult;
+
+        return l_ret;
+    }
+
+    HRESULT CXFSAPI_W::WFSAsyncLock(const WFSLOCK_P& wfslock_p, HWND hwnd, REQUESTID& RequestID) const noexcept(false)
+    {
+        if (NULL == wfslock_p.hService) throw std::invalid_argument("hService is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSAsyncLock(wfslock_p.hService, wfslock_p.dwTimeOut, hwnd, &RequestID);
+    }
+    
+	HRESULT CXFSAPI_W::WFSUnlock(const WFSUNLOCK_P& wfsunlock_p) const noexcept(false)
+	{
+        if (NULL == wfsunlock_p.hService) throw std::invalid_argument("hService is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSUnlock(wfsunlock_p.hService);
 	}
 
-	//Free
-	HRESULT CXFSWrapper::XFSFree(LPWFSRESULT* ppResult) const noexcept
+    HRESULT CXFSAPI_W::WFSAsyncUnlock(const WFSUNLOCK_P& wfsunlock_p, HWND hwnd, REQUESTID& RequestID) const noexcept(false)
 	{
-        ASSERTINITIALIZE
+        if (NULL == wfsunlock_p.hService) throw std::invalid_argument("hService is NULL");
 
-		HRESULT hrRet = WFS_SUCCESS;
+		ASSERTNOBLOCKING
 
-		if (*ppResult)
-		{
-			hrRet = WFSFreeResult(*ppResult);
-			*ppResult = NULL;
-		}
+		return ::WFSAsyncUnlock(wfsunlock_p.hService, hwnd, &RequestID);
+	}
+    
+	HRESULT CXFSAPI_W::WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P& wfscancelasyncrequest_p) const noexcept
+    {
+        if (NULL == wfscancelasyncrequest_p.hService) throw std::invalid_argument("hService is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSCancelAsyncRequest(wfscancelasyncrequest_p.hService, wfscancelasyncrequest_p.RequestID);
+    }
+
+    HRESULT CXFSAPI_W::WFSCancelBlockingCall(const WFSCANCELBLOCKINGCALL_P& wfscancelblockingcall_p) const noexcept
+    {
+		return ::WFSCancelBlockingCall(wfscancelblockingcall_p.dwThreadID);
+    }
+
+	HRESULT CXFSAPI_W::WFSFreeResult(const WFSFREERESULT_P& wfsfreeresult_p) const noexcept
+	{
+		return ::WFSFreeResult(wfsfreeresult_p.lpWFSResult);
+	}
+    
+    HRESULT CXFSAPI_W::WFSCreateAppHandle(LPHAPP lpApp) const noexcept(false)
+    {
+        if (!lpApp) throw std::invalid_argument("lpApp is NULL");
+
+        return ::WFSCreateAppHandle(lpApp);
+    }
+
+    HRESULT CXFSAPI_W::WFSDestroyAppHandle(const HAPP hApp) const noexcept(false)
+    {
+        if (!hApp) throw std::invalid_argument("hApp is NULL");
+
+        return ::WFSDestroyAppHandle(hApp);
+    }
+
+    BOOL CXFSAPI_W::WFSIsBlocking() const noexcept
+    {
+        return ::WFSIsBlocking();
+    }
+
+    HRESULT CXFSAPI_W::WFSSetBlockingHook(WFSSETBLOCKINGHOOK_P& wfssetblockinghook_p) const noexcept(false)
+    {
+        if (!wfssetblockinghook_p.lpBlockFunc) throw std::invalid_argument("lpBlockFunc is NULL");
+
+        return ::WFSSetBlockingHook(wfssetblockinghook_p.lpBlockFunc, &wfssetblockinghook_p.lpPrevFunc);
+    }
+
+    HRESULT CXFSAPI_W::WFSUnhookBlockingHook() const noexcept(false)
+    {
+        return ::WFSUnhookBlockingHook();
+    }
+
+    HRESULT CXFSAPI_W::WFSGetInfo(const WFSGETINFO_P& wfsgetinfo_p, WFSRESULT_W& wfsresult_w) const noexcept(false)
+    {
+        if (!wfsgetinfo_p.hService)     throw std::invalid_argument("hService is NULL");
+        if (!wfsgetinfo_p.dwCategory)   throw std::invalid_argument("dwCategory is NULL");
+
+        LPWFSRESULT l_lpwfsresult{ nullptr };
+        auto l_ret = ::WFSGetInfo(wfsgetinfo_p.hService, wfsgetinfo_p.dwCategory, wfsgetinfo_p.lpQueryDetails, wfsgetinfo_p.dwTimeOut, &l_lpwfsresult);
+        wfsresult_w = *l_lpwfsresult;
         
-		return hrRet;
-	}
+        return l_ret;
+    }
 
-	HRESULT CXFSWrapper::XFSGetInfoAsync(const HSERVICE hs, const XFSHWND hwnd, DWORD dwCategory, LPVOID pIn, REQUESTID& ReqID, unsigned long Timeout) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
+    HRESULT CXFSAPI_W::WFSAsyncGetInfo(const WFSGETINFO_P& wfsgetinfo_p, const HWND hwnd, REQUESTID& RequestID) const noexcept(false)
+    {
+        if (!wfsgetinfo_p.hService)     throw std::invalid_argument("hService is NULL");
+        if (!wfsgetinfo_p.dwCategory)   throw std::invalid_argument("dwCategory is NULL");
 
-		return WFSAsyncGetInfo(hs, dwCategory, pIn, Timeout, (HWND)hwnd, &ReqID);
-	}
+        return ::WFSAsyncGetInfo(wfsgetinfo_p.hService, wfsgetinfo_p.dwCategory, wfsgetinfo_p.lpQueryDetails, wfsgetinfo_p.dwTimeOut, hwnd, &RequestID);
+    }
 
-	//Execute
-	HRESULT CXFSWrapper::XFSExecuteAsync(const HSERVICE hs, const XFSHWND hwnd, DWORD dwCommand, void* pIn, REQUESTID& ReqID, unsigned long Timeout) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
+	HRESULT CXFSAPI_W::WFSExecute(const WFSEXECUTE_P& wfsexecute_p, WFSRESULT_W& wfsresult_w) const noexcept
+    {
+        if (!wfsexecute_p.hService)     throw std::invalid_argument("hService is NULL");
+        if (!wfsexecute_p.dwCommand)    throw std::invalid_argument("dwCommand is NULL");
 
 		ASSERTNOBLOCKING
 
-		return WFSAsyncExecute(hs, dwCommand, pIn, Timeout, (HWND)hwnd, &ReqID);
-	}
+        LPWFSRESULT l_lpwfsresult{ nullptr };
+        auto l_ret = ::WFSExecute(wfsexecute_p.hService, wfsexecute_p.dwCommand, wfsexecute_p.lpCmdData, wfsexecute_p.dwTimeOut, &l_lpwfsresult);
+        wfsresult_w = *l_lpwfsresult;
+        
+        return l_ret;
+    }
 
-	HRESULT CXFSWrapper::XFSGetInfoSync(const HSERVICE hs, DWORD dwCategory, LPVOID lpQueryDetails, LPWFSRESULT* lppResult, DWORD dwTimeOut) const noexcept
+	HRESULT CXFSAPI_W::WFSAsyncExecute(const WFSEXECUTE_P& wfsexecute_p, const HWND hwnd, REQUESTID& RequestID) const noexcept
+    {
+        if (!wfsexecute_p.hService)     throw std::invalid_argument("hService is NULL");
+        if (!wfsexecute_p.dwCommand)    throw std::invalid_argument("dwCommand is NULL");
+
+		ASSERTNOBLOCKING
+
+		return ::WFSAsyncExecute(wfsexecute_p.hService, wfsexecute_p.dwCommand, wfsexecute_p.lpCmdData, wfsexecute_p.dwTimeOut, hwnd, &RequestID);
+    }
+
+	std::shared_ptr<IXFSAPI_W> CreateXFSAPIWrapper() noexcept;
 	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		return WFSGetInfo(hs, dwCategory, lpQueryDetails, dwTimeOut, lppResult);
-	}
-
-	HRESULT CXFSWrapper::XFSExecuteSync(const HSERVICE hs, DWORD dwCommand, LPVOID lpCmdData, LPWFSRESULT* lppResult, DWORD dwTimeOut) const noexcept
-	{
-        ASSERTINITIALIZE ASSERTOPEN
-
-		return WFSExecute(hs, dwCommand, lpCmdData, dwTimeOut, lppResult);
-	}
-
-	std::shared_ptr<IXFSWrapper>CreateXFSWrapper() noexcept
-	{
-		return std::make_shared<CXFSWrapper>();
+		return std::make_shared<CXFSAPI_W>();
 	}
 } // !__N_XFSAPI_W__

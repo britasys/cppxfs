@@ -3,7 +3,7 @@
 #ifndef __H_XFSCAM_W__
 #define __H_XFSCAM_W__
 
-#include <xfs/xfscam.h>
+#include <xfscam.h>
 
 #include <utility.hpp>
 #include <xfs_w.hpp>

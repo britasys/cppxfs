@@ -82,7 +82,8 @@ if(APP_BUILD_TESTS)
             $<$<CONFIG:Debug>:/MTd>
             $<$<CONFIG:Release>:/MT>
         )
-        add_executable(${TEST_PROJECT} ${APP_TESTS_DIR}/${TEST_PROJECT}.cpp)
+        add_executable(${TEST_PROJECT} ${APP_TESTS_DIR}/${TEST_PROJECT}.cpp
+                                        ${APP_SOURCE_DIR}/xfs/xfsapi_w/implementations/cxfsapi_w.cpp)
         target_link_directories(${TEST_PROJECT} PRIVATE ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
         target_include_directories(${PROJECT_NAME} PRIVATE ${APP_INCLUDE_DIRS}
                                                    PRIVATE ${APP_MODULES_DIR}/googletest/googletest/include/)

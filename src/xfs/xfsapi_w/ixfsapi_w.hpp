@@ -5,8 +5,6 @@
 
 #include <xfsapi_w.hpp>
 
-#include <string>
-
 namespace __N_XFSAPI_W__
 {
     /**
@@ -38,7 +36,7 @@ namespace __N_XFSAPI_W__
          * 
          * @return HRESULT 
          */
-        virtual HRESULT WFSCleanUp() const noexcept(false) = 0;
+        virtual HRESULT WFSCleanUp() const noexcept = 0;
 
         /**
          * @brief Initiates a session (a series of service requests terminated with the 
@@ -57,11 +55,11 @@ namespace __N_XFSAPI_W__
          * @brief As WFSOpen
          * 
          * @param WFSOPEN_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-        virtual HRESULT WFSAsyncOpen(WFSOPEN_P&, const HWND, LPREQUESID) const noexcept(false) = 0;
+        virtual HRESULT WFSAsyncOpen(WFSOPEN_P&, const HWND, REQUESTID&) const noexcept(false) = 0;
 
         /**
          * @brief Terminates a session (a series of service requests initiated with the 
@@ -77,11 +75,11 @@ namespace __N_XFSAPI_W__
          * @brief As WFSClose
          * 
          * @param WFSCLOSE_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-        virtual HRESULT WFSAsyncClose(const WFSCLOSE_P&, const HWND, LPREQUESTID) const noexcept = 0;
+        virtual HRESULT WFSAsyncClose(const WFSCLOSE_P&, const HWND, REQUESTID&) const noexcept = 0;
 
         /**
          * @brief Enables event monitoring for the specified service by the specified window; 
@@ -97,11 +95,11 @@ namespace __N_XFSAPI_W__
          * @brief As WFSRegister
          * 
          * @param WFSREGISTER_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-        virtual HRESULT WFSAsyncRegister(const WFSREGISTER_P&, const HWND, LPREQUESTID) const noexcept(false) = 0;
+        virtual HRESULT WFSAsyncRegister(const WFSREGISTER_P&, const HWND, REQUESTID&) const noexcept(false) = 0;
 
         /**
          * @brief Discontinues monitoring of the specified message class(es) (or all classes) 
@@ -117,11 +115,11 @@ namespace __N_XFSAPI_W__
          * @brief As WFSDeRegister
          * 
          * @param WFSREGISTER_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-        virtual HRESULT WFSAsyncDeregister(const WFSREGISTER_P&, const HWND, LPREQUESTID) const noexcept(false) = 0;
+        virtual HRESULT WFSAsyncDeregister(const WFSREGISTER_P&, const HWND, REQUESTID&) const noexcept(false) = 0;
 
         /**
          * @brief Establishes exclusive control by the calling application over the specified service. 
@@ -137,11 +135,11 @@ namespace __N_XFSAPI_W__
          * @brief As WFSLock
          * 
          * @param WFSLOCK_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-        virtual HRESULT WFSAsyncLock(const WFSLOCK_P&, HWND, LPREQUESTID) const noexcept(false) = 0;
+        virtual HRESULT WFSAsyncLock(const WFSLOCK_P&, HWND, REQUESTID&) const noexcept(false) = 0;
 
         /**
          * @brief Releases a service that has been locked by a previous WFSLock or WFSAsyncLock function. 
@@ -150,17 +148,17 @@ namespace __N_XFSAPI_W__
          * @param WFSUNLOCK_P
          * @return HRESULT 
          */
-		virtual HRESULT XFSUnLock(const WFSUNLOCK_P&) const noexcept = 0;
+		virtual HRESULT WFSUnlock(const WFSUNLOCK_P&) const noexcept(false) = 0;
 
         /**
          * @brief As XFSUnLock
          * 
          * @param WFSUNLOCK_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-        virtual HRESULT WFSAsyncUnlock(const WFSUNLOCK_P&, HWND, LPREQUESTID) const noexcept(false) = 0;
+        virtual HRESULT WFSAsyncUnlock(const WFSUNLOCK_P&, HWND, REQUESTID&) const noexcept(false) = 0;
 
         /**
          * @brief Cancels the specified (or every) asynchronous request being performed 
@@ -174,10 +172,10 @@ namespace __N_XFSAPI_W__
         /**
          * @brief Cancels a blocking operation for the specified thread, if one is in progress.
          * 
-         * @param WFSCANCELBLOCKINGCALL
+         * @param WFSCANCELBLOCKINGCALL_P
          * @return HRESULT 
          */
-        virtual HRESULT WFSCancelBlockingCall(const WFSCANCELBLOCKINGCALL&) const noexcept(false) = 0;
+        virtual HRESULT WFSCancelBlockingCall(const WFSCANCELBLOCKINGCALL_P&) const noexcept = 0;
 
         /**
          * @brief Notifies the XFS Manager that a memory buffer (or linked list of buffers) 
@@ -186,7 +184,7 @@ namespace __N_XFSAPI_W__
          * @param WFSFREERESULT_P
          * @return HRESULT 
          */
-		virtual HRESULT WFSFreeResult(const WFSFREERESULT_P&) const noexcept(false) = 0;
+		virtual HRESULT WFSFreeResult(const WFSFREERESULT_P&) const noexcept = 0;
 
         /**
          * @brief Requests a new, unique application handle value.
@@ -238,11 +236,11 @@ namespace __N_XFSAPI_W__
          * @brief As WFSGetInfo
          * 
          * @param WFSGETINFO_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-        virtual HRESULT WFSAsyncGetInfo(const WFSGETINFO_P&, const HWND, LPREQUESTID) const noexcept(false) = 0;
+        virtual HRESULT WFSAsyncGetInfo(const WFSGETINFO_P&, const HWND, REQUESTID&) const noexcept(false) = 0;
 
         /**
          * @brief Sends a service-specific command to a Service Provider. 
@@ -257,11 +255,11 @@ namespace __N_XFSAPI_W__
          * @brief As WFSExecute
          * 
          * @param WFSEXECUTE_P
-         * @param HWND        - The window handle which is to receive the completion message for this request.
-         * @param LPREQUESTID - Pointer to the request identifier for this request (returned parameter).
+         * @param HWND          - The window handle which is to receive the completion message for this request.
+         * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-		virtual HRESULT WFSAsyncExecute(const WFSEXECUTE_P&, const HWND, LPREQUESTID) const noexcept = 0;
+		virtual HRESULT WFSAsyncExecute(const WFSEXECUTE_P&, const HWND, REQUESTID&) const noexcept = 0;
 	};
 
 	std::shared_ptr<IXFSAPI_W> CreateXFSAPIWrapper() noexcept;

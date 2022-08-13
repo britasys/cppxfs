@@ -18,7 +18,7 @@ TEST(_wfs_result_w, constructors)
     l_WFSResult.lpBuffer                = nullptr;
 
     // normal constructor
-    __N_XFSAPI_W__::_wfs_result_w l_WFSResult_w_1{ (LPVOID)&l_WFSResult };    
+    __N_XFSAPI_W__::_wfs_result_w l_WFSResult_w_1{ l_WFSResult };
     EXPECT_EQ(l_WFSResult_w_1.RequestID, 100);
     EXPECT_EQ(l_WFSResult_w_1.hService, 101);
     EXPECT_EQ(l_WFSResult_w_1.hResult, 0);
@@ -43,7 +43,7 @@ TEST(_wfsversion_w, constructors)
     SAFECOPYMEMORY(l_WFSVersion.szSystemStatus, "szSystemStatus", WFSDSYSSTATUS_LEN + 1);
 
     // normal constructor
-    __N_XFSAPI_W__::_wfsversion_w l_WFSVersion_w_1{ (LPVOID)&l_WFSVersion };
+    __N_XFSAPI_W__::_wfsversion_w l_WFSVersion_w_1{ l_WFSVersion };
     compare(l_WFSVersion_w_1, l_WFSVersion);
 
     // copy constructor
@@ -79,7 +79,7 @@ TEST(_wfs_devstatus_w, constructors)
     l_WFSDevStatus.dwState = 101;
 
     // normal constructor
-    __N_XFSAPI_W__::_wfs_devstatus_w l_WFSDevStatus_w_1{ (LPVOID)&l_WFSDevStatus };
+    __N_XFSAPI_W__::_wfs_devstatus_w l_WFSDevStatus_w_1{ l_WFSDevStatus };
     compare(l_WFSDevStatus_w_1, l_WFSDevStatus);
 
     // copy constructor
@@ -130,7 +130,7 @@ TEST(_wfs_undevmsg_w, constructors)
     l_WFSUNDEVMSG.lpWFSResult   = &l_WFSResult;
 
     // normal constructor
-    __N_XFSAPI_W__::_wfs_undevmsg_w l_WFSUNDEVMSG_w_1{ &l_WFSUNDEVMSG };
+    __N_XFSAPI_W__::_wfs_undevmsg_w l_WFSUNDEVMSG_w_1{ l_WFSUNDEVMSG };
     compare(l_WFSUNDEVMSG_w_1, l_WFSUNDEVMSG);
 
     // copy constructor

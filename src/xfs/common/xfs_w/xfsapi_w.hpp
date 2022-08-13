@@ -22,12 +22,13 @@ namespace __N_XFSAPI_W__
      */
     typedef struct _wfs_result_w : public _wfs_result
     {
+    private:
         /**
-         * @brief used to initialize structure properties
+         * @brief initializes structure properties
          * 
-         * @param obj
+         * @param obj 
          */
-        void init(const _wfs_result& obj) noexcept
+        void init(const _wfs_result& obj)
         {
             this->RequestID             = obj.RequestID;
             this->hService              = obj.hService;
@@ -38,15 +39,31 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief normal constructor
+         * @brief initializes structure properties
          * 
+         * @param lpBuffer
          */
-        _wfs_result_w(LPVOID lpBuffer) 
+        void init(const LPVOID lpBuffer) noexcept(false)
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
-            LPWFSRESULT l_lpWFSResult   = static_cast<LPWFSRESULT>(lpBuffer);
+            LPWFSRESULT l_lpWFSResult = static_cast<LPWFSRESULT>(lpBuffer);
             this->init(*l_lpWFSResult);
         }
+
+    public:
+        /**
+         * @brief normal constructor
+         * 
+         * @param obj
+         */
+        _wfs_result_w(const _wfs_result& obj) { this->init(obj); }
+
+        /**
+         * @brief normal constructor
+         * 
+         * @param lpBuffer
+         */
+        _wfs_result_w(const LPVOID lpBuffer) { this->init(lpBuffer); }
 
         /**
          * @brief default constructor
@@ -100,7 +117,12 @@ namespace __N_XFSAPI_W__
      */
     typedef struct _wfsversion_w : public _wfsversion
     {
-        // init
+    private:
+        /**
+         * @brief initializes structure properties
+         * 
+         * @param obj 
+         */
         void init(const _wfsversion& obj) noexcept
         {
             this->wVersion              = obj.wVersion;
@@ -111,47 +133,67 @@ namespace __N_XFSAPI_W__
         }
 
         /**
+         * @brief initializes structure properties
+         * 
+         * @param obj
+         */
+        void init(const LPVOID lpBuffer)
+        {
+            UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
+            LPWFSVERSION l_lpWFSVersion = static_cast<LPWFSVERSION>(lpBuffer);
+            this->init(*l_lpWFSVersion);
+        }
+
+    public:
+        /**
+         * @brief normal constructor
+         * 
+         * @param obj
+         */
+        _wfsversion_w(const _wfsversion& obj) { this->init(obj); }
+
+        /**
+         * @brief normal constructor
+         * 
+         * @param lpBuffer
+         */
+        _wfsversion_w(const LPVOID lpBuffer) { this->init(lpBuffer); }
+
+        /**
          * @brief default constructor
          * 
          */
         _wfsversion_w() = default;
 
         /**
-         * @brief normal constructor
-         * 
-         */
-        _wfsversion_w(LPVOID lpBuffer) 
-        {
-            UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
-            LPWFSVERSION l_lpWFSVersion = static_cast<LPWFSVERSION>(lpBuffer);
-            _wfsversion_w::init(*l_lpWFSVersion);
-        }
-
-        /**
          * @brief copy constructor
          * 
+         * @param obj
          */
-        _wfsversion_w(const _wfsversion_w& obj) { _wfsversion_w::init(obj); }
+        _wfsversion_w(const _wfsversion_w& obj) { this->init(obj); }
 
         /**
          * @brief move constructor
          * 
+         * @param obj
          */
-        _wfsversion_w(_wfsversion_w&& obj)  : _wfsversion_w{ obj } {}
+        _wfsversion_w(_wfsversion_w&& obj) : _wfsversion_w{ obj } {}
 
         /**
          * @brief copy assignment
          * 
+         * @param obj
          */
         _wfsversion_w& operator = (const _wfsversion_w& obj) 
         {
-            _wfsversion_w::init(obj);
+            this->init(obj);
             return *this;
         }
 
         /**
          * @brief move assignment
          * 
+         * @param obj
          */
         _wfsversion_w& operator = (_wfsversion_w&& obj) 
         {
@@ -182,7 +224,12 @@ namespace __N_XFSAPI_W__
      */
     typedef struct _wfs_devstatus_w : public _wfs_devstatus
     {
-        // init
+    private:
+        /**
+         * @brief initializes structure properties
+         * 
+         * @param obj 
+         */
         void init(const _wfs_devstatus& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszPhysicalName, std::string{ obj.lpszPhysicalName });
@@ -191,37 +238,56 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief default constructor
+         * @brief initializes structure properties
          * 
+         * @param obj 
          */
-        _wfs_devstatus_w() = default;
-
-        /**
-         * @brief normal constructor
-         * 
-         */
-        _wfs_devstatus_w(LPVOID lpBuffer) 
+        void init(const LPVOID lpBuffer)
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSDEVSTATUS l_lpWFSDevStatus = static_cast<LPWFSDEVSTATUS>(lpBuffer);
             _wfs_devstatus_w::init(*l_lpWFSDevStatus);
         }
 
+    public:
+        /**
+         * @brief normal constructor
+         * 
+         * @param obj 
+         */
+        _wfs_devstatus_w(const _wfs_devstatus& obj) { this->init(obj); }
+
+        /**
+         * @brief normal constructor
+         * 
+         * @param lpBuffer 
+         */
+        _wfs_devstatus_w(const LPVOID lpBuffer) { this->init(lpBuffer); }
+
+        /**
+         * @brief default constructor
+         * 
+         */
+        _wfs_devstatus_w() = default;
+
         /**
          * @brief copy constructor
          * 
+         * @param obj 
          */
-        _wfs_devstatus_w(const _wfs_devstatus_w& obj) { _wfs_devstatus_w::init(obj); }
+        _wfs_devstatus_w(const _wfs_devstatus_w& obj) { this->init(obj); }
 
         /**
          * @brief move constructor
          * 
+         * @param obj 
          */
-        _wfs_devstatus_w(_wfs_devstatus_w&& obj)  : _wfs_devstatus_w{ obj } {}
+        _wfs_devstatus_w(_wfs_devstatus_w&& obj) : _wfs_devstatus_w{ obj } {}
 
         /**
          * @brief copy assignment
          * 
+         * @param obj 
          */
         _wfs_devstatus_w& operator = (const _wfs_devstatus_w& obj) 
         {
@@ -232,6 +298,7 @@ namespace __N_XFSAPI_W__
         /**
          * @brief move assignment
          * 
+         * @param obj 
          */
         _wfs_devstatus_w& operator = (_wfs_devstatus_w&& obj) 
         {
@@ -262,8 +329,13 @@ namespace __N_XFSAPI_W__
      */
     typedef struct _wfs_undevmsg_w : public _wfs_undevmsg
     {
-        // init
-        void init(const _wfs_undevmsg& obj) 
+    private:
+        /**
+        * @brief initializes structure properties
+        * 
+        * @param obj 
+        */
+        void init(const _wfs_undevmsg& obj)
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
             SAFEALLOCCOPYSTRING(&this->lpszWorkstationName, std::string{ obj.lpszWorkstationName });
@@ -271,8 +343,35 @@ namespace __N_XFSAPI_W__
             this->dwSize        = obj.dwSize;
             SAFEALLOCCOPYSTRING(&this->lpbDescription, std::string{ (char*)obj.lpbDescription });
             this->dwMsg         = obj.dwMsg;
-            this->lpWFSResult   = new WFSRESULT_W{ obj.lpWFSResult };
+            this->lpWFSResult   = obj.lpWFSResult;
         }
+
+        /**
+         * @brief Initializes the object
+         * 
+         * @param lpBuffer 
+         */
+        void init(LPVOID lpBuffer)
+        {
+            UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
+            LPWFSUNDEVMSG l_lpWFSUNDEVMSG = static_cast<LPWFSUNDEVMSG>(lpBuffer);
+            this->init(*l_lpWFSUNDEVMSG);
+        }
+
+    public:
+        /**
+         * @brief normal constructor
+         * 
+         * @param obj 
+         */
+        _wfs_undevmsg_w(const _wfs_undevmsg& obj) { this->init(obj); }
+
+        /**
+         * @brief normal constructor
+         * 
+         * @param lpBuffer 
+         */
+        _wfs_undevmsg_w(const LPVOID lpBuffer) { this->init(lpBuffer); }
 
         /**
          * @brief default constructor
@@ -281,31 +380,23 @@ namespace __N_XFSAPI_W__
         _wfs_undevmsg_w() = default;
 
         /**
-         * @brief normal constructor
-         * 
-         */
-        _wfs_undevmsg_w(LPVOID lpBuffer) 
-        {
-            UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
-            LPWFSUNDEVMSG l_lpWFSUNDEVMSG = static_cast<LPWFSUNDEVMSG>(lpBuffer);
-            _wfs_undevmsg_w::init(*l_lpWFSUNDEVMSG);
-        }
-
-        /**
          * @brief copy constructor
          * 
+         * @param obj 
          */
-        _wfs_undevmsg_w(const _wfs_undevmsg_w& obj) { _wfs_undevmsg_w::init(obj); }
+        _wfs_undevmsg_w(const _wfs_undevmsg_w& obj) { this->init(obj); }
 
         /**
          * @brief move constructor
          * 
+         * @param obj 
          */
-        _wfs_undevmsg_w(_wfs_undevmsg_w&& obj)  : _wfs_undevmsg_w{ obj } {}
+        _wfs_undevmsg_w(_wfs_undevmsg_w&& obj) : _wfs_undevmsg_w{ obj } {}
 
         /**
          * @brief copy assignment
          * 
+         * @param obj 
          */
         _wfs_undevmsg_w& operator = (const _wfs_undevmsg_w& obj)
         {
@@ -316,6 +407,7 @@ namespace __N_XFSAPI_W__
         /**
          * @brief move assignment
          * 
+         * @param obj 
          */
         _wfs_undevmsg_w& operator = (_wfs_undevmsg_w&& obj)
         {
@@ -353,7 +445,12 @@ namespace __N_XFSAPI_W__
      */
     typedef struct _wfs_appdisc_w : public _wfs_appdisc
     {
-        // init
+    private:
+        /**
+         * @brief initializes structure properties
+         * 
+         * @param obj 
+         */
         void init(const _wfs_appdisc& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
@@ -362,37 +459,56 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief default constructor
+         * @brief initializes structure properties
          * 
+         * @param lpBuffer 
          */
-        _wfs_appdisc_w() = default;
-
-        /**
-         * @brief normal constructor
-         * 
-         */
-        _wfs_appdisc_w(LPVOID lpBuffer) 
+        void init(const LPVOID lpBuffer)
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSAPPDISC l_lpWFSAPPDisc = static_cast<LPWFSAPPDISC>(lpBuffer);
             this->init(*l_lpWFSAPPDisc);
         }
 
+    public:
+        /**
+         * @brief normal constructor
+         * 
+         * @param lpBuffer 
+         */
+        _wfs_appdisc_w(LPVOID lpBuffer) { this->init(lpBuffer); }
+
+        /**
+         * @brief normal constructor
+         * 
+         * @param obj 
+         */
+        _wfs_appdisc_w(const _wfs_appdisc& obj) { this->init(obj); }
+
+        /**
+         * @brief default constructor
+         * 
+         */
+        _wfs_appdisc_w() = default;
+
         /**
          * @brief copy constructor
          * 
+         * @param obj 
          */
         _wfs_appdisc_w(const _wfs_appdisc_w& obj) { this->init(obj); }
 
         /**
          * @brief move constructor
          * 
+         * @param obj 
          */
         _wfs_appdisc_w(_wfs_appdisc_w&& obj)  : _wfs_appdisc_w{ obj } {}
 
         /**
          * @brief copy assignment
          * 
+         * @param obj 
          */
         _wfs_appdisc_w& operator = (const _wfs_appdisc_w& obj)
         {
@@ -403,6 +519,7 @@ namespace __N_XFSAPI_W__
         /**
          * @brief move assignment
          * 
+         * @param obj 
          */
         _wfs_appdisc_w& operator = (_wfs_appdisc_w&& obj)
         {
@@ -434,7 +551,12 @@ namespace __N_XFSAPI_W__
      */
     typedef struct _wfs_hwerror_w : public _wfs_hwerror
     {
-        // init
+    private:
+        /**
+         * @brief initializes structure properties
+         * 
+         * @param obj 
+         */
         void init(const _wfs_hwerror& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
@@ -447,37 +569,56 @@ namespace __N_XFSAPI_W__
         }
 
         /**
+         * @brief initializes structure properties
+         * 
+         * @param lpBuffer 
+         */
+        void init(const LPVOID lpBuffer)
+        {
+            UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
+            LPWFSHWERROR l_lpWFSHWError = static_cast<LPWFSHWERROR>(lpBuffer);
+            this->init(*l_lpWFSHWError);
+        }
+        
+    public:
+        /**
+         * @brief normal constructor
+         * 
+         * @param lpBuffer 
+         */
+        _wfs_hwerror_w(const LPVOID lpBuffer) { this->init(lpBuffer); }
+
+        /**
+         * @brief normal constructor
+         * 
+         * @param obj 
+         */
+        _wfs_hwerror_w(const _wfs_hwerror& obj) { this->init(obj); }
+
+        /**
          * @brief default constructor
          * 
          */
         _wfs_hwerror_w() = default;
 
         /**
-         * @brief normal constructor
-         * 
-         */
-        _wfs_hwerror_w(LPVOID lpBuffer) 
-        {
-            UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
-            LPWFSHWERROR l_lpWFSHWError = static_cast<LPWFSHWERROR>(lpBuffer);
-            this->init(*l_lpWFSHWError);
-        }
-
-        /**
          * @brief copy constructor
          * 
+         * @param obj 
          */
         _wfs_hwerror_w(const _wfs_hwerror_w& obj) { this->init(obj); }
 
         /**
          * @brief move constructor
          * 
+         * @param obj 
          */
         _wfs_hwerror_w(_wfs_hwerror_w&& obj)  : _wfs_hwerror_w{ obj } {}
 
         /**
          * @brief copy assignment
          * 
+         * @param obj 
          */
         _wfs_hwerror_w& operator = (const _wfs_hwerror_w& obj)
         {
@@ -488,6 +629,7 @@ namespace __N_XFSAPI_W__
         /**
          * @brief move assignment
          * 
+         * @param obj 
          */
         _wfs_hwerror_w& operator = (_wfs_hwerror_w&& obj)
         {
@@ -508,13 +650,13 @@ namespace __N_XFSAPI_W__
         // << operator
         friend std::ostream& operator << (std::ostream& out, const _wfs_hwerror_w& obj) noexcept
         {
-            out << " lpszLogicalName: "         << std::string{ obj.lpszLogicalName }
-                << " lpszPhysicalName: "        << std::string{ obj.lpszPhysicalName }
-                << " lpszWorkstationName: "     << std::string{ obj.lpszWorkstationName }
-                << " lpszAppID: "               << std::string{ obj.lpszAppID }
-                << " dwAction: "                << obj.dwAction
-                << " dwSize: "                  << obj.dwSize
-                << " lpbDescription: "          << std::string{ (char*)obj.lpbDescription };
+            out << " lpszLogicalName: "     << std::string{ obj.lpszLogicalName }
+                << " lpszPhysicalName: "    << std::string{ obj.lpszPhysicalName }
+                << " lpszWorkstationName: " << std::string{ obj.lpszWorkstationName }
+                << " lpszAppID: "           << std::string{ obj.lpszAppID }
+                << " dwAction: "            << obj.dwAction
+                << " dwSize: "              << obj.dwSize
+                << " lpbDescription: "      << std::string{ (char*)obj.lpbDescription };
             return out;
         }
     } WFSHWERROR_W, * LPWFSHWERROR_W;
@@ -525,7 +667,12 @@ namespace __N_XFSAPI_W__
      */
     typedef struct _wfs_vrsnerror_w : public _wfs_vrsnerror
     {
-        // init
+    private:
+        /**
+         * @brief initializes structure properties
+         * 
+         * @param obj 
+         */
         void init(const _wfs_vrsnerror& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
@@ -538,21 +685,35 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief default constructor
+         * @brief initializes structure properties
          * 
+         * @param lpBuffer 
          */
-        _wfs_vrsnerror_w() = default;
-
-        /**
-         * @brief normal constructor
-         * 
-         */
-        _wfs_vrsnerror_w(LPVOID lpBuffer) 
+        void init(LPVOID lpBuffer) 
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSVRSNERROR l_lpWFSVRSNError = static_cast<LPWFSVRSNERROR>(lpBuffer);
             this->init(*l_lpWFSVRSNError);
         }
+
+    public:
+        /**
+         * @brief normal constructor
+         * 
+         */
+        _wfs_vrsnerror_w(const _wfs_vrsnerror& obj) { this->init(obj); }
+
+        /**
+         * @brief normal constructor
+         * 
+         */
+        _wfs_vrsnerror_w(const LPVOID lpBuffer) { this->init(lpBuffer); }
+
+        /**
+         * @brief default constructor
+         * 
+         */
+        _wfs_vrsnerror_w() = default;
 
         /**
          * @brief copy constructor
@@ -628,14 +789,14 @@ namespace __N_XFSAPI_W__
          * the minor version number should always be expressed as two decimal digits, 
          * i.e. 1.10, 1.11, 1.20, etc. 
          */
-        DWORD dwVersionRequired{ 0x00000000 };
+        DWORD dwVersionRequired{ 0x0000 };
 
         /**
          * @brief // Data structure that is to receive version support 
          * information and other details about the current 
          * XFS implementation (returned parameter).
          */
-        WFSVERSION_W WFSVersion_w{};
+        WFSVERSION WFSVersion{};
 
         /**
          * @brief << operator
@@ -646,8 +807,8 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_startup_p& obj) noexcept
         {
-            out << " dwVersionRequired: " << obj.dwVersionRequired
-                << " WFSVersion_w: " << obj.WFSVersion_w;
+            out << " dwVersionRequired: "   << obj.dwVersionRequired
+                << " WFSVersion: "          << WFSVERSION_W{ obj.WFSVersion };
             return out;
         }
     } WFSSTARTUP_P, * LPWFSSTARTUP_P;
@@ -687,13 +848,13 @@ namespace __N_XFSAPI_W__
         /**
          * @brief NULL turns off all tracing. 
          */
-        DWORD dwTraceLevel{ 0x00000000 };
+        DWORD dwTraceLevel{ 0x0000 };
 
         /**
          * @brief Number of milliseconds to wait for completion 
          * (WFS_INDEFINITE_WAIT to specify a request that will wait until completion).
          */
-        DWORD dwTimeOut{ 0x00000000 };
+        DWORD dwTimeOut{ 0x0000 };
 
         /**
          * @brief Specifies the range of versions of the service-specific interface 
@@ -711,14 +872,14 @@ namespace __N_XFSAPI_W__
          * @brief Data structure that is to receive version support information and other 
          * details about the service-specific interface implementation (returned parameter).
          */
-        WFSVERSION_W SrvcVersion_w{};
+        WFSVERSION SrvcVersion{};
 
         /**
          * @brief Data structure that is to receive version support information and (optionally)
          * other details about the SPI implementation of the Service Provider being 
          * opened (returned parameter).
          */
-        WFSVERSION_W SPIVersion_w{};
+        WFSVERSION SPIVersion{};
 
         /**
          * @brief The service handle that the XFS Manager assigns to the service 
@@ -744,8 +905,8 @@ namespace __N_XFSAPI_W__
                 << " dwTraceLevel: "            << obj.dwTraceLevel
                 << " dwTimeOut: "               << obj.dwTimeOut
                 << " dwSrvcVersionsRequired: "  << obj.dwSrvcVersionsRequired
-                << " SrvcVersion_w: "           << obj.SrvcVersion_w
-                << " SPIVersion_w: "            << obj.SPIVersion_w
+                << " SrvcVersion: "             << WFSVERSION_W{ obj.SrvcVersion }
+                << " SPIVersion: "              << WFSVERSION_W{ obj.SPIVersion }
                 << " hService: "                << obj.hService;
             return out;
         }
@@ -773,7 +934,7 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_close_p& obj) noexcept
         {
-            out << " hService: "                << obj.hService;
+            out << " hService: " << obj.hService;
             return out;
         }
     } WFSCLOSE_P, * LPWFSCLOSE_P;
@@ -795,7 +956,7 @@ namespace __N_XFSAPI_W__
          * @brief The class(es) of events for which the application is registering. 
          * Specified as a set of bit masks that are logically ORed together into this parameter.
          */
-        DWORD dwEventClass{ 0x00000000 };
+        DWORD dwEventClass{ 0x0000 };
 
         /**
          * @brief The window handle which is to be registered to receive the specified messages.
@@ -811,9 +972,9 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_register_p& obj) noexcept
         {
-            out << " hService: "                << obj.hService
-                << " dwEventClass: "            << obj.dwEventClass
-                << " hWndReg: "                 << obj.hWndReg;
+            out << " hService: "        << obj.hService
+                << " dwEventClass: "    << obj.dwEventClass
+                << " hWndReg: "         << obj.hWndReg;
             return out;
         }
     } WFSREGISTER_P, * LPWFSREGISTER_P;
@@ -833,7 +994,7 @@ namespace __N_XFSAPI_W__
          * @brief Number of milliseconds to wait for completion 
          * (WFS_INDEFINITE_WAIT to specify a request that will wait until completion).
          */
-        DWORD dwTimeOut{ 0x00000000 };
+        DWORD dwTimeOut{ 0x0000 };
 
         /**
          * @brief << operator
@@ -844,11 +1005,11 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_lock_p& obj) noexcept
         {
-            out << " hService: "                << obj.hService
-                << " dwTimeOut: "               << obj.dwTimeOut;
+            out << " hService: "    << obj.hService
+                << " dwTimeOut: "   << obj.dwTimeOut;
             return out;
         }
-    } WFSLOCK_P, * WFSLOCK_P;
+    } WFSLOCK_P, * LPWFSLOCK_P;
 
     /**
      * @brief WFSUnLock parameters
@@ -868,12 +1029,12 @@ namespace __N_XFSAPI_W__
          * @param obj 
          * @return std::ostream& 
          */
-        friend std::ostream& operator << (std::ostream& out, const _wfs_lock_p& obj) noexcept
+        friend std::ostream& operator << (std::ostream& out, const _wfs_unlock_p& obj) noexcept
         {
-            out << " hService: "                << obj.hService;
+            out << " hService: " << obj.hService;
             return out;
         }
-    } WFSUNLOCK_P, * WFSUNLOCK_P;
+    } WFSUNLOCK_P, * LPWFSUNLOCK_P;
 
     /**
      * @brief WFSCancelAsyncRequest parameters
@@ -900,9 +1061,8 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_cancel_async_request_p& obj) noexcept
         {
-            out << " hService: "                << obj.hService
-                << " dwEventClass: "            << obj.dwEventClass
-                << " hWndReg: "                 << obj.hWndReg;
+            out << " hService: "    << obj.hService
+                << " RequestID: "   << obj.RequestID;
             return out;
         }
     } WFSCANCELASYNCREQUEST_P, * LPWFSCANCELASYNCREQUEST_P;
@@ -927,22 +1087,22 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_cancel_blocking_call_p& obj) noexcept
         {
-            out << " dwThreadID: "              << obj.dwThreadID;
+            out << " dwThreadID: " << obj.dwThreadID;
             return out;
         }
-    } WFSCANCELBLOCKINGCALL, * LPWFSCANCELBLOCKINGCALL;
+    } WFSCANCELBLOCKINGCALL_P, * LPWFSCANCELBLOCKINGCALL_P;
 
     /**
      * @brief WFSFreeResult parameters
      * 
      */
-    typedef _wfs_free_result_p
+    typedef struct _wfs_free_result_p
     {
         /**
          * @brief WFSRESULT_W data structure.
          * 
          */
-        WFSRESULT_W WFSResult_w{};
+        LPWFSRESULT lpWFSResult{};
 
         /**
          * @brief << operator
@@ -953,7 +1113,7 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_free_result_p& obj) noexcept
         {
-            out << " WFSResult_w: "              << obj.WFSResult_w;
+            out << " WFSResult: " << WFSRESULT_W{ *obj.lpWFSResult };
             return out;
         }
     } WFSFREERESULT_P, * LPWFSFREERESULT_P;
@@ -970,10 +1130,10 @@ namespace __N_XFSAPI_W__
         XFSBLOCKINGHOOK lpBlockFunc{ nullptr };
 
         /**
-         * @brief Returned pointer to a pointer to the procedure instance of the previously installed blocking routine.
+         * @brief Returned pointer to the procedure instance of the previously installed blocking routine.
          * 
          */
-        LPXFSBLOCKINGHOOK lppPrevFunc{ nullptr };
+        XFSBLOCKINGHOOK lpPrevFunc{ nullptr };
 
         /**
          * @brief << operator
@@ -984,8 +1144,8 @@ namespace __N_XFSAPI_W__
          */
         friend std::ostream& operator << (std::ostream& out, const _wfs_set_blocking_hook_p& obj) noexcept
         {
-            out << " lpBlockFunc: "              << obj.lpBlockFunc
-            out << " lppPrevFunc: "              << obj.lppPrevFunc;
+            out << " lpBlockFunc: " << obj.lpBlockFunc
+                << " lpPrevFunc: "  << obj.lpPrevFunc;
             return out;
         }
     } WFSSETBLOCKINGHOOK_P, * LPWFSSETBLOCKINGHOOK_P;
@@ -994,7 +1154,7 @@ namespace __N_XFSAPI_W__
      * @brief WFSGetInfo parameters
      * 
      */
-    typedef _wfs_get_info_p
+    typedef struct _wfs_get_info_p
     {
         /**
          * @brief Handle to the Service Provider as returned by WFSOpen or WFSAsyncOpen.
@@ -1008,7 +1168,7 @@ namespace __N_XFSAPI_W__
          * The information requested can be either static or dynamic, e.g. basic service capabilities 
          * (static) or current service status (dynamic).
          */
-        DWORD dwCategory{ 0x00000000 };
+        DWORD dwCategory{ 0x0000 };
 
         /**
          * @brief Pointer to the data structure to be passed to the Service Provider, 
@@ -1021,7 +1181,7 @@ namespace __N_XFSAPI_W__
          * @brief Number of milliseconds to wait for completion (WFS_INDEFINITE_WAIT to 
          * specify a request that will wait until completion).
          */
-        DWORD dwTimeOut{ 0x00000000 };
+        DWORD dwTimeOut{ 0x0000 };
 
         /**
          * @brief << operator
@@ -1030,12 +1190,12 @@ namespace __N_XFSAPI_W__
          * @param obj 
          * @return std::ostream& 
          */
-        friend std::ostream& operator << (std::ostream& out, const _wfs_set_blocking_hook_p& obj) noexcept
+        friend std::ostream& operator << (std::ostream& out, const _wfs_get_info_p& obj) noexcept
         {
             out << " hService: "                << obj.hService
                 << " dwCategory: "              << obj.dwCategory
                 << " lpQueryDetails: "          << obj.lpQueryDetails
-                << " dwTimeOut: "               << obj.hSerdwTimeOutvice;
+                << " dwTimeOut: "               << obj.dwTimeOut;
             return out;
         }
     } WFSGETINFO_P, * LPWFSGETINFO_P;
@@ -1054,7 +1214,7 @@ namespace __N_XFSAPI_W__
         /**
          * @brief Command to be executed by the Service Provider.
          */
-        DWORD dwCommand{ 0x00000000 };
+        DWORD dwCommand{ 0x0000 };
 
         /**
          * @brief Pointer to a command data structure to be passed to the Service Provider.
@@ -1065,7 +1225,23 @@ namespace __N_XFSAPI_W__
          * @brief Number of milliseconds to wait for completion (WFS_INDEFINITE_WAIT 
          * to specify a request that will wait until completion).
          */
-        DWORD dwTimeOut{ 0x00000000 };
+        DWORD dwTimeOut{ 0x0000 };
+
+        /**
+         * @brief << operator
+         * 
+         * @param out 
+         * @param obj 
+         * @return std::ostream& 
+         */
+        friend std::ostream& operator << (std::ostream& out, const _wfs_execute_p& obj) noexcept
+        {
+            out << " hService: "    << obj.hService
+                << " dwCommand: "   << obj.dwCommand
+                << " lpCmdData: "   << obj.lpCmdData
+                << " dwTimeOut: "   << obj.dwTimeOut;
+            return out;
+        }
     } WFSEXECUTE_P, * LPWFSEXECUTE_P;
 
 #pragma pack(pop)
