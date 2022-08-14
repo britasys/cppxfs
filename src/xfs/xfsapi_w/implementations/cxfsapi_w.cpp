@@ -235,7 +235,7 @@ namespace __N_XFSAPI_W__
 		return ::WFSAsyncUnlock(wfsunlock_p.hService, hwnd, &RequestID);
 	}
     
-	HRESULT CXFSAPI_W::WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P& wfscancelasyncrequest_p) const noexcept
+	HRESULT CXFSAPI_W::WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P& wfscancelasyncrequest_p) const noexcept(false)
     {
         if (NULL == wfscancelasyncrequest_p.hService) throw std::invalid_argument("hService is NULL");
 
@@ -305,7 +305,7 @@ namespace __N_XFSAPI_W__
         return ::WFSAsyncGetInfo(wfsgetinfo_p.hService, wfsgetinfo_p.dwCategory, wfsgetinfo_p.lpQueryDetails, wfsgetinfo_p.dwTimeOut, hwnd, &RequestID);
     }
 
-	HRESULT CXFSAPI_W::WFSExecute(const WFSEXECUTE_P& wfsexecute_p, WFSRESULT_W& wfsresult_w) const noexcept
+	HRESULT CXFSAPI_W::WFSExecute(const WFSEXECUTE_P& wfsexecute_p, WFSRESULT_W& wfsresult_w) const noexcept(false)
     {
         if (!wfsexecute_p.hService)     throw std::invalid_argument("hService is NULL");
         if (!wfsexecute_p.dwCommand)    throw std::invalid_argument("dwCommand is NULL");
@@ -319,7 +319,7 @@ namespace __N_XFSAPI_W__
         return l_ret;
     }
 
-	HRESULT CXFSAPI_W::WFSAsyncExecute(const WFSEXECUTE_P& wfsexecute_p, const HWND hwnd, REQUESTID& RequestID) const noexcept
+	HRESULT CXFSAPI_W::WFSAsyncExecute(const WFSEXECUTE_P& wfsexecute_p, const HWND hwnd, REQUESTID& RequestID) const noexcept(false)
     {
         if (!wfsexecute_p.hService)     throw std::invalid_argument("hService is NULL");
         if (!wfsexecute_p.dwCommand)    throw std::invalid_argument("dwCommand is NULL");
@@ -329,7 +329,7 @@ namespace __N_XFSAPI_W__
 		return ::WFSAsyncExecute(wfsexecute_p.hService, wfsexecute_p.dwCommand, wfsexecute_p.lpCmdData, wfsexecute_p.dwTimeOut, hwnd, &RequestID);
     }
 
-	std::shared_ptr<IXFSAPI_W> CreateXFSAPIWrapper() noexcept;
+	std::shared_ptr<IXFSAPI_W> CreateXFSAPIWrapper() noexcept
 	{
 		return std::make_shared<CXFSAPI_W>();
 	}

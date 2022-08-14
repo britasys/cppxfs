@@ -3,10 +3,18 @@
 #ifndef __H_XFSAPI_W__
 #define __H_XFSAPI_W__
 
+/****** xfs **********************************************/
 #include <xfsapi.h>
+
+#pragma comment(lib, "msxfs")
+#pragma comment(lib, "xfs_conf")
+#pragma comment(lib, "xfs_supp")
+
+/****** inc **********************************************/
 #include <utility.hpp>
 #include <definitions.hpp>
 
+/****** stl **********************************************/
 #include <stdexcept>
 #include <iostream>
 

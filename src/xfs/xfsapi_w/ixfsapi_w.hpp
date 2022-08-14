@@ -5,6 +5,8 @@
 
 #include <xfsapi_w.hpp>
 
+#include <memory>
+
 namespace __N_XFSAPI_W__
 {
     /**
@@ -151,7 +153,7 @@ namespace __N_XFSAPI_W__
 		virtual HRESULT WFSUnlock(const WFSUNLOCK_P&) const noexcept(false) = 0;
 
         /**
-         * @brief As XFSUnLock
+         * @brief As WFSUnlock
          * 
          * @param WFSUNLOCK_P
          * @param HWND          - The window handle which is to receive the completion message for this request.
@@ -167,7 +169,7 @@ namespace __N_XFSAPI_W__
          * @param WFSCANCELASYNCREQUEST_P
          * @return HRESULT 
          */
-		virtual HRESULT WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P&) const noexcept = 0;
+		virtual HRESULT WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P&) const noexcept(false) = 0;
 
         /**
          * @brief Cancels a blocking operation for the specified thread, if one is in progress.
@@ -249,7 +251,7 @@ namespace __N_XFSAPI_W__
          * @param WFSEXECUTE_P
          * @return HRESULT 
          */
-		virtual HRESULT WFSExecute(const WFSEXECUTE_P&, WFSRESULT_W&) const noexcept = 0;      
+		virtual HRESULT WFSExecute(const WFSEXECUTE_P&, WFSRESULT_W&) const noexcept(false) = 0;      
 
         /**
          * @brief As WFSExecute
@@ -259,7 +261,7 @@ namespace __N_XFSAPI_W__
          * @param REQUESTID     - Request identifier for this request (returned parameter).
          * @return HRESULT 
          */
-		virtual HRESULT WFSAsyncExecute(const WFSEXECUTE_P&, const HWND, REQUESTID&) const noexcept = 0;
+		virtual HRESULT WFSAsyncExecute(const WFSEXECUTE_P&, const HWND, REQUESTID&) const noexcept(false) = 0;
 	};
 
 	std::shared_ptr<IXFSAPI_W> CreateXFSAPIWrapper() noexcept;

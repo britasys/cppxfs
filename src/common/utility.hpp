@@ -36,9 +36,6 @@
 #define ASSERTSAFEPTR(str, ptr)						UNSAFEPTR(ptr) { return false; }
 #define ASSERTSAFEPTR_VOID(str, ptr)				UNSAFEPTR(ptr) { return; }
 
-#define MAKESTRING(lpstr, len)						__N_UTILITY__::MakeString(lpstr, len)
-#define MAKESTRING(wstr)							__N_UTILITY__::MakeString(wstr)
-
 namespace __N_UTILITY__
 {
 	/************************************************************************/

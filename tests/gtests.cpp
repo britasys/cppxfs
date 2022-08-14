@@ -4,7 +4,6 @@
 #include "gtest_wfs_structures.hpp"
 #include "gtest_wfscam_structures.hpp"
 #include "gtest_wfsapi_structures.hpp"
-#include "gtest_wfsapi.hpp"
 
 #pragma comment(lib, "gtest")
 

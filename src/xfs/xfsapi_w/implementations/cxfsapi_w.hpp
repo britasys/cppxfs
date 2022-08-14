@@ -33,7 +33,7 @@ namespace __N_XFSAPI_W__
         HRESULT WFSAsyncLock(const WFSLOCK_P&, HWND, REQUESTID&) const noexcept(false) final;
 		HRESULT WFSUnlock(const WFSUNLOCK_P&) const noexcept(false) final;
         HRESULT WFSAsyncUnlock(const WFSUNLOCK_P&, HWND, REQUESTID&) const noexcept(false) final;
-		HRESULT WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P&) const noexcept final;
+		HRESULT WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P&) const noexcept(false) final;
         HRESULT WFSCancelBlockingCall(const WFSCANCELBLOCKINGCALL_P&) const noexcept final;
 		HRESULT WFSFreeResult(const WFSFREERESULT_P&) const noexcept final;
         HRESULT WFSCreateAppHandle(LPHAPP) const noexcept(false) final;
@@ -41,10 +41,10 @@ namespace __N_XFSAPI_W__
         BOOL    WFSIsBlocking() const noexcept final;
         HRESULT WFSSetBlockingHook(WFSSETBLOCKINGHOOK_P&) const noexcept(false) final;
         HRESULT WFSUnhookBlockingHook() const noexcept(false) final;
-        HRESULT WFSGetInfo(const WFSGETINFO_P&, WFSRESULT_W&) const noexcept(false) final;   
+        HRESULT WFSGetInfo(const WFSGETINFO_P&, WFSRESULT_W&) const noexcept(false) final;
         HRESULT WFSAsyncGetInfo(const WFSGETINFO_P&, const HWND, REQUESTID&) const noexcept(false) final;
-		HRESULT WFSExecute(const WFSEXECUTE_P&, WFSRESULT_W&) const noexcept final;
-		HRESULT WFSAsyncExecute(const WFSEXECUTE_P&, const HWND, REQUESTID&) const noexcept final;
+		HRESULT WFSExecute(const WFSEXECUTE_P&, WFSRESULT_W&) const noexcept(false) final;
+		HRESULT WFSAsyncExecute(const WFSEXECUTE_P&, const HWND, REQUESTID&) const noexcept(false) final;
 	};
 } // !__N_XFSAPI_W__
 
