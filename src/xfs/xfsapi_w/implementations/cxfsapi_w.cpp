@@ -249,10 +249,10 @@ namespace __N_XFSAPI_W__
 		return ::WFSCancelBlockingCall(wfscancelblockingcall_p.dwThreadID);
     }
 
-	HRESULT CXFSAPI_W::WFSFreeResult(const WFSFREERESULT_P& wfsfreeresult_p) const noexcept
-	{
-		return ::WFSFreeResult(wfsfreeresult_p.lpWFSResult);
-	}
+//	HRESULT CXFSAPI_W::WFSFreeResult(const WFSFREERESULT_P& wfsfreeresult_p) const noexcept
+//	{
+//		return ::WFSFreeResult(wfsfreeresult_p.lpWFSResult);
+//	}
     
     HRESULT CXFSAPI_W::WFSCreateAppHandle(LPHAPP lpApp) const noexcept(false)
     {

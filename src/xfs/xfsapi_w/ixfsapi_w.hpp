@@ -179,14 +179,14 @@ namespace __N_XFSAPI_W__
          */
         virtual HRESULT WFSCancelBlockingCall(const WFSCANCELBLOCKINGCALL_P&) const noexcept = 0;
 
-        /**
-         * @brief Notifies the XFS Manager that a memory buffer (or linked list of buffers) 
-         * that was dynamically allocated by a Service Provider is to be freed.
-         * 
-         * @param WFSFREERESULT_P
-         * @return HRESULT 
-         */
-		virtual HRESULT WFSFreeResult(const WFSFREERESULT_P&) const noexcept = 0;
+//        /**
+//         * @brief Notifies the XFS Manager that a memory buffer (or linked list of buffers) 
+//         * that was dynamically allocated by a Service Provider is to be freed.
+//         * 
+//         * @param WFSFREERESULT_P
+//         * @return HRESULT 
+//         */
+//		virtual HRESULT WFSFreeResult(const WFSFREERESULT_P&) const noexcept = 0;
 
         /**
          * @brief Requests a new, unique application handle value.

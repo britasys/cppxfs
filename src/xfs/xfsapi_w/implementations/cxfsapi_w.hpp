@@ -35,7 +35,7 @@ namespace __N_XFSAPI_W__
         HRESULT WFSAsyncUnlock(const WFSUNLOCK_P&, HWND, REQUESTID&) const noexcept(false) final;
 		HRESULT WFSCancelAsyncRequest(const WFSCANCELASYNCREQUEST_P&) const noexcept(false) final;
         HRESULT WFSCancelBlockingCall(const WFSCANCELBLOCKINGCALL_P&) const noexcept final;
-		HRESULT WFSFreeResult(const WFSFREERESULT_P&) const noexcept final;
+//		HRESULT WFSFreeResult(const WFSFREERESULT_P&) const noexcept final;
         HRESULT WFSCreateAppHandle(LPHAPP) const noexcept(false) final;
         HRESULT WFSDestroyAppHandle(const HAPP) const noexcept(false) final;
         BOOL    WFSIsBlocking() const noexcept final;
