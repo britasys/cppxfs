@@ -27,6 +27,9 @@ namespace __N_XFSWINDOW__
         virtual bool UnInitialize() noexcept = 0;
         virtual bool IsInitialized() const noexcept = 0;
 
+        virtual bool Start() const noexcept = 0;
+        virtual bool Stop() const noexcept = 0;
+
 		virtual bool RegisterCallBackFunction(XFSWINDOWLAMBDA) noexcept = 0;
 
 		virtual int	 GetWindowHandle() const noexcept = 0;

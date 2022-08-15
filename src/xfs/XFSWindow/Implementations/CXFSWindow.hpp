@@ -27,7 +27,10 @@ namespace __N_XFSWINDOW__
 
         bool Initialize() noexcept final;
         bool UnInitialize() noexcept final;
-        bool IsInitialized() const noexcept { return this->m_pMSGWND->IsInitialized(); }
+        bool IsInitialized() const noexcept final { return this->m_pMSGWND->IsInitialized(); }
+
+        bool Start() const noexcept final { return this->m_pMSGWND->Start(); }
+        bool Stop() const noexcept final { return this->m_pMSGWND->Stop(); }
 
 		bool RegisterCallBackFunction(XFSWINDOWLAMBDA) noexcept final;
 
