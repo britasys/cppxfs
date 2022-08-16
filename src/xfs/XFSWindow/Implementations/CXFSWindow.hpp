@@ -14,7 +14,20 @@ namespace __N_XFSWINDOW__
 	class CXFSWindow : public IXFSWindow
 	{
 	private:
+        XFSWINDOWINIT m_init{};
 		std::shared_ptr<__N_CPPMSGWND__::ICPPMSGWND> m_pMSGWND{ __N_CPPMSGWND__::CreateCPPMSGWND() };
+        
+        __N_CPPWNDMSG__::WND_LAMBDA m_lambda{ [](
+            const __N_CPPWNDMSG__::WND_HWND     hwnd, 
+            const __N_CPPWNDMSG__::WND_MSG      msg, 
+            const __N_CPPWNDMSG__::WND_WPARAM   wparam, 
+            const __N_CPPWNDMSG__::WND_LPARAM   lparam) {
+                __N_OBSERVER__::XFSWINDOWEVENTCONTEXT event_context{};
+                event_context.msg       = msg;
+                event_context.lparam    = lparam;
+                this->notify(event_context);
+                this->notify();
+        }};
 
 	protected:
 	public:
@@ -25,14 +38,9 @@ namespace __N_XFSWINDOW__
 		CXFSWindow& operator = (CXFSWindow&&) = delete;
 		virtual ~CXFSWindow() = default;
 
-        bool Initialize() noexcept final;
+        bool Initialize(const XFSWINDOWINIT&) noexcept final;
         bool UnInitialize() noexcept final;
         bool IsInitialized() const noexcept final { return this->m_pMSGWND->IsInitialized(); }
-
-        bool Start() const noexcept final { return this->m_pMSGWND->Start(); }
-        bool Stop() const noexcept final { return this->m_pMSGWND->Stop(); }
-
-		bool RegisterCallBackFunction(XFSWINDOWLAMBDA) noexcept final;
 
 		int	 GetWindowHandle() const noexcept { return this->m_pMSGWND->GetHWND(); }
         virtual std::string GetLastError() const noexcept final { return this->m_pMSGWND->getLastError(); }
