@@ -32,11 +32,11 @@ set(PROJECT_NAME cppdevice)
 file(GLOB_RECURSE APP_SOURCE_FILES ${APP_SOURCE_DIR}/*.cpp)
 
 set(APP_INCLUDE_DIRS ${APP_INCLUDE_DIR}
+                     ${APP_SOURCE_DIR}/inc/
                      ${APP_SOURCE_DIR}/common/
-                     ${APP_SOURCE_DIR}/xfs/
-                     ${APP_SOURCE_DIR}/xfs/common/xfs/
-                     ${APP_SOURCE_DIR}/xfs/common/xfs_w/
-                     ${APP_SOURCE_DIR}/xfs/xfsapi_w/)
+                     ${APP_SOURCE_DIR}/common/xfs/
+                     ${APP_SOURCE_DIR}/common/xfs_w/
+                     ${APP_SOURCE_DIR}/xfsapi_w/)
 
 # project
 #project(${PROJECT_NAME} VERSION 1.0)
@@ -84,7 +84,7 @@ if(APP_BUILD_TESTS)
         )
         add_executable(${TEST_PROJECT} ${APP_TESTS_DIR}/${TEST_PROJECT}.cpp)
         target_link_directories(${TEST_PROJECT} PRIVATE ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
-                                                PRIVATE ${APP_SOURCE_DIR}/xfs/lib/)
+                                                PRIVATE ${APP_SOURCE_DIR}/lib/)
         target_include_directories(${PROJECT_NAME} PRIVATE ${APP_INCLUDE_DIRS}
                                                    PRIVATE ${APP_MODULES_DIR}/googletest/googletest/include/)
     endforeach()
