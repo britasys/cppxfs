@@ -30,11 +30,11 @@ namespace __N_XFSAPI_W__
      * @tparam T 
      */
     template <typename T>
-    typedef struct _wfs_result_w : public _wfs_result
+    struct _wfs_result_w : public _wfs_result
     {
     private:
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj 
          */
@@ -45,11 +45,11 @@ namespace __N_XFSAPI_W__
             this->tsTimestamp           = obj.tsTimestamp;
             this->hResult               = obj.hResult;
             this->u.dwCommandCode       = obj.u.dwCommandCode;
-            SAFEALLOCCOPYMEMORY(this->lpBuffer, obj.lpBuffer, sizeof(T));   // deep copy
+            SAFEALLOCCOPYMEMORY((T**)&this->lpBuffer, obj.lpBuffer, sizeof(T));   // deep copy
         }
 
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param lpBuffer
          */
@@ -85,31 +85,31 @@ namespace __N_XFSAPI_W__
          * @brief copy constructor
          * 
          */
-        _wfs_result_w(const _wfs_result_w&) = delete;
+        _wfs_result_w(const _wfs_result_w&) = default;
 
         /**
          * @brief move constructor
          * 
          */
-        _wfs_result_w(_wfs_result_w&&) = delete;
+        _wfs_result_w(_wfs_result_w&&) = default;
 
         /**
          * @brief copy assignment
          * 
          */
-        _wfs_result_w& operator = (const _wfs_result_w&) = delete;
+        _wfs_result_w& operator = (const _wfs_result_w&) = default;
 
         /**
          * @brief move assignment
          * 
          */
-        _wfs_result_w& operator = (_wfs_result_w&&) = delete;
+        _wfs_result_w& operator = (_wfs_result_w&&) = default;
 
         /**
          * @brief Destroy the _wfs_result_w object
          * 
          */
-        virtual ~_wfs_result_w() { SAFEFREEMEMORY(this->lpBuffer) }
+        virtual ~_wfs_result_w() { SAFEFREEMEMORY(&this->lpBuffer) }
 
         /**
          * @brief << operator
@@ -128,7 +128,10 @@ namespace __N_XFSAPI_W__
                 << " lpBuffer: "        << obj.lpBuffer;
             return out;
         }
-    } WFSRESULT_W, * LPWFSRESULT_W;
+    };
+
+    template <typename T> using WFSRESULT_W = _wfs_result_w<T>;
+    template <typename T> using LPWFSRESULT_W = _wfs_result_w<T>*;
 
     /**
      * @brief _wfsversion wrapper
@@ -138,7 +141,7 @@ namespace __N_XFSAPI_W__
     {
     private:
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj 
          */
@@ -152,7 +155,7 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj
          */
@@ -254,7 +257,7 @@ namespace __N_XFSAPI_W__
     {
     private:
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj 
          */
@@ -266,7 +269,7 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj 
          */
@@ -366,21 +369,16 @@ namespace __N_XFSAPI_W__
      * @tparam T 
      */
     template <typename T>
-    typedef struct _wfs_undevmsg_w : public _wfs_undevmsg
+    struct _wfs_undevmsg_w : public _wfs_undevmsg
     {
     private:
-        /**
-         * @brief WFSRESULT wrapper
-         * 
-         */
-        WFSRESULT_W<T> wfsresult_w{};
 
         /**
-        * @brief initializes structure properties
+        * @brief Initializes the object
         * 
         * @param obj 
         */
-        void init(const _wfs_undevmsg& obj)
+        void init(const _wfs_undevmsg& obj) noexcept
         {
             SAFEALLOCCOPYSTRING(&this->lpszLogicalName, std::string{ obj.lpszLogicalName });
             SAFEALLOCCOPYSTRING(&this->lpszWorkstationName, std::string{ obj.lpszWorkstationName });
@@ -388,8 +386,10 @@ namespace __N_XFSAPI_W__
             this->dwSize        = obj.dwSize;
             SAFEALLOCCOPYSTRING(&this->lpbDescription, std::string{ (char*)obj.lpbDescription });
             this->dwMsg         = obj.dwMsg;
-            this->lpWFSResult   = nullptr;
-            this->wfsresult_w   = obj.lpWFSResult;
+            if (obj.lpWFSResult)
+                this->lpWFSResult = new WFSRESULT_W<T>(obj.lpWFSResult);
+            else
+                this->lpWFSResult = nullptr;
         }
 
         /**
@@ -397,7 +397,7 @@ namespace __N_XFSAPI_W__
          * 
          * @param lpBuffer 
          */
-        void init(LPVOID lpBuffer)
+        void init(LPVOID lpBuffer) noexcept(false)
         {
             UNSAFEPTR(lpBuffer) throw std::invalid_argument("lpBuffer is NULL");
             LPWFSUNDEVMSG l_lpWFSUNDEVMSG = static_cast<LPWFSUNDEVMSG>(lpBuffer);
@@ -410,14 +410,14 @@ namespace __N_XFSAPI_W__
          * 
          * @param obj 
          */
-        _wfs_undevmsg_w(const _wfs_undevmsg& obj) { this->init(obj); }
+        _wfs_undevmsg_w(const _wfs_undevmsg& obj) noexcept { this->init(obj); }
 
         /**
          * @brief normal constructor
          * 
          * @param lpBuffer 
          */
-        _wfs_undevmsg_w(const LPVOID lpBuffer) { this->init(lpBuffer); }
+        _wfs_undevmsg_w(const LPVOID lpBuffer) noexcept(false) { this->init(lpBuffer); }
 
         /**
          * @brief default constructor
@@ -430,21 +430,21 @@ namespace __N_XFSAPI_W__
          * 
          * @param obj 
          */
-        _wfs_undevmsg_w(const _wfs_undevmsg_w& obj) { this->init(obj); }
+        _wfs_undevmsg_w(const _wfs_undevmsg_w& obj) noexcept { this->init(obj); }
 
         /**
          * @brief move constructor
          * 
          * @param obj 
          */
-        _wfs_undevmsg_w(_wfs_undevmsg_w&& obj) : _wfs_undevmsg_w{ obj } {}
+        _wfs_undevmsg_w(_wfs_undevmsg_w&& obj) noexcept : _wfs_undevmsg_w{ obj } {}
 
         /**
          * @brief copy assignment
          * 
          * @param obj 
          */
-        _wfs_undevmsg_w& operator = (const _wfs_undevmsg_w& obj)
+        _wfs_undevmsg_w& operator = (const _wfs_undevmsg_w& obj) noexcept
         {
             this->init(obj);
             return *this;
@@ -455,7 +455,7 @@ namespace __N_XFSAPI_W__
          * 
          * @param obj 
          */
-        _wfs_undevmsg_w& operator = (_wfs_undevmsg_w&& obj)
+        _wfs_undevmsg_w& operator = (_wfs_undevmsg_w&& obj) noexcept
         {
             this->init(obj);
             return *this;
@@ -471,6 +471,7 @@ namespace __N_XFSAPI_W__
             SAFEFREEMEMORY(&this->lpszWorkstationName);
             SAFEFREEMEMORY(&this->lpszAppID);
             SAFEFREEMEMORY(&this->lpbDescription);
+            SAFERELEASE((LPWFSRESULT_W<T>*)&this->lpWFSResult);
         }
 
         /**
@@ -488,10 +489,13 @@ namespace __N_XFSAPI_W__
                 << " dwSize: "              << obj.dwSize
                 << " lpbDescription: "      << std::string{ (char*)obj.lpbDescription }
                 << " dwMsg: "               << obj.dwMsg
-                << " WFSRESULT_W: "         << obj.wfsresult_w;
+                << " lpWFSResult: "         << obj.lpWFSResult;
             return out;
         }
-    } WFSUNDEVMSG_W, * LPWFSUNDEVMSG_W;
+    };
+
+    template <typename T> using WFSUNDEVMSG_W   = _wfs_undevmsg_w<T>;
+    template <typename T> using LPWFSUNDEVMSG_W = _wfs_undevmsg_w<T>*;
 
     /**
      * @brief _wfs_appdisc wrapper
@@ -501,7 +505,7 @@ namespace __N_XFSAPI_W__
     {
     private:
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj 
          */
@@ -513,7 +517,7 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param lpBuffer 
          */
@@ -616,7 +620,7 @@ namespace __N_XFSAPI_W__
     {
     private:
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj 
          */
@@ -632,7 +636,7 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param lpBuffer 
          */
@@ -741,7 +745,7 @@ namespace __N_XFSAPI_W__
     {
     private:
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param obj 
          */
@@ -757,7 +761,7 @@ namespace __N_XFSAPI_W__
         }
 
         /**
-         * @brief initializes structure properties
+         * @brief Initializes the object
          * 
          * @param lpBuffer 
          */
