@@ -265,6 +265,12 @@ namespace __N_UTILITY__
 		SAFECOPYMEMORY(*lppDestination, pSource, Size)
 	}
 
+    template <>
+    inline void SafeAllocCopyMemory(nullptr_t** lppDestination, const void* pSource, const size_t Size)
+    {
+        *lppDestination = nullptr;
+    }
+
 	template <typename T>
 	inline void SafeAllocCopyMemory_N(T** lppDestination, const void* pSource, const size_t Size)
 	{
