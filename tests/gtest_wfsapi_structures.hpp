@@ -7,6 +7,63 @@
 
 #include <xfsapi_w.hpp>
 
+void compare(const __N_XFSAPI_W__::_wfs_result_w<nullptr_t>& obj_1, const WFSRESULT& obj_2)
+{
+    EXPECT_EQ(obj_1.RequestID, obj_2.RequestID);
+    EXPECT_EQ(obj_1.hService, obj_2.hService);
+    EXPECT_EQ(obj_1.hResult, obj_2.hResult);
+    EXPECT_EQ(obj_1.u.dwCommandCode, obj_2.u.dwCommandCode);
+}
+
+void compare(const __N_XFSAPI_W__::_wfsversion_w& obj_1, const WFSVERSION& obj_2) {
+    EXPECT_EQ(obj_1.wVersion, obj_2.wVersion);
+    EXPECT_EQ(obj_1.wLowVersion, obj_2.wLowVersion);
+    EXPECT_EQ(obj_1.wHighVersion, obj_2.wHighVersion);
+    EXPECT_EQ(std::string{ obj_1.szDescription }, std::string{ obj_2.szDescription });
+    EXPECT_EQ(std::string{ obj_1.szSystemStatus }, std::string{ obj_2.szSystemStatus });
+}
+
+void compare(const __N_XFSAPI_W__::_wfs_devstatus_w& obj_1, const WFSDEVSTATUS& obj_2) {        
+    EXPECT_EQ(std::string{ obj_1.lpszPhysicalName }, std::string{ obj_2.lpszPhysicalName });
+    EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
+    EXPECT_EQ(obj_1.dwState, obj_2.dwState);
+}
+
+void compare(const __N_XFSAPI_W__::_wfs_undevmsg_w<nullptr_t>& obj_1, const WFSUNDEVMSG& obj_2) {
+    EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
+    EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
+    EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
+    EXPECT_EQ(obj_1.dwSize, obj_2.dwSize);
+    EXPECT_EQ(std::string{ (char*)obj_1.lpbDescription }, std::string{ (char*)obj_2.lpbDescription });
+    EXPECT_EQ(obj_1.dwMsg, obj_2.dwMsg);
+    compare(*obj_1.lpWFSResult, *obj_2.lpWFSResult);
+}
+
+void compare(const __N_XFSAPI_W__::_wfs_appdisc_w& obj_1, const WFSAPPDISC& obj_2) {
+    EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
+    EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
+    EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
+}
+
+void compare(const __N_XFSAPI_W__::_wfs_hwerror_w& obj_1, const WFSHWERROR& obj_2) {
+    EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
+    EXPECT_EQ(std::string{ obj_1.lpszPhysicalName }, std::string{ obj_2.lpszPhysicalName });
+    EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
+    EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
+    EXPECT_EQ(obj_1.dwAction, obj_2.dwAction);
+    EXPECT_EQ(obj_1.dwSize, obj_2.dwSize);
+    EXPECT_EQ(std::string{ (char*)obj_1.lpbDescription }, std::string{ (char*)obj_2.lpbDescription });
+}
+
+void compare(const __N_XFSAPI_W__::WFSVRSNERROR_W& obj_1, const WFSVRSNERROR& obj_2) {
+    EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
+    EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
+    EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
+    EXPECT_EQ(obj_1.dwSize, obj_2.dwSize);
+    EXPECT_EQ(std::string{ (char*)obj_1.lpbDescription }, std::string{ (char*)obj_2.lpbDescription });
+    compare(*obj_1.lpWFSVersion, *obj_2.lpWFSVersion);
+}
+
 TEST(_wfs_result_w, constructors) 
 {
     WFSRESULT l_WFSResult{};
@@ -18,23 +75,12 @@ TEST(_wfs_result_w, constructors)
     l_WFSResult.lpBuffer                = nullptr;
 
     // normal constructor
-    __N_XFSAPI_W__::_wfs_result_w l_WFSResult_w_1{ l_WFSResult };
-    EXPECT_EQ(l_WFSResult_w_1.RequestID, 100);
-    EXPECT_EQ(l_WFSResult_w_1.hService, 101);
-    EXPECT_EQ(l_WFSResult_w_1.hResult, 0);
-    EXPECT_EQ(l_WFSResult_w_1.u.dwCommandCode, 311);
+    __N_XFSAPI_W__::_wfs_result_w<nullptr_t> l_WFSResult_w_1{ l_WFSResult };
+    compare(l_WFSResult_w_1, l_WFSResult);
 }
 
 TEST(_wfsversion_w, constructors)
 {
-    auto compare = [](const __N_XFSAPI_W__::_wfsversion_w& obj_1, const WFSVERSION& obj_2) {
-        EXPECT_EQ(obj_1.wVersion, obj_2.wVersion);
-        EXPECT_EQ(obj_1.wLowVersion, obj_2.wLowVersion);
-        EXPECT_EQ(obj_1.wHighVersion, obj_2.wHighVersion);
-        EXPECT_EQ(std::string{ obj_1.szDescription }, std::string{ obj_2.szDescription });
-        EXPECT_EQ(std::string{ obj_1.szSystemStatus }, std::string{ obj_2.szSystemStatus });
-    };
-
     WFSVERSION l_WFSVersion{};
     l_WFSVersion.wVersion              = 310;
     l_WFSVersion.wLowVersion           = 300;
@@ -67,12 +113,6 @@ TEST(_wfsversion_w, constructors)
 
 TEST(_wfs_devstatus_w, constructors)
 {
-    auto compare = [](const __N_XFSAPI_W__::_wfs_devstatus_w& obj_1, const WFSDEVSTATUS& obj_2) {        
-        EXPECT_EQ(std::string{ obj_1.lpszPhysicalName }, std::string{ obj_2.lpszPhysicalName });
-        EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
-        EXPECT_EQ(obj_1.dwState, obj_2.dwState);
-    };
-
     WFSDEVSTATUS l_WFSDevStatus{};
     SAFEALLOCCOPYSTRING(&l_WFSDevStatus.lpszPhysicalName, std::string{ "lpszPhysicalName" });
     SAFEALLOCCOPYSTRING(&l_WFSDevStatus.lpszWorkstationName, std::string{ "lpszWorkstationName" });
@@ -103,15 +143,6 @@ TEST(_wfs_devstatus_w, constructors)
 
 TEST(_wfs_undevmsg_w, constructors)
 {
-    auto compare = [] (const __N_XFSAPI_W__::_wfs_undevmsg_w& obj_1, const WFSUNDEVMSG& obj_2) {
-        EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
-        EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
-        EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
-        EXPECT_EQ(obj_1.dwSize, obj_2.dwSize);
-        EXPECT_EQ(std::string{ (char*)obj_1.lpbDescription }, std::string{ (char*)obj_2.lpbDescription });
-        EXPECT_EQ(obj_1.dwMsg, obj_2.dwMsg);
-    };
-
     WFSRESULT l_WFSResult{};
     l_WFSResult.RequestID               = 100;
     l_WFSResult.hService                = 101;
@@ -130,36 +161,30 @@ TEST(_wfs_undevmsg_w, constructors)
     l_WFSUNDEVMSG.lpWFSResult   = &l_WFSResult;
 
     // normal constructor
-    __N_XFSAPI_W__::_wfs_undevmsg_w l_WFSUNDEVMSG_w_1{ l_WFSUNDEVMSG };
+    __N_XFSAPI_W__::_wfs_undevmsg_w<nullptr_t> l_WFSUNDEVMSG_w_1{ l_WFSUNDEVMSG };
     compare(l_WFSUNDEVMSG_w_1, l_WFSUNDEVMSG);
 
     // copy constructor
-    __N_XFSAPI_W__::_wfs_undevmsg_w l_WFSUNDEVMSG_w_2{ l_WFSUNDEVMSG_w_1 };
+    __N_XFSAPI_W__::_wfs_undevmsg_w<nullptr_t> l_WFSUNDEVMSG_w_2{ l_WFSUNDEVMSG_w_1 };
     compare(l_WFSUNDEVMSG_w_2, l_WFSUNDEVMSG);
 
     // move constructor
-    __N_XFSAPI_W__::_wfs_undevmsg_w l_WFSUNDEVMSG_w_3{ std::move(l_WFSUNDEVMSG_w_1) };
+    __N_XFSAPI_W__::_wfs_undevmsg_w<nullptr_t> l_WFSUNDEVMSG_w_3{ std::move(l_WFSUNDEVMSG_w_1) };
     compare(l_WFSUNDEVMSG_w_3, l_WFSUNDEVMSG);
 
     // copy assignment
-    __N_XFSAPI_W__::_wfs_undevmsg_w l_WFSUNDEVMSG_w_4{};
+    __N_XFSAPI_W__::_wfs_undevmsg_w<nullptr_t> l_WFSUNDEVMSG_w_4{};
     l_WFSUNDEVMSG_w_4 = l_WFSUNDEVMSG_w_1;
     compare(l_WFSUNDEVMSG_w_4, l_WFSUNDEVMSG);
 
     // move assignment
-    __N_XFSAPI_W__::_wfs_undevmsg_w l_WFSUNDEVMSG_w_5{};
+    __N_XFSAPI_W__::_wfs_undevmsg_w<nullptr_t> l_WFSUNDEVMSG_w_5{};
     l_WFSUNDEVMSG_w_5 = std::move(l_WFSUNDEVMSG_w_1);
     compare(l_WFSUNDEVMSG_w_5, l_WFSUNDEVMSG);
 }
 
 TEST(_wfs_appdisc_w, constructors)
 {
-    auto compare = [] (const __N_XFSAPI_W__::_wfs_appdisc_w& obj_1, const WFSAPPDISC& obj_2) {
-        EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
-        EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
-        EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
-    };
-
     WFSAPPDISC l_WFSAPPDisc{};
     SAFEALLOCCOPYSTRING(&l_WFSAPPDisc.lpszLogicalName, std::string{ "lpszLogicalName" });
     SAFEALLOCCOPYSTRING(&l_WFSAPPDisc.lpszWorkstationName, std::string{ "lpszWorkstationName" });
@@ -190,16 +215,6 @@ TEST(_wfs_appdisc_w, constructors)
 
 TEST(_wfs_hwerror_w, constructors)
 {
-    auto compare = [] (const __N_XFSAPI_W__::_wfs_hwerror_w& obj_1, const WFSHWERROR& obj_2) {
-        EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
-        EXPECT_EQ(std::string{ obj_1.lpszPhysicalName }, std::string{ obj_2.lpszPhysicalName });
-        EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
-        EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
-        EXPECT_EQ(obj_1.dwAction, obj_2.dwAction);
-        EXPECT_EQ(obj_1.dwSize, obj_2.dwSize);
-        EXPECT_EQ(std::string{ (char*)obj_1.lpbDescription }, std::string{ (char*)obj_2.lpbDescription });
-    };
-
     WFSHWERROR l_WFSHWError{};    
     SAFEALLOCCOPYSTRING(&l_WFSHWError.lpszLogicalName, std::string{ "lpszLogicalName" });
     SAFEALLOCCOPYSTRING(&l_WFSHWError.lpszPhysicalName, std::string{ "lpszPhysicalName" });
@@ -234,23 +249,6 @@ TEST(_wfs_hwerror_w, constructors)
 
 TEST(_wfs_vrsnerror_w, constructors)
 {
-    auto compare_ex = [](const WFSVERSION& obj_1, const WFSVERSION& obj_2) {
-        EXPECT_EQ(obj_1.wVersion, obj_2.wVersion);
-        EXPECT_EQ(obj_1.wLowVersion, obj_2.wLowVersion);
-        EXPECT_EQ(obj_1.wHighVersion, obj_2.wHighVersion);
-        EXPECT_EQ(std::string{ obj_1.szDescription }, std::string{ obj_2.szDescription });
-        EXPECT_EQ(std::string{ obj_1.szSystemStatus }, std::string{ obj_2.szSystemStatus });
-    };
-
-    auto compare = [compare_ex] (const __N_XFSAPI_W__::WFSVRSNERROR_W& obj_1, const WFSVRSNERROR& obj_2) {
-        EXPECT_EQ(std::string{ obj_1.lpszLogicalName }, std::string{ obj_2.lpszLogicalName });
-        EXPECT_EQ(std::string{ obj_1.lpszWorkstationName }, std::string{ obj_2.lpszWorkstationName });
-        EXPECT_EQ(std::string{ obj_1.lpszAppID }, std::string{ obj_2.lpszAppID });
-        EXPECT_EQ(obj_1.dwSize, obj_2.dwSize);
-        EXPECT_EQ(std::string{ (char*)obj_1.lpbDescription }, std::string{ (char*)obj_2.lpbDescription });
-        compare_ex(*obj_1.lpWFSVersion, *obj_2.lpWFSVersion);
-    };
-
     WFSVERSION l_WFSVersion{};
     l_WFSVersion.wVersion              = 310;
     l_WFSVersion.wLowVersion           = 300;
