@@ -23,7 +23,6 @@ namespace __N_XFSWINDOW__
     {
 		std::string window_class{ "XFS_WINDOW_CLASS" };
 		std::string window_name{ "XFS_WINDOW_NAME" };
-        LAMBDA lambda{};
     } INIT, * LPINIT;
 
 	class IXFSWindow : public __N_OBSERVER__::IPublisher<CONTEXT>

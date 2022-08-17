@@ -22,7 +22,7 @@ namespace __N_XFSWINDOW__
             const __N_CPPWNDMSG__::WND_MSG      msg, 
             const __N_CPPWNDMSG__::WND_WPARAM   wparam, 
             const __N_CPPWNDMSG__::WND_LPARAM   lparam) {
-                __N_OBSERVER__::XFSWINDOWEVENTCONTEXT event_context{};
+                CONTEXT event_context{};
                 event_context.msg       = msg;
                 event_context.lparam    = lparam;
                 this->notify(event_context);

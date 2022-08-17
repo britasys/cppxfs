@@ -1,18 +1,18 @@
 #pragma once
 
-#ifndef __H_DESCRIPTORS__
-#define __H_DESCRIPTORS__
+#ifndef __H_XFS_DESCRIPTORS__
+#define __H_XFS_DESCRIPTORS__
 
 #include <XFSHeaders.h>
 
 #include <string>
 
-#define DESCRIBE_XFS_INFO(code)					__N_DESCRIPTOR__::get_xfs_info(code).c_str()
-#define DESCRIBE_XFS_EXECUTE(code)				__N_DESCRIPTOR__::get_xfs_execute(code).c_str()
-#define DESCRIBE_XFS_ERROR(code)				__N_DESCRIPTOR__::get_xfs_error(code).c_str()
-#define DESCRIBE_XFS_MESSAGE(code)				__N_DESCRIPTOR__::get_xfs_message(code).c_str()
+#define DESCRIBE_XFS_INFO(code)					__N_XFS_DESCRIPTORS__::get_xfs_info(code).c_str()
+#define DESCRIBE_XFS_EXECUTE(code)				__N_XFS_DESCRIPTORS__::get_xfs_execute(code).c_str()
+#define DESCRIBE_XFS_ERROR(code)				__N_XFS_DESCRIPTORS__::get_xfs_error(code).c_str()
+#define DESCRIBE_XFS_MESSAGE(code)				__N_XFS_DESCRIPTORS__::get_xfs_message(code).c_str()
 
-namespace __N_DESCRIPTOR__
+namespace __N_XFS_DESCRIPTORS__
 {
 	/*=================================================================*/														
 	/* XFS Device Class */																										
@@ -3607,6 +3607,6 @@ namespace __N_DESCRIPTOR__
 		}																														
 		return _str;																											
 	}
-} // !__N_DESCRIPTOR__
+} // !__N_XFS_DESCRIPTORS__
 
-#endif // !__H_DESCRIPTORS__
+#endif // !__H_XFS_DESCRIPTORS__
