@@ -44,12 +44,6 @@ namespace __N_XFSDEVICE__
 		void OnSystemEvent(LPARAM) noexcept {}
 		void OnTimerEvent(LPARAM) noexcept {}
 
-        __N_XFSWINDOW__::LAMBDA m_event_lambda{
-            [this](const __N_XFSWINDOW__::CONTEXT& context) {
-                this->update()
-            }
-        };
-
 	protected:
 	public:
 		CXFSDevice() = default;
